@@ -1,0 +1,65 @@
+# profile-local: Rich's machine-specific .profile
+#
+# last modified 2000/07/08
+#
+
+if [ -x /bin/dnsdomainname ]
+then
+    DNSDOMAINNAME=$(/bin/dnsdomainname)
+else
+    DNSDOMAINNAME=$HOSTNAME
+fi
+
+#
+#  1st pass: by domain
+#
+case $DNSDOMAINNAME in
+
+*2ndsiteinc*|*freshbooks*|*fbks.in*)
+   alias my="mysql -p -h ${HOSTNAME/.*/}"
+   alias mya="mylock -h localhost --safe-updates"
+   alias errortail="sudo tail -F /var/log/httpd/error | egrep -v --line-buffered 'favicon|autodiscover|campaigns|SlowPageLoad|could not find system'"
+
+   export MYLOCK_USER=richad
+   export MYSLAVE_USER=richad
+
+   export DSL=70.28.62.123
+   export CABLE=208.124.246.46
+;;
+
+esac
+
+
+#
+#  2nd pass: individual hosts
+#
+case $HOSTNAME in
+
+rich.*|flounder.*)
+   export PATH="~/bin:/usr/local/mysql/bin:$PATH"
+   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+   export PATH=$PATH:~/.rvm/bin
+   alias ssh="colorssh"
+   alias locate="mdfind -name"
+   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+;;
+
+src01.torpci.fbks.in)
+   alias ack='ack -a'
+   function pup {
+      cd ~/code/puppet
+      git pull
+      git status
+      cd ~/code/puppet-public
+      git pull
+      git status
+      cd ~/code
+   }
+   function plocate { locate $* | grep rich/code/puppet | grep -v /\.git/ ; }
+;;
+
+mailgate.2ndsiteinc.com)
+   export PATH=/usr/lib/mailman/bin:$PATH
+;;
+
+esac
