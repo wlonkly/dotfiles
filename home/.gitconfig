@@ -2,7 +2,7 @@
 	name = Rich Lafferty
 	email = rich@freshbooks.com
 [push]
-	default = simple
+	default = current
 [color]
     ui = true
 [alias]
