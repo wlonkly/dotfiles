@@ -36,8 +36,7 @@ esac
 case $HOSTNAME in
 
 rich.*|flounder.*)
-   export PATH="~/bin:/usr/local/mysql/bin:$PATH"
-   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+   export PATH="~/bin:/usr/local/mysql/bin:$PATH:~/gbin"
    export PATH=$PATH:~/.rvm/bin
    alias ssh="colorssh"
    alias locate="mdfind -name"

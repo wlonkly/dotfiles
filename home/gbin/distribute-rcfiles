@@ -1,0 +1,203 @@
+#!/bin/bash
+
+# parallel
+PROCS=10
+
+if [ "$HOSTNAME" != "rich.2ndsiteinc.com" -a "$HOSTNAME" != "rich.local" -a "$HOSTNAME" != "rich.wifi.2ndsiteinc.com" ]
+then
+    echo This needs to be run on rich.2ndsiteinc.com so that it
+    echo can access all of the Rackspace servers.
+    exit 1
+fi
+
+REPO="svn+ssh://minnow.mati.ca/home/rich/svn/dotfiles/trunk"
+
+SSHARGS="-o StrictHostKeyChecking=no -o ProxyCommand=none -q"
+
+RSYNCHOSTS="
+jmp01.torpci.fbks.in
+backup.2ndsiteinc.com
+biglist3.2ndsiteinc.com
+bigmac.2ndsiteinc.com
+builds.2ndsiteinc.com
+centos6build.2ndsiteinc.com
+centosbuild.2ndsiteinc.com
+con01.2ndsiteinc.com
+docker.2ndsiteinc.com
+grapher.2ndsiteinc.com
+ifwdb01.2ndsiteinc.com
+ifwweb01.2ndsiteinc.com
+ifwweb02.2ndsiteinc.com
+iosbuild.2ndsiteinc.com
+jabber.2ndsiteinc.com
+jumper.2ndsiteinc.com
+log01.2ndsiteinc.com
+mailgate.2ndsiteinc.com
+micweb01.2ndsiteinc.com
+mon01.2ndsiteinc.com
+nas01.2ndsiteinc.com
+nas02.2ndsiteinc.com
+net01.2ndsiteinc.com
+net02.2ndsiteinc.com
+observium.2ndsiteinc.com
+ofwdb01.2ndsiteinc.com
+ofwweb01.2ndsiteinc.com
+ofwweb02.2ndsiteinc.com
+optimus.2ndsiteinc.com
+photos.2ndsiteinc.com
+pup01.2ndsiteinc.com
+redminer.2ndsiteinc.com
+rt01.2ndsiteinc.com
+schedgy.2ndsiteinc.com
+shell01.2ndsiteinc.com
+squid.2ndsiteinc.com
+supporter.2ndsiteinc.com
+syslist.2ndsiteinc.com
+testrail.2ndsiteinc.com
+webhost.2ndsiteinc.com
+wiki01.2ndsiteinc.com
+"
+
+SVNHOSTS="
+octopus.mati.ca
+minnow.mati.ca
+optimus.2ndsiteinc.com
+"
+
+# omitted qback, since from wireless it's "qback" and from wired
+# "qback-desktops"
+
+TORRSYNCHOSTS="
+ldap01.torpci.fbks.in
+ldap02.torpci.fbks.in
+log01.torpci.fbks.in
+ns01.torpci.fbks.in
+ns02.torpci.fbks.in
+ntp01.torpci.fbks.in
+pup01.torpci.fbks.in
+src01.torpci.fbks.in
+yum01.torpci.fbks.in
+"
+
+ORDRSYNCHOSTS="
+app06.ordpci.fbks.in
+app07.ordpci.fbks.in
+app08.ordpci.fbks.in
+app09.ordpci.fbks.in
+app10.ordpci.fbks.in
+card01.ordpci.fbks.in
+card02.ordpci.fbks.in
+db04.ordpci.fbks.in
+db05.ordpci.fbks.in
+ldap01.ordpci.fbks.in
+ldap02.ordpci.fbks.in
+ns01.ordpci.fbks.in
+ns02.ordpci.fbks.in
+ordbelb01.2ndsiteinc.com
+ordbelb02.2ndsiteinc.com
+orddb02.2ndsiteinc.com
+ordlb01.2ndsiteinc.com
+ordlb02.2ndsiteinc.com
+ordmgt01.2ndsiteinc.com
+ordmgt02.2ndsiteinc.com
+ordmlapp01.2ndsiteinc.com
+ordmlapp02.2ndsiteinc.com
+ordmq01.2ndsiteinc.com
+ordmq02.2ndsiteinc.com
+ordmx01.2ndsiteinc.com
+ordmx02.2ndsiteinc.com
+ordredis01.2ndsiteinc.com
+ordredis02.2ndsiteinc.com
+ordsp03.2ndsiteinc.com
+ordsp04.2ndsiteinc.com
+ordweb04.2ndsiteinc.com
+ordweb05.2ndsiteinc.com
+ordweb06.2ndsiteinc.com
+pup01.ordpci.fbks.in
+squid01.ordpci.fbks.in
+"
+
+IADRSYNCHOSTS="
+app05.iadpci.fbks.in
+app06.iadpci.fbks.in
+app07.iadpci.fbks.in
+app08.iadpci.fbks.in
+card01.iadpci.fbks.in
+card02.iadpci.fbks.in
+db03.iadpci.fbks.in
+db04.iadpci.fbks.in
+iadbelb01.2ndsiteinc.com
+iadlb01.2ndsiteinc.com
+iadmgt01.2ndsiteinc.com
+iadmgt02.2ndsiteinc.com
+iadmlapp01.2ndsiteinc.com
+iadmlapp02.2ndsiteinc.com
+iadmq01.2ndsiteinc.com
+iadmx01.2ndsiteinc.com
+iadredis01.2ndsiteinc.com
+iadredis02.2ndsiteinc.com
+iadsp02.2ndsiteinc.com
+iadspare01.2ndsiteinc.com
+iadweb03.2ndsiteinc.com
+iadweb04.2ndsiteinc.com
+ldap01.iadpci.fbks.in
+ldap02.iadpci.fbks.in
+ns01.iadpci.fbks.in
+ns02.iadpci.fbks.in
+pup01.iadpci.fbks.in
+squid01.iadpci.fbks.in
+"
+
+unalias ssh
+
+function xargs_safe_ssh {
+   ssh $SSHARGS $@
+   true
+}
+
+cd $HOME
+
+echo -n Updating svn locally...
+svn up
+
+echo Updating svn on svnhosts...
+{ echo $SVNHOSTS | xargs -t -P $PROCS -n 1 -J HOST ssh $SSHARGS HOST svn up; } || exit 1
+
+echo Updating local rsyncable checkout...
+svn up ~/.distribute-rcfiles-checkout 2>&1 | sed 's/^/local: /'
+
+echo Rsyncing to rsynchosts...
+
+echo $RSYNCHOSTS | sed 's/ /: /g' |
+   xargs -t -P $PROCS -n 1 -J HOST rsync -e "ssh $SSHARGS" -rlt -C  ~/.distribute-rcfiles-checkout/ HOST 2>&1
+
+# ord
+
+echo Updating rsyncable checkout on ordmgt01.2ndsiteinc.com...
+# no trailing slash
+rsync -e "ssh $SSHARGS -A -F /dev/null" -e "ssh $SSHARGS" -rlt -C ~/.distribute-rcfiles-checkout ordmgt01.2ndsiteinc.com:
+
+echo Rsyncing to ORD rsynchosts...
+echo $ORDRSYNCHOSTS | sed 's/ /: /g' |
+   xargs -t -P $PROCS -n 1 -J HOST ssh $SSHARGS -A -F /dev/null ordmgt01.2ndsiteinc.com rsync -e "'ssh $SSHARGS'" -rlt -C /home/rich/.distribute-rcfiles-checkout/ HOST 
+
+# iad
+
+echo Updating rsyncable checkout on iadmgt01.2ndsiteinc.com...
+# no trailing slash
+rsync -e "$SSHARGS -A -F /dev/null" -e "ssh $SSHARGS" -rlt -C ~/.distribute-rcfiles-checkout iadmgt01.2ndsiteinc.com:
+
+echo Rsyncing to IAD rsynchosts...
+echo $IADRSYNCHOSTS | sed 's/ /: /g' |
+   xargs -t -P $PROCS -n 1 -J HOST ssh $SSHARGS -A -F /dev/null iadmgt01.2ndsiteinc.com rsync -e "'ssh $SSHARGS'" -rlt -C /home/rich/.distribute-rcfiles-checkout/ HOST 
+
+# tor 
+
+echo Updating rsyncable checkout on jmp01...
+# no trailing slash
+rsync -e "ssh $SSHARGS -A -F /dev/null" -e "ssh $SSHARGS" -rlt -C ~/.distribute-rcfiles-checkout jmp01.torpci.fbks.in:
+
+echo Rsyncing to torpci rsynchosts...
+echo $TORRSYNCHOSTS | sed 's/ /: /g' |
+   xargs -t -P $PROCS -n 1 -J HOST ssh $SSHARGS -A -F /dev/null jmp01.torpci.fbks.in rsync -e "'ssh $SSHARGS'" -rlt -C /home/rich/.distribute-rcfiles-checkout/ HOST 
+

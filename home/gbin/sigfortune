@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+
+BEGIN { $/ = "\n%\n"; }
+open FILE, "$ARGV[0]" or die "Could not open filename: $!\n";
+rand($.)<1 and ($line=$_) while <FILE>;
+close FILE;
+chop;
+$line =~ s/%\n//;
+print "$line";

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DATE=$(date +%Y%m%d)
+DATEDIR=sites/lafferty.ca/lj/$DATE
+FILES=$@
+DESTHOST=minnow
+
+set -e
+
+scp $@ $DESTHOST:/tmp
+
+ssh $DESTHOST "mkdir -p $DATEDIR;
+          chmod 755 $DATEDIR;
+		  for f in $@; do
+			  mv /tmp/\$f $DATEDIR/\$f
+			  chmod 644 $DATEDIR/\$f
+		  done"
+
+for file in $@
+do
+    echo -n "<img src=\"http://www.lafferty.ca/lj/$DATE/$file\" "
+	identify $file | perl -nle '/(\d+)x(\d+)/ && print qq(width="$1" height="$2">)';
+done

@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# j -- journal something-or-other.
+#
+
+CURRENT=~/.journal/$(date +%Y-%m)
+
+if [ ! -d ~/.journal/ ]; then
+    if ! mkdir ~/.journal
+    then
+        echo "Creation of ~/.journal failed, exiting."
+        exit 2
+    fi
+fi
+
+case $1 in
+
+-n)
+   ${EDITOR:-vi} /tmp/jtask.$$
+   TEXT=$(cat /tmp/jtask.$$)
+   rm /tmp/jtask.$$
+;;
+
+-e)
+   ${EDITOR:-vi} $CURRENT
+;;
+
+-l)
+   ${PAGER:-cat} $CURRENT
+;;
+
+-m)
+   ${PAGER:-cat} ~/.journal/$(date -d"-1 month" +%Y-%m)
+;;
+
+-*)
+   echo "Usage: $(basename $0) [options | new entry]"
+   echo "       -n      enter new entry in editor"
+   echo "       -e      edit this month's journal"
+   echo "       -l      list this month's journal"
+   echo "       -m      list last month's journal"
+   echo "       -h      this help"
+   echo
+   echo Calling $(basename $0) without options reads new entry from STDIN
+   exit 1
+;;
+
+'')
+   TEXT=$(cat)
+;;
+
+*)
+   TEXT=$*
+;;
+
+esac
+
+if [ ! -z "$TEXT" ]
+then
+    if ! grep --quiet ^$(date +%d) $CURRENT 2>/dev/null; 
+    then
+        # first entry today
+        echo >> $CURRENT
+        echo $(date +%d) >> $CURRENT
+    fi
+    echo "   - $TEXT" >> $CURRENT
+fi
