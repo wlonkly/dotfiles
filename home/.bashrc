@@ -17,6 +17,7 @@ export HISTFILESIZE=$HISTSIZE
 export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
 
+
 # default username
 ME=rich
 
@@ -64,8 +65,19 @@ elif ls --help 2>&1 | grep --quiet color; then
 fi
 
 if [ $TERM -a $TERM != 'dumb' ]; then
-    pboldon=$(tput bold)
+    poldon=$(tput bold)
     pboldoff=$(tput sgr0)
+    cwhite="\033[m"
+    c=$cwhite
+    cblack="\033[30m"
+    cred="\033[31m"
+    cgreen="\033[32m"
+    cyellow="\033[33m"
+    cblue="\033[34m"
+    cmagenta="\033[35m"
+    ccyan="\033[36m"
+    cgray="\033[37m"
+    cgrey=$cgray
 fi
 
 # turns foo.ordpci.fbks.in into foo.ordpci
@@ -74,10 +86,8 @@ if echo $HOSTNAME | grep --quiet "\.fbks\.in$"; then
 else
   SHORTHOST=$(echo $HOSTNAME | cut -d. -f1)
 fi
+
 export SHORTHOST
-
-
-PS1="\[$pboldon\]\w\[$pboldoff\]\n"
 
 # window title
 if [ "$TERM" = "xterm" -o "$TERM" = "xterm-color" -o \
@@ -88,18 +98,20 @@ if [ "$TERM" = "xterm" -o "$TERM" = "xterm-color" -o \
     WTITLE='\[\033]0;\u@\h: \w\007\]'
 fi
 
-PS1=$WTITLE':$(if [[ $? -eq 0 ]]
+PS1=$WTITLE'$(if [[ $? -eq 0 ]]
         then
-            echo ")"
+            echo -e "\[${cgreen}\]:)\[${c}\]"
+            # echo "✅"
         else
-            echo "("
+            echo -e "\[${cred}\]:(\[${c}\]"
+            # echo "❌"
         fi) $(if [[ _$USER = '_root' ]]
         then
-            echo "\[$pboldon\]$USER\[$pboldoff\]@"
+            echo -e "\[${pboldon}${cred}\]$USER\[${pboldoff}${c}\]@"
         elif [[ _$USER != _$ME ]]
         then
-            echo "$USER@"
-        fi)\h:\w\$ '
+            echo -e "\[${cyellow}\]$USER\[${c}\]@"
+        fi)'"\[${cmagenta}\]${SHORTHOST}\[${c}\]:\[${ccyan}\]\W\[${c}\] \$ "
 
 if [ "$TERM" = "dumb" ]
   then
@@ -108,6 +120,14 @@ fi
 export PS1 
 
 export MYSQL_PS1="\u@${SHORTHOST}:\d> "
+
+HS_DIR="$HOME/.homesick/repos/homeshick/"
+
+if [[ -d "${HS_DIR}" ]]; then
+  source ${HS_DIR}/homeshick.sh
+  source ${HS_DIR}/completions/homeshick-completion.bash
+  alias hs=homeshick
+fi
 
 # comes last to override
 source ~/.profile-local
