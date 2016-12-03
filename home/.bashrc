@@ -128,6 +128,11 @@ if [[ -d "${HS_DIR}" ]]; then
   alias hs=homeshick
 fi
 
+if [ -d "$HOME/.ssh" -a ! -d "$HOME/.ssh/controlmasters" ]
+then
+    mkdir $HOME/.ssh/controlmasters
+fi
+
 # comes last to override
 source ~/.profile-local
 
