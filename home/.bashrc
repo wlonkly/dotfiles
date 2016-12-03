@@ -71,6 +71,7 @@ if [ $TERM -a $TERM != 'dumb' ]; then
     c=$cwhite
     cblack="\033[30m"
     cred="\033[31m"
+    cbred="\033[1;31m"
     cgreen="\033[32m"
     cyellow="\033[33m"
     cblue="\033[34m"
@@ -100,18 +101,16 @@ fi
 
 PS1=$WTITLE'$(if [[ $? -eq 0 ]]
         then
-            echo -e "\[${cgreen}\]:)\[${c}\]"
-            # echo "✅"
+            echo -e "\[${ccyan}\]:)\[${c}\]"
         else
             echo -e "\[${cred}\]:(\[${c}\]"
-            # echo "❌"
-        fi) $(if [[ _$USER = '_root' ]]
+        fi) $(if [[ "$USER" = 'root' ]]
         then
-            echo -e "\[${pboldon}${cred}\]$USER\[${pboldoff}${c}\]@"
-        elif [[ _$USER != _$ME ]]
+            echo -e "\[${cbred}\]root\[${c}\]@"
+        elif [[ "$USER" != "$ME" ]]
         then
-            echo -e "\[${cyellow}\]$USER\[${c}\]@"
-        fi)'"\[${cmagenta}\]${SHORTHOST}\[${c}\]:\[${ccyan}\]\W\[${c}\] \$ "
+            echo -e "\[${cmagenta}\]$USER\[${c}\]@"
+        fi)'"\[${ccyan}\]${SHORTHOST}\[${cgrey}\]:\[${ccyan}\]\W \[${cgrey}\]\\$\[${c}\] "
 
 if [ "$TERM" = "dumb" ]
   then
