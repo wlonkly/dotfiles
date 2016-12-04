@@ -17,6 +17,7 @@ export HISTFILESIZE=$HISTSIZE
 export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
 
+export HOMEBREW_GITHUB_API_TOKEN="e90782a0b3d7a76c88da0859265b394dc902d688"
 
 # default username
 ME=rich
@@ -64,21 +65,11 @@ elif ls --help 2>&1 | grep --quiet color; then
 	alias ls="ls --color=tty"
 fi
 
+
+
 if [ $TERM -a $TERM != 'dumb' ]; then
     poldon=$(tput bold)
     pboldoff=$(tput sgr0)
-    cwhite="\033[m"
-    c=$cwhite
-    cblack="\033[30m"
-    cred="\033[31m"
-    cbred="\033[1;31m"
-    cgreen="\033[32m"
-    cyellow="\033[33m"
-    cblue="\033[34m"
-    cmagenta="\033[35m"
-    ccyan="\033[36m"
-    cgray="\033[37m"
-    cgrey=$cgray
 fi
 
 # turns foo.ordpci.fbks.in into foo.ordpci
@@ -99,7 +90,21 @@ if [ "$TERM" = "xterm" -o "$TERM" = "xterm-color" -o \
     WTITLE='\[\033]0;\u@\h: \w\007\]'
 fi
 
-PS1=$WTITLE'$(if [[ $? -eq 0 ]]
+# export GIT_PS1_SHOWDIRTYSTATE=1
+# export GIT_PS1_SHOWSTASHSTATE=1
+# export GIT_PS1_SHOWUNTRACKEDFILES=1
+# export GIT_PS1_SHOWUPSTREAM="verbose"
+
+# source ~/.git-prompt.sh
+
+export GITAWAREPROMPT="$HOME/.homesick/repos/git-aware-prompt"
+# this also installs colors.sh 
+#source "${GITAWAREPROMPT}/main.sh"
+source "${GITAWAREPROMPT}/colors.sh"
+
+source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
+
+GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
         then
             echo -e "\[${ccyan}\]:)\[${c}\]"
         else
@@ -110,7 +115,13 @@ PS1=$WTITLE'$(if [[ $? -eq 0 ]]
         elif [[ "$USER" != "$ME" ]]
         then
             echo -e "\[${cmagenta}\]$USER\[${c}\]@"
-        fi)'"\[${ccyan}\]${SHORTHOST}\[${cgrey}\]:\[${ccyan}\]\W \[${cgrey}\]\\$\[${c}\] "
+        fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W"
+
+GIT_PROMPT_END="\[$txtwht\]\$\[$txtrst\] "
+
+PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
+
+###         fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W\[${txtylw}\]\$git_branch\[$txtred\]\$git_dirty\[$txtwht\]\$\[$txtrst\] "
 
 if [ "$TERM" = "dumb" ]
   then
@@ -132,6 +143,8 @@ if [ -d "$HOME/.ssh" -a ! -d "$HOME/.ssh/controlmasters" ]
 then
     mkdir $HOME/.ssh/controlmasters
 fi
+
+source ~/.git-completion.bash
 
 # comes last to override
 source ~/.profile-local
