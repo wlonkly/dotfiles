@@ -26,8 +26,6 @@ export HISTFILESIZE=$HISTSIZE
 export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
 
-export HOMEBREW_GITHUB_API_TOKEN="e90782a0b3d7a76c88da0859265b394dc902d688"
-
 # default username
 ME=rich
 
