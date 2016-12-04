@@ -114,17 +114,26 @@ if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
   source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
 fi
 
+# In a git repo, bash-git-prompt's prompt magic sets up a prompt
+# containing:
+#   ${GIT_PROMPT_START}[...the git status...]${GIT_PROMPT_END}
+# and replaces PS1 when you're in a git repo.
+#
+# What I want is to insert the git status in the middle of my
+# usual prompt, so we construct START and END as desired and then
+# squoosh them together into PS1. 
+
 GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
         then
-            echo -e "\[${ccyan}\]:)\[${c}\]"
+            echo -e "\[${txtcyn}\]:)\[${txtrst}\]"
         else
-            echo -e "\[${cred}\]:(\[${c}\]"
+            echo -e "\[${txtred}\]:(\[${txtrst}\]"
         fi) $(if [[ "$USER" = 'root' ]]
         then
-            echo -e "\[${cbred}\]root\[${c}\]@"
+            echo -e "\[${bldred}\]root\[${txtrst}\]@"
         elif [[ "$USER" != "$ME" ]]
         then
-            echo -e "\[${cmagenta}\]$USER\[${c}\]@"
+            echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
         fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W"
 
 GIT_PROMPT_END="\[$txtwht\]\$\[$txtrst\] "
