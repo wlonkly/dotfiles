@@ -112,14 +112,14 @@ if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
   source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
 fi
 
-# In a git repo, bash-git-prompt's prompt magic sets up a prompt
-# containing:
-#   ${GIT_PROMPT_START}[...the git status...]${GIT_PROMPT_END}
-# and replaces PS1 when you're in a git repo.
+# In a git repo, bash-git-prompt's prompt magic replaces PS1 with
+# its own thing, but if GIT_PROMPT_START and GIT_PROMPT_END are defined
+# then it replaces PS1 with:
 #
-# What I want is to insert the git status in the middle of my
-# usual prompt, so we construct START and END as desired and then
-# squoosh them together into PS1. 
+#   ${GIT_PROMPT_START}[...the git status...]${GIT_PROMPT_END}
+# 
+# Since I want the status in the middle of my usual prompt, let's build PS1
+# using GIT_PROMPT_START and _END rather than having to build both.
 
 GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
         then
@@ -137,8 +137,6 @@ GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
 GIT_PROMPT_END="\[$txtwht\]\$\[$txtrst\] "
 
 PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
-
-###         fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W\[${txtylw}\]\$git_branch\[$txtred\]\$git_dirty\[$txtwht\]\$\[$txtrst\] "
 
 if [ "$TERM" = "dumb" ]; then
     PS1='\u@\h\$ '
