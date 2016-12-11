@@ -134,7 +134,7 @@ GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
             echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
         fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W"
 
-GIT_PROMPT_END="\[$txtwht\]\$\[$txtrst\] "
+GIT_PROMPT_END="\[$txtwht\]\\$\[$txtrst\] "
 
 PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
 
