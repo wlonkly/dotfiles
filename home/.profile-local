@@ -36,6 +36,8 @@ esac
 case $HOSTNAME in
 
 rich.*|flounder.*)
+   export GIT_AUTHOR_EMAIL='rich@freshbooks.com'
+   export GIT_COMMITER_EMAIL=${GIT_AUTHOR_EMAIL}
    export PATH="~/bin:/usr/local/mysql/bin:$PATH:~/gbin"
    export PATH=$PATH:~/.rvm/bin
    alias ssh="colorssh"
@@ -44,6 +46,8 @@ rich.*|flounder.*)
 ;;
 
 src01.torpci.fbks.in)
+   export GIT_AUTHOR_EMAIL='rich@freshbooks.com'
+   export GIT_COMMITER_EMAIL=${GIT_AUTHOR_EMAIL}
    alias ack='ack -a'
    function pup {
       cd ~/code/puppet
