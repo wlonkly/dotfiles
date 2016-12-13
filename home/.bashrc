@@ -121,6 +121,10 @@ fi
 # Since I want the status in the middle of my usual prompt, let's build PS1
 # using GIT_PROMPT_START and _END rather than having to build both.
 
+unset GIT_PROMPT_START
+unset GIT_PROMPT_END
+unset PS1
+
 GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
         then
             echo -e "\[${txtcyn}\]:)\[${txtrst}\]"
