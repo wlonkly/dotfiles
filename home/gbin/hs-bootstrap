@@ -1,0 +1,26 @@
+#!/bin/bash 
+
+HS_DIR="$HOME/.homesick/repos/homeshick/"
+
+if [ -d "$HS_DIR" ]; then
+    echo "$HS_DIR already exists, exiting"
+    exit 1
+fi      
+
+curl --connect-timeout 1 -q https://github.com > /dev/null 2>&1
+
+if [ $? != 0 ]; then
+    echo "curl github.com failed, exiting"
+    exit 2
+fi
+
+set -e
+
+git clone git://github.com/andsens/homeshick.git --branch development $HS_DIR
+source ${HS_DIR}/homeshick.sh
+
+homeshick -b clone git@github.com:wlonkly/dotfiles.git
+homeshick -f link dotfiles
+homeshick clone https://github.com/jimeh/git-aware-prompt.git
+homeshick clone https://github.com/magicmonty/bash-git-prompt.git
+
