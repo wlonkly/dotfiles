@@ -1,0 +1,23 @@
+#!/bin/bash 
+
+THEHOST=$1
+
+if [ -z $THEHOST ]; then
+    echo "Usage: $0 hostname"
+    exit 1
+fi
+
+ssh -q $THEHOST test -d .homesick 
+
+if [ $? = 0 ]; then
+    echo ".homesick directory exists on $THEHOST, exiting"
+    exit 1
+fi
+
+set -e
+set -x
+
+scp $HOME/git.linux.tar.gz $THEHOST:
+scp -r $HOME/.homesick $THEHOST:
+
+ssh -q $THEHOST 'tar zxvf git.linux.tar.gz && source .homesick/repos/homeshick/homeshick.sh && PATH=$PATH:$HOME/git.linux/bin homeshick link -f dotfiles'
