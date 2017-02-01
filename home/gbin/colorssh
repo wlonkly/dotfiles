@@ -51,7 +51,17 @@ function set_color() {
         osascript -e 'tell application "Terminal" to tell (first window whose name contains "'${window_name}'") to set background color to {'"$1"'}'
         ;;
     iTerm.app)
-        osascript -e 'tell application "iTerm" to set background color of (current session of current terminal) to {'"$1"'}' 
+        osascript <<EOF
+        tell application "iTerm2"
+            tell current window
+                tell current session
+                    set background color to {$1}
+                    set foreground color to {$2}
+                end tell
+            end tell
+        end tell
+EOF
+
         ;;
     esac
 }
