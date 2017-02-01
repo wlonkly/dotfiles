@@ -12,14 +12,6 @@ unset  MAIL
 
 set +x
 
-for ed in subl rsub vim vi; do
-  FOUND=$(type -p $ed)
-  if [[ -n $FOUND ]]; then
-    export EDITOR=$FOUND
-    break
-  fi
-done
-
 shopt -s histappend
 export HISTSIZE=100000
 export HISTFILESIZE=$HISTSIZE
@@ -35,6 +27,14 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sb
 for bashrc in /etc/bashrc /etc/bash.bashrc
 do
    test -r $bashrc && source $bashrc
+done
+
+for ed in subl rsub vim vi; do
+  FOUND=$(type -p $ed)
+  if [[ -n $FOUND ]]; then
+    export EDITOR=$FOUND
+    break
+  fi
 done
 
 # OS X sets this to a fancy dir-in-title that I don't want
