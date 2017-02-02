@@ -18,6 +18,12 @@ export HISTFILESIZE=$HISTSIZE
 export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
 
+if [ "${-/i/}" != "$-" ]; then
+   INTERACTIVE=1
+else
+   INTERACTIVE=0
+fi
+
 # default username
 ME=rich
 
@@ -101,67 +107,77 @@ fi
 # export GIT_PS1_SHOWUPSTREAM="verbose"
 # source ~/.git-prompt.sh
 
-if [[ -d ~/.homesick/repos/git-aware-prompt ]]; then
-  export GITAWAREPROMPT="$HOME/.homesick/repos/git-aware-prompt"
-  # this also installs colors.sh 
-  #source "${GITAWAREPROMPT}/main.sh"
-  source "${GITAWAREPROMPT}/colors.sh"
-fi
-
-if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
-  source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
-fi
-
-# In a git repo, bash-git-prompt's prompt magic replaces PS1 with
-# its own thing, but if GIT_PROMPT_START and GIT_PROMPT_END are defined
-# then it replaces PS1 with:
-#
-#   ${GIT_PROMPT_START}[...the git status...]${GIT_PROMPT_END}
-# 
-# Since I want the status in the middle of my usual prompt, let's build PS1
-# using GIT_PROMPT_START and _END rather than having to build both.
-
-unset GIT_PROMPT_START
-unset GIT_PROMPT_END
-unset PS1
-
-GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
-        then
-            echo -e "\[${txtcyn}\]:)\[${txtrst}\]"
-        else
-            echo -e "\[${txtred}\]:(\[${txtrst}\]"
-        fi) $(if [[ "$USER" = 'root' ]]
-        then
-            echo -e "\[${bldred}\]root\[${txtrst}\]@"
-        elif [[ "$USER" != "$ME" ]]
-        then
-            echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
-        fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W"
-
-GIT_PROMPT_END="\[$txtwht\]\\$\[$txtrst\] "
-
-PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
-
-if [ "$TERM" = "dumb" ]; then
-    PS1='\u@\h\$ '
-fi
-export PS1 
-
-export MYSQL_PS1="\u@${SHORTHOST}:\d> "
-
-HS_DIR="$HOME/.homesick/repos/homeshick/"
-
-if [[ -d "${HS_DIR}" ]]; then
-  source ${HS_DIR}/homeshick.sh
-  source ${HS_DIR}/completions/homeshick-completion.bash
-  alias hs=homeshick
-fi
-
 if [ -d "$HOME/.ssh" -a ! -d "$HOME/.ssh/controlmasters" ]; then
     mkdir $HOME/.ssh/controlmasters
 fi
 
-source ~/.git-completion.bash
+#########################################################################
+#
+# BEGIN INTERACTIVE SHELL BITS
+#
+#########################################################################
+if [ $INTERACTIVE ]; then
+  if [[ -d ~/.homesick/repos/git-aware-prompt ]]; then
+    export GITAWAREPROMPT="$HOME/.homesick/repos/git-aware-prompt"
+    # this also installs colors.sh 
+    #source "${GITAWAREPROMPT}/main.sh"
+    source "${GITAWAREPROMPT}/colors.sh"
+  fi
+  
+  if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
+    source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
+  fi
+  
+  # In a git repo, bash-git-prompt's prompt magic replaces PS1 with
+  # its own thing, but if GIT_PROMPT_START and GIT_PROMPT_END are defined
+  # then it replaces PS1 with:
+  #
+  #   ${GIT_PROMPT_START}[...the git status...]${GIT_PROMPT_END}
+  # 
+  # Since I want the status in the middle of my usual prompt, let's build PS1
+  # using GIT_PROMPT_START and _END rather than having to build both.
+  
+  unset GIT_PROMPT_START
+  unset GIT_PROMPT_END
+  unset PS1
+  
+  GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
+          then
+              echo -e "\[${txtcyn}\]:)\[${txtrst}\]"
+          else
+              echo -e "\[${txtred}\]:(\[${txtrst}\]"
+          fi) $(if [[ "$USER" = 'root' ]]
+          then
+              echo -e "\[${bldred}\]root\[${txtrst}\]@"
+          elif [[ "$USER" != "$ME" ]]
+          then
+              echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
+          fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W"
+  
+  GIT_PROMPT_END="\[$txtwht\]\\$\[$txtrst\] "
+  
+  PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
+  
+  if [ "$TERM" = "dumb" ]; then
+      PS1='\u@\h\$ '
+  fi
+  export PS1 
+  
+  export MYSQL_PS1="\u@${SHORTHOST}:\d> "
+  
+  HS_DIR="$HOME/.homesick/repos/homeshick/"
+  
+  if [[ -d "${HS_DIR}" ]]; then
+    source ${HS_DIR}/homeshick.sh
+    source ${HS_DIR}/completions/homeshick-completion.bash
+    alias hs=homeshick
+  fi
+  
+  for i in ~/.bash_completion.d/*; do
+      source $i
+  done
+
+fi  # END INTERACTIVE
 
 # comes last to override
 source ~/.profile-local
