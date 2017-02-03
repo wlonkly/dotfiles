@@ -38,7 +38,11 @@ done
 for ed in subl rsub vim vi; do
   FOUND=$(type -p $ed)
   if [[ -n $FOUND ]]; then
-    export EDITOR=$FOUND
+      if [[ "$(basename $FOUND)" = "subl" ]]; then
+        export EDITOR="$FOUND -w"
+    else
+        export EDITOR=$FOUND
+    fi
     break
   fi
 done
