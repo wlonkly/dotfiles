@@ -7,7 +7,12 @@
     ui = true
 [alias]
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
-
+    pr = pull-request
+    pro = pull-request -o
+    co = checkout
+    fa = fetch --all
+    rb = rebase
+    ff = merge --ff-only
 [core]
 	excludesfile = /Users/rich/.gitignore_global
 [difftool "sourcetree"]
@@ -20,3 +25,5 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+[hub]
+	host = github.2ndsiteinc.com
