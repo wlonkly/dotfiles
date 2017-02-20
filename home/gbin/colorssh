@@ -56,7 +56,6 @@ function set_color() {
             tell current window
                 tell current session
                     set background color to {$1}
-                    set foreground color to {$2}
                 end tell
             end tell
         end tell
