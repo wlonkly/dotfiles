@@ -65,6 +65,11 @@ function pw {
    pwgen -ncBy ${1:-12} ${2:-1}
 }
 
+function cdto {
+    DIR=$(dirname $1)
+    cd $DIR
+}
+
 function tailgrep {
     PATTERN="$1";
     shift;
