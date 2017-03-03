@@ -186,6 +186,10 @@ if [ $INTERACTIVE ]; then
       source $i
   done
 
+  if [ -e ~/.iterm_integration.bash ]; then
+      source ~/.iterm_integration.bash
+  fi
+
 fi  # END INTERACTIVE
 
 # comes last to override
