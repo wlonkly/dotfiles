@@ -65,6 +65,11 @@ function pw {
    pwgen -ncBy ${1:-12} ${2:-1}
 }
 
+function cdto {
+    DIR=$(dirname $1)
+    cd $DIR
+}
+
 function tailgrep {
     PATTERN="$1";
     shift;
@@ -180,6 +185,10 @@ if [ $INTERACTIVE ]; then
   for i in ~/.bash_completion.d/*; do
       source $i
   done
+
+  if [ -e ~/.iterm_integration.bash ]; then
+      source ~/.iterm_integration.bash
+  fi
 
 fi  # END INTERACTIVE
 
