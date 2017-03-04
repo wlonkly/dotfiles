@@ -44,23 +44,33 @@ function cleanup() {
     echo -ne "\033]0;\007"
 }
 
+function colors_to_hex {
+    colors=$1
+    range=65536 
+
+    color1=$(echo $colors|cut -d, -f1|cut -d. -f1)
+    color2=$(echo $colors|cut -d, -f2|cut -d. -f1)
+    color3=$(echo $colors|cut -d, -f3|cut -d. -f1)
+
+    hex1=$(echo "${color1} * 256 / ${range}" | bc)
+    hex2=$(echo "${color2} * 256 / ${range}" | bc)
+    hex3=$(echo "${color3} * 256 / ${range}" | bc)
+
+    printf "%02x%02x%02x\n" ${hex1} ${hex2} ${hex3}
+}
+
+
 function set_color() {
+    color=$@
+
     case "$TERM_PROGRAM" in
     Apple_Terminal)
         echo -ne "\033]0;${window_name}\007"
         osascript -e 'tell application "Terminal" to tell (first window whose name contains "'${window_name}'") to set background color to {'"$1"'}'
         ;;
     iTerm.app)
-        osascript <<EOF
-        tell application "iTerm2"
-            tell current window
-                tell current session
-                    set background color to {$1}
-                end tell
-            end tell
-        end tell
-EOF
-
+        hexcolor=$(colors_to_hex "$color")
+        echo -ne "\033]Ph${hexcolor}\033\\"
         ;;
     esac
 }
