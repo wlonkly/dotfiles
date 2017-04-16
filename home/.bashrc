@@ -3,12 +3,13 @@
 #
 
 # Defaults prior to local settings
-export EMACS_LOCATION="emacs"
 export COLORTERM="y"
 export PAGER="less -r"
 export IGNOREEOF=1
 unset  MAILCHECK
 unset  MAIL
+
+export GOPATH=~/code/go
 
 set +x
 
@@ -17,6 +18,7 @@ export HISTSIZE=100000
 export HISTFILESIZE=$HISTSIZE
 export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
+
 
 if [ "${-/i/}" != "$-" ]; then
    INTERACTIVE=1
@@ -188,6 +190,10 @@ if [ $INTERACTIVE ]; then
 
   if [ -e ~/.iterm_integration.bash ]; then
       source ~/.iterm_integration.bash
+  fi
+
+  if [ -e ~/.rvm/scripts/rvm ]; then
+      source ~/.rvm/scripts/rvm
   fi
 
 fi  # END INTERACTIVE
