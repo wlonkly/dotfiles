@@ -27,3 +27,5 @@
 	required = true
 [hub]
 	host = github.2ndsiteinc.com
+[url "git@github.com:"]
+	insteadOf = https://github.com/
