@@ -26,9 +26,6 @@ else
    INTERACTIVE=0
 fi
 
-# default username
-ME=rich
-
 export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 
 # Read in local settings
@@ -160,7 +157,7 @@ if [ $INTERACTIVE ]; then
           fi) $(if [[ "$USER" = 'root' ]]
           then
               echo -e "\[${bldred}\]root\[${txtrst}\]@"
-          elif [[ "$USER" != "$ME" ]]
+          elif [[ "$USER" != "rich" && "$USER" != "rlafferty" ]]
           then
               echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
           fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W"
