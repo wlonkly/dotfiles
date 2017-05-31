@@ -192,9 +192,9 @@ if [ $INTERACTIVE ]; then
       source ~/.iterm_integration.bash
   fi
 
-  if [ -e ~/.rvm/scripts/rvm ]; then
-      source ~/.rvm/scripts/rvm
-  fi
+#  if [ -e ~/.rvm/scripts/rvm ]; then
+#      source ~/.rvm/scripts/rvm
+#  fi
 
 fi  # END INTERACTIVE
 
