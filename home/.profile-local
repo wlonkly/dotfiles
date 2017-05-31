@@ -35,34 +35,14 @@ esac
 #
 case $HOSTNAME in
 
-rich.*|flounder.*)
-   export GIT_AUTHOR_EMAIL='rich@freshbooks.com'
+rlafferty.*|flounder.*)
+   export GIT_AUTHOR_EMAIL='rlafferty@pagerduty.com'
    export GIT_COMMITER_EMAIL=${GIT_AUTHOR_EMAIL}
    export PATH="~/bin:/usr/local/mysql/bin:$PATH:~/gbin"
    export PATH=$PATH:~/.rvm/bin
    alias ssh="colorssh"
    alias locate="mdfind -name"
    alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-;;
-
-src01.torpci.fbks.in)
-   export GIT_AUTHOR_EMAIL='rich@freshbooks.com'
-   export GIT_COMMITER_EMAIL=${GIT_AUTHOR_EMAIL}
-   alias ack='ack -a'
-   function pup {
-      cd ~/code/puppet
-      git pull
-      git status
-      cd ~/code/puppet-public
-      git pull
-      git status
-      cd ~/code
-   }
-   function plocate { locate $* | grep rich/code/puppet | grep -v /\.git/ ; }
-;;
-
-mailgate.2ndsiteinc.com)
-   export PATH=/usr/lib/mailman/bin:$PATH
 ;;
 
 esac
