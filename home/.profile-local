@@ -13,21 +13,13 @@ fi
 #
 #  1st pass: by domain
 #
-case $DNSDOMAINNAME in
-
-*2ndsiteinc*|*freshbooks*|*fbks.in*)
-   alias my="mysql -p -h ${HOSTNAME/.*/}"
-   alias mya="mylock -h localhost --safe-updates"
-   alias errortail="sudo tail -F /var/log/httpd/error | egrep -v --line-buffered 'favicon|autodiscover|campaigns|SlowPageLoad|could not find system'"
-
-   export MYLOCK_USER=richad
-   export MYSLAVE_USER=richad
-
-   export DSL=70.28.62.123
-   export CABLE=208.124.246.46
-;;
-
-esac
+# case $DNSDOMAINNAME in
+#
+## *2ndsiteinc*|*freshbooks*|*fbks.in*)
+##   something here
+## ;;
+##
+## esac
 
 
 #
@@ -35,14 +27,25 @@ esac
 #
 case $HOSTNAME in
 
-rlafferty.*|flounder.*)
-   export GIT_AUTHOR_EMAIL='rlafferty@pagerduty.com'
-   export GIT_COMMITER_EMAIL=${GIT_AUTHOR_EMAIL}
-   export PATH="~/bin:/usr/local/mysql/bin:$PATH:~/gbin"
+flounder.*)
    export PATH=$PATH:~/.rvm/bin
-   alias ssh="colorssh"
    alias locate="mdfind -name"
    alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 ;;
 
+rlafferty.*)
+   export GIT_AUTHOR_EMAIL='rlafferty@pagerduty.com'
+   export GIT_COMMITTER_EMAIL=${GIT_AUTHOR_EMAIL}
+   alias locate="mdfind -name"
+   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+    function knifestg()
+    {
+      bundle exec knife "$@" -c ~/.chef/stage/knife.rb
+    }
+     
+    function knifeprod()
+    {
+      bundle exec knife "$@" -c ~/.chef/prod/knife.rb
+    }
 esac
