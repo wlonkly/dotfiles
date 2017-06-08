@@ -26,7 +26,7 @@ else
    INTERACTIVE=0
 fi
 
-export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+export PATH=$HOME/gbin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 
 # Read in local settings
 for bashrc in /etc/bashrc /etc/bash.bashrc
@@ -185,13 +185,25 @@ if [ $INTERACTIVE ]; then
       source $i
   done
 
-  if [ -e ~/.iterm_integration.bash ]; then
-      source ~/.iterm_integration.bash
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+  if [ -e ~/.iterm2_shell_integration.bash ]; then
+      source ~/.iterm2_shell_integration.bash
   fi
 
 #  if [ -e ~/.rvm/scripts/rvm ]; then
 #      source ~/.rvm/scripts/rvm
 #  fi
+
+  # this will loop endlessly if we don't check if 
+  if [[ -e ~/.rbenv && -z $RBENV_SHELL ]]; then
+      export PATH="$HOME/.rbenv/bin:$PATH" 
+      eval "$(rbenv init -)"
+  fi
+
+  if [ -e ~/gbin/colorssh ]; then
+      alias ssh="colorssh"
+  fi
 
 fi  # END INTERACTIVE
 
