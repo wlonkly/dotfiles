@@ -18,7 +18,7 @@ export HISTSIZE=100000
 export HISTFILESIZE=$HISTSIZE
 export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
-
+export HISTCONTROL=ignoreboth
 
 if [ "${-/i/}" != "$-" ]; then
    INTERACTIVE=1
@@ -59,6 +59,9 @@ alias ppjson='python -mjson.tool'
 alias lf='ls -rt | tail -1'
 alias tstamp='while read LINE; do echo "$(date +%H:%M:%S) $LINE"; done'
 alias dstamp='while read LINE; do echo "$(date +%Y%m%d-%H:%M:%S) $LINE"; done'
+
+alias bx="bundle exec"
+alias ackc="ack --group --color"
 
 function pw {
    pwgen -ncBy ${1:-12} ${2:-1}
@@ -103,7 +106,7 @@ export SHORTHOST
 
 # window title
 if [ "$TERM" = "xterm" -o "$TERM" = "xterm-color" -o \
-     "$TERM" = "rxvt"  -o "$TERM" = "vs100" ]; then
+     "$TERM" = "rxvt"  -o "$TERM" = "xterm-256color" ]; then
   export COLORTERM="y"  #         MUTT needs this 
   #PS1='\[\033]2;\u@\h: \w\007\033]1;\u@${SHORTHOST}\007\]'
   WTITLE='\[\033]0;\u@\h: \w\007\]'
