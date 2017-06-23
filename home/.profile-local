@@ -48,4 +48,14 @@ rlafferty.*)
     {
       bundle exec knife "$@" -c ~/.chef/prod/knife.rb
     }
+
+    function stgnode()
+    {
+      cd ~/code/chef; knifestg search node "$@" -i
+    }
+
+    function prodnode()
+    {
+      cd ~/code/chef; knifeprod search node "$@" -i
+    }
 esac
