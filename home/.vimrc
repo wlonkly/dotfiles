@@ -5,7 +5,7 @@
 set nocompatible
 
 " Use my own color scheme, based off of 'desert.vim'
-colorscheme rich 
+" colorscheme rich 
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
