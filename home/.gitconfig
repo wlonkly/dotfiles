@@ -1,6 +1,6 @@
 [user]
 	name = Rich Lafferty
-	email = rich@lafferty.ca
+	email = rlafferty@pagerduty.com
 [push]
 	default = current
 [color]
@@ -13,6 +13,7 @@
     fa = fetch --all
     rb = rebase
     ff = merge --ff-only
+	conflicts = diff --name-only --diff-filter=U
 [core]
 	excludesfile = /Users/rich/.gitignore_global
 [difftool "sourcetree"]
@@ -22,8 +23,9 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
 [url "git@github.com:"]
 	insteadOf = https://github.com/
