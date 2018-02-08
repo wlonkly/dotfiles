@@ -57,11 +57,11 @@ esac
 
 if [ ! -z "$TEXT" ]
 then
-    if ! grep --quiet ^$(date +%d) $CURRENT 2>/dev/null; 
+    if ! grep --quiet ^$(date +%d) $CURRENT 2>/dev/null;
     then
         # first entry today
         echo >> $CURRENT
         echo $(date +%d) >> $CURRENT
     fi
-    echo "   - $TEXT" >> $CURRENT
+    echo "   - [$(date +%H:%M)] $TEXT" >> $CURRENT
 fi
