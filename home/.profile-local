@@ -49,6 +49,11 @@ rlafferty.*)
       bundle exec knife "$@" -c ~/.chef/prod/knife.rb
     }
 
+    function knifedr()
+    {
+      bundle exec knife "$@" -c ~/.chef/dr/knife.rb
+    }
+
     function stgnode()
     {
       cd ~/code/chef; knifestg search node "$@" -i
