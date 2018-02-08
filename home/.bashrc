@@ -1,3 +1,4 @@
+#!/bin/bash
 # 
 # .profile -- Rich's machine-independent .profile
 #
@@ -59,9 +60,11 @@ alias ppjson='python -mjson.tool'
 alias lf='ls -rt | tail -1'
 alias tstamp='while read LINE; do echo "$(date +%H:%M:%S) $LINE"; done'
 alias dstamp='while read LINE; do echo "$(date +%Y%m%d-%H:%M:%S) $LINE"; done'
+alias hl="LESSOPEN='| source-highlight --outlang-def=esc256.outlang --style-file=esc256.style -i \"%s\"' LESS=' -R ' less"
 
 alias bx="bundle exec"
 alias ackc="ack --group --color"
+alias ackp="ack --passthru"
 
 function pw {
    pwgen -ncBy ${1:-12} ${2:-1}
