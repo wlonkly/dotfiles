@@ -1,4 +1,3 @@
-#!/bin/bash
 # 
 # .profile -- Rich's machine-independent .profile
 #
@@ -39,7 +38,7 @@ for ed in subl rsub vim vi; do
   FOUND=$(type -p $ed)
   if [[ -n $FOUND ]]; then
       if [[ "$(basename $FOUND)" = "subl" ]]; then
-        export EDITOR="$FOUND -w"
+        export EDITOR="$FOUND -nw"
     else
         export EDITOR=$FOUND
     fi
@@ -98,20 +97,11 @@ if [ $TERM -a $TERM != 'dumb' ]; then
     pboldoff=$(tput sgr0)
 fi
 
-# turns foo.ordpci.fbks.in into foo.ordpci
-if echo $HOSTNAME | grep --quiet "\.fbks\.in$"; then
-  SHORTHOST=$(echo $HOSTNAME | cut -d. -f1-2)
-else
-  SHORTHOST=$(echo $HOSTNAME | cut -d. -f1)
-fi
-
-export SHORTHOST
-
 # window title
 if [ "$TERM" = "xterm" -o "$TERM" = "xterm-color" -o \
      "$TERM" = "rxvt"  -o "$TERM" = "xterm-256color" ]; then
   export COLORTERM="y"  #         MUTT needs this 
-  #PS1='\[\033]2;\u@\h: \w\007\033]1;\u@${SHORTHOST}\007\]'
+  #PS1='\[\033]2;\u@\h: \w\007\033]1;\u@${\h}\007\]'
   WTITLE='\[\033]0;\u@\h: \w\007\]'
 fi
 
@@ -166,7 +156,7 @@ if [ $INTERACTIVE ]; then
           elif [[ "$USER" != "rich" && "$USER" != "rlafferty" ]]
           then
               echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
-          fi)'"\[${txtcyn}\]${SHORTHOST}\[${txtwht}\]:\[${txtcyn}\]\W"
+          fi)'"\[${txtcyn}\]\h\[${txtwht}\]:\[${txtcyn}\]\W"
   
   GIT_PROMPT_END="\[$txtwht\]\\$\[$txtrst\] "
   
@@ -177,7 +167,7 @@ if [ $INTERACTIVE ]; then
   fi
   export PS1 
   
-  export MYSQL_PS1="\u@${SHORTHOST}:\d> "
+  export MYSQL_PS1="\u@\h:\d> "
   
   HS_DIR="$HOME/.homesick/repos/homeshick/"
   
