@@ -38,7 +38,8 @@ rlafferty.*)
    export GIT_COMMITTER_EMAIL=${GIT_AUTHOR_EMAIL}
    alias locate="mdfind -name"
    alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-   alias aws="/Users/rlafferty/Library/Python/2.7/bin/aws"
+   # for updated `aws` command
+   export PATH="$PATH:/Users/rlafferty/Library/Python/2.7/bin"
 
     function knifestg()
     {
