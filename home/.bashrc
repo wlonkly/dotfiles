@@ -65,6 +65,8 @@ alias bx="bundle exec"
 alias ackc="ack --group --color"
 alias ackp="ack --passthru"
 
+alias awswho="aws sts get-caller-identity"
+
 function pw {
    pwgen -ncBy ${1:-12} ${2:-1}
 }
@@ -78,6 +80,13 @@ function tailgrep {
     PATTERN="$1";
     shift;
     tail -F $@ | grep --line-buffered "$PATTERN"
+}
+
+function avx
+{
+    profile=$1;
+    shift;
+    aws-vault exec $profile -- "$@"
 }
 
 if grep --help 2>&1 | grep --quiet color; then
