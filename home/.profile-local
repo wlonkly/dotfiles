@@ -39,36 +39,42 @@ rlafferty.*)
    alias locate="mdfind -name"
    alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
    # for updated `aws` command
-   export PATH="$PATH:/Users/rlafferty/Library/Python/2.7/bin"
+   # export PATH="$PATH:/Users/rlafferty/Library/Python/2.7/bin"
 
-    function knifestg()
+    function knifestg
     {
       bundle exec knife "$@" -c ~/.chef/stage/knife.rb
     }
      
-    function knifeprod()
+    function knifeprod
     {
       bundle exec knife "$@" -c ~/.chef/prod/knife.rb
     }
 
-    function knifedr()
+    function knifedr
     {
       bundle exec knife "$@" -c ~/.chef/dr/knife.rb
     }
 
-    function knifetestdr()
+    function knifetestdr
     {
       bundle exec knife "$@" -c ~/.chef/testdr/knife.rb
     }
 
 
-    function stgnode()
+    function stgnode
     {
       cd ~/code/chef; knifestg search node "$@" -i
     }
 
-    function prodnode()
+    function prodnode
     {
       cd ~/code/chef; knifeprod search node "$@" -i
     }
+
+    function livetail
+    {
+      { cd ~/.livetail; ./livetail $@; }
+    }
+
 esac
