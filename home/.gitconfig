@@ -14,6 +14,7 @@
     rb = rebase
     ff = merge --ff-only
 	conflicts = diff --name-only --diff-filter=U
+    fpush = push --force-with-lease
 [core]
 	excludesfile = /Users/rich/.gitignore_global
 [difftool "sourcetree"]

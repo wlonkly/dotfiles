@@ -68,3 +68,5 @@ if has("autocmd")
   au Syntax bml source $VIMRUNTIME/syntax/perl.vim
 
 endif " has("autocmd")
+
+let g:ruby_path=''
