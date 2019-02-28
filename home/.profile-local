@@ -74,7 +74,7 @@ rlafferty.*)
 
     function livetail
     {
-      { cd ~/.livetail; ./livetail $@; }
+      { cd ~/.livetail; unbuffer ./livetail $@; }
     }
 
 esac
