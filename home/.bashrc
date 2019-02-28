@@ -1,4 +1,4 @@
-# 
+#
 # .profile -- Rich's machine-independent .profile
 #
 
@@ -34,11 +34,13 @@ do
    test -r $bashrc && source $bashrc
 done
 
-for ed in subl rsub vim vi; do
+for ed in code subl rsub vim vi; do
   FOUND=$(type -p $ed)
   if [[ -n $FOUND ]]; then
-      if [[ "$(basename $FOUND)" = "subl" ]]; then
+    if [[ "$(basename $FOUND)" = "subl" ]]; then
         export EDITOR="$FOUND -nw"
+    elif [[ "$(basename $FOUND)" = "code" ]]; then
+        export EDITOR="$FOUND -w"
     else
         export EDITOR=$FOUND
     fi
@@ -95,7 +97,7 @@ fi
 
 if type gls >/dev/null 2>&1; then
     alias ls="gls --color=tty"
-elif ls --help 2>&1 | grep --quiet color; then 
+elif ls --help 2>&1 | grep --quiet color; then
 	alias ls="ls --color=tty"
 fi
 
@@ -109,7 +111,7 @@ fi
 # window title
 if [ "$TERM" = "xterm" -o "$TERM" = "xterm-color" -o \
      "$TERM" = "rxvt"  -o "$TERM" = "xterm-256color" ]; then
-  export COLORTERM="y"  #         MUTT needs this 
+  export COLORTERM="y"  #         MUTT needs this
   #PS1='\[\033]2;\u@\h: \w\007\033]1;\u@${\h}\007\]'
   WTITLE='\[\033]0;\u@\h: \w\007\]'
 fi
@@ -132,28 +134,28 @@ fi
 if [ $INTERACTIVE ]; then
   if [[ -d ~/.homesick/repos/git-aware-prompt ]]; then
     export GITAWAREPROMPT="$HOME/.homesick/repos/git-aware-prompt"
-    # this also installs colors.sh 
+    # this also installs colors.sh
     #source "${GITAWAREPROMPT}/main.sh"
     source "${GITAWAREPROMPT}/colors.sh"
   fi
-  
+
   if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
     source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
   fi
-  
+
   # In a git repo, bash-git-prompt's prompt magic replaces PS1 with
   # its own thing, but if GIT_PROMPT_START and GIT_PROMPT_END are defined
   # then it replaces PS1 with:
   #
   #   ${GIT_PROMPT_START}[...the git status...]${GIT_PROMPT_END}
-  # 
+  #
   # Since I want the status in the middle of my usual prompt, let's build PS1
   # using GIT_PROMPT_START and _END rather than having to build both.
-  
+
   unset GIT_PROMPT_START
   unset GIT_PROMPT_END
   unset PS1
-  
+
   GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
           then
               echo -e "\[${txtcyn}\]:)\[${txtrst}\]"
@@ -166,26 +168,26 @@ if [ $INTERACTIVE ]; then
           then
               echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
           fi)'"\[${txtcyn}\]\h\[${txtwht}\]:\[${txtcyn}\]\W"
-  
+
   GIT_PROMPT_END="\[$txtwht\]\\$\[$txtrst\] "
-  
+
   PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
-  
+
   if [ "$TERM" = "dumb" ]; then
       PS1='\u@\h\$ '
   fi
-  export PS1 
-  
+  export PS1
+
   export MYSQL_PS1="\u@\h:\d> "
-  
+
   HS_DIR="$HOME/.homesick/repos/homeshick/"
-  
+
   if [[ -d "${HS_DIR}" ]]; then
     source ${HS_DIR}/homeshick.sh
     source ${HS_DIR}/completions/homeshick-completion.bash
     alias hs=homeshick
   fi
-  
+
   for i in ~/.bash_completion.d/*; do
       source $i
   done
@@ -200,9 +202,9 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 #      source ~/.rvm/scripts/rvm
 #  fi
 
-  # this will loop endlessly if we don't check if 
+  # this will loop endlessly if we don't check if
   if [[ -e ~/.rbenv && -z $RBENV_SHELL ]]; then
-      export PATH="$HOME/.rbenv/bin:$PATH" 
+      export PATH="$HOME/.rbenv/bin:$PATH"
       eval "$(rbenv init -)"
   fi
 
