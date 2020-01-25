@@ -178,7 +178,11 @@ if [ $INTERACTIVE ]; then
               echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
           fi)'"\[${txtcyn}\]\h\[${txtwht}\]:\[${txtcyn}\]\W"
 
-  GIT_PROMPT_END="\[$txtwht\]\\$\[$txtrst\] "
+  if [ $AWS_VAULT ]; then
+      AWS_VAULT_PROMPT="\[$txtcyn\](\[$txtylw\]${AWS_VAULT}\[$txtcyn\])"
+  fi
+
+  GIT_PROMPT_END="${AWS_VAULT_PROMPT}\[$txtwht\]\\$\[$txtrst\] "
 
   PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
 
