@@ -26,7 +26,7 @@ else
    INTERACTIVE=0
 fi
 
-export PATH=$HOME/gbin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 
 # Read in local settings
 for bashrc in /etc/bashrc /etc/bash.bashrc
@@ -69,6 +69,8 @@ alias ackp="ack --passthru"
 
 alias awswho="aws sts get-caller-identity"
 
+test -f $HOME/.bash-my-aws/aliases && source $HOME/.bash-my-aws/aliases aws
+
 function pw {
    pwgen -ncBy ${1:-12} ${2:-1}
 }
@@ -88,7 +90,14 @@ function avx
 {
     profile=$1;
     shift;
-    aws-vault exec $profile -- "$@"
+    TYPE=$(type -t $1)
+    case $TYPE in
+    function|alias)
+      aws-vault exec $profile -- bash -i -c "$@"
+      ;;
+    *)
+      aws-vault exec $profile -- "$@"
+    esac
 }
 
 if grep --help 2>&1 | grep --quiet color; then
