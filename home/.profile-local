@@ -27,19 +27,20 @@ fi
 #
 case $HOSTNAME in
 
-flounder.*)
-   export PATH=$PATH:~/.rvm/bin
-   alias locate="mdfind -name"
-   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+# sometimes macOS thinks it's called "flounder-2" ???
+flounder*)
+    export PATH=$PATH:~/.rvm/bin
+    alias locate="mdfind -name"
+    alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 ;;
 
 rlafferty.*)
-   export GIT_AUTHOR_EMAIL='rlafferty@pagerduty.com'
-   export GIT_COMMITTER_EMAIL=${GIT_AUTHOR_EMAIL}
-   alias locate="mdfind -name"
-   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-   # for updated `aws` command
-   # export PATH="$PATH:/Users/rlafferty/Library/Python/2.7/bin"
+    export GIT_AUTHOR_EMAIL='rlafferty@pagerduty.com'
+    export GIT_COMMITTER_EMAIL=${GIT_AUTHOR_EMAIL}
+    alias locate="mdfind -name"
+    alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+    # for updated `aws` command
+    # export PATH="$PATH:/Users/rlafferty/Library/Python/2.7/bin"
 
     function knifestg    { bundle exec knife "$@" -c ~/.chef/stage/knife.rb; }
     function knifeprod   { bundle exec knife "$@" -c ~/.chef/prod/knife.rb; }
