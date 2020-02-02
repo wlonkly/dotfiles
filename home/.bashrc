@@ -104,6 +104,12 @@ function tn
 {
     terminal-notifier -message "$*"
 }
+
+function flatten 
+{
+    ruby -e 'p ARGF.read.gsub("\r", "")' "$@"
+}
+
 if grep --help 2>&1 | grep --quiet color; then
 	alias grep="grep --color=auto"
 fi
