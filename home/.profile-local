@@ -41,40 +41,31 @@ rlafferty.*)
    # for updated `aws` command
    # export PATH="$PATH:/Users/rlafferty/Library/Python/2.7/bin"
 
-    function knifestg
-    {
-      bundle exec knife "$@" -c ~/.chef/stage/knife.rb
-    }
-     
-    function knifeprod
-    {
-      bundle exec knife "$@" -c ~/.chef/prod/knife.rb
-    }
+    function knifestg    { bundle exec knife "$@" -c ~/.chef/stage/knife.rb; }
+    function knifeprod   { bundle exec knife "$@" -c ~/.chef/prod/knife.rb; }
+    function knifedr     { bundle exec knife "$@" -c ~/.chef/dr/knife.rb; }
+    function knifetestdr { bundle exec knife "$@" -c ~/.chef/testdr/knife.rb; }
 
-    function knifedr
+    function chefnode
     {
-      bundle exec knife "$@" -c ~/.chef/dr/knife.rb
+      # https://github.com/chef/chef/pull/9287
+      KNIFE=$1
+      shift
+      S="$*"
+      case "$S" in
+      *:*)
+        SEARCH="$S"
+        ;;
+      *)
+        SEARCH="tags:*${S}* OR roles:*${S}* OR fqdn:*${S}* OR addresses:*${S}*"
+      esac
+      cd ~/code/chef
+      $KNIFE search node "$SEARCH" -i
+      cd - > /dev/null
     }
+    
+    function prodnode { chefnode knifeprod "$*"; }
+    function stgnode  { chefnode knifestg "$*"; }
 
-    function knifetestdr
-    {
-      bundle exec knife "$@" -c ~/.chef/testdr/knife.rb
-    }
-
-
-    function stgnode
-    {
-      cd ~/code/chef; knifestg search node "$@" -i
-    }
-
-    function prodnode
-    {
-      cd ~/code/chef; knifeprod search node "$@" -i
-    }
-
-    function livetail
-    {
-      { cd ~/.livetail; unbuffer ./livetail $@; }
-    }
-
+    function livetail { { cd ~/.livetail; unbuffer ./livetail $@; } }
 esac
