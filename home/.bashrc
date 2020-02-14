@@ -105,7 +105,7 @@ function tn
     terminal-notifier -message "$*"
 }
 
-function flatten 
+function flatten
 {
     ruby -e 'p ARGF.read.gsub("\r", "")' "$@"
 }
@@ -235,6 +235,11 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
       alias ssh="colorssh"
   fi
 
+  if [ ! -f ~/.bashrc-daily-$(date +%Y%m%d) ]; then
+    rm -f ~/.bashrc-daily-*
+    homeshick check
+    touch ~/.bashrc-daily-$(date +%Y%m%d)
+  fi
 fi  # END INTERACTIVE
 
 # comes last to override
