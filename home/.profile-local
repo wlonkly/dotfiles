@@ -68,5 +68,5 @@ rlafferty.*)
     function prodnode { chefnode knifeprod "$*"; }
     function stgnode  { chefnode knifestg "$*"; }
 
-    function livetail { { cd ~/.livetail; unbuffer ./livetail $@; } }
+    function livetail { { cd ~/.livetail; unbuffer ./livetail "$@"; } }
 esac
