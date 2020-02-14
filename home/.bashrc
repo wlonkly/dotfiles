@@ -71,8 +71,8 @@ alias ackp="ack --passthru"
 
 alias awswho="aws sts get-caller-identity"
 
-#test -f $HOME/.bash-my-aws/aliases && source $HOME/.bash-my-aws/aliases 
-#test -f $HOME/.bash-my-aws/bash_completion.sh && source $HOME/.bash-my-aws/bash_completion.sh
+test -f $HOME/.bash-my-aws/aliases && source $HOME/.bash-my-aws/aliases 
+test -f $HOME/.bash-my-aws/bash_completion.sh && source $HOME/.bash-my-aws/bash_completion.sh
 
 function pw {
    pwgen -ncBy ${1:-12} ${2:-1}
