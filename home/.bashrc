@@ -48,6 +48,8 @@ for ed in code subl rsub vim vi; do
   fi
 done
 
+export FCEDIT=vi
+
 # OS X sets this to a fancy dir-in-title that I don't want
 unset PROMPT_COMMAND
 
@@ -69,7 +71,8 @@ alias ackp="ack --passthru"
 
 alias awswho="aws sts get-caller-identity"
 
-test -f $HOME/.bash-my-aws/aliases && source $HOME/.bash-my-aws/aliases aws
+#test -f $HOME/.bash-my-aws/aliases && source $HOME/.bash-my-aws/aliases 
+#test -f $HOME/.bash-my-aws/bash_completion.sh && source $HOME/.bash-my-aws/bash_completion.sh
 
 function pw {
    pwgen -ncBy ${1:-12} ${2:-1}
@@ -212,7 +215,8 @@ if [ $INTERACTIVE ]; then
   fi
 
   for i in ~/.bash_completion.d/*; do
-      source $i
+      # the test handles the case where the wildcard expands to nothing
+      test -f $i && source $i
   done
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
