@@ -219,8 +219,6 @@ if [ $INTERACTIVE ]; then
       test -f $i && source $i
   done
 
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
   if [ -e ~/.iterm2_shell_integration.bash ]; then
       source ~/.iterm2_shell_integration.bash
   fi
@@ -239,7 +237,11 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
       alias ssh="colorssh"
   fi
 
-  if [ ! -f ~/.bashrc-daily-$(date +%Y%m%d) ]; then
+  if [ "$(type -p bat)" = "file" ]; then
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  fi
+
+  if [ ! -f ~/.bashrc-daily-$(date +%Y%m%d) -a -z "$SUBSHELL" ]; then
     rm -f ~/.bashrc-daily-*
     homeshick check
     touch ~/.bashrc-daily-$(date +%Y%m%d)
@@ -249,4 +251,6 @@ fi  # END INTERACTIVE
 # comes last to override
 source ~/.profile-local
 
-
+# things can use $SUBSHELL to determine if they're a top-level shell or
+# not. why isn't login enough? dunno
+export SUBSHELL=true
