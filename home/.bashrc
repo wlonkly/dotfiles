@@ -237,7 +237,7 @@ if [ $INTERACTIVE ]; then
       alias ssh="colorssh"
   fi
 
-  if [ "$(type -p bat)" = "file" ]; then
+  if [ "$(type -t bat)" = "file" ]; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   fi
 
