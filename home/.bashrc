@@ -70,6 +70,7 @@ alias ackc="ack --group --color"
 alias ackp="ack --passthru"
 
 alias awswho="aws sts get-caller-identity"
+alias whois="whois -h geektools.com"
 
 test -f $HOME/.bash-my-aws/aliases && source $HOME/.bash-my-aws/aliases 
 test -f $HOME/.bash-my-aws/bash_completion.sh && source $HOME/.bash-my-aws/bash_completion.sh
