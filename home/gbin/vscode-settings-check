@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [[ -d ~/.homesick/repos/git-aware-prompt ]]; then
+  source "$HOME/.homesick/repos/git-aware-prompt/colors.sh"
+fi
+
+conf_dir="$HOME/Library/Application Support/Code/User"
+settings="${conf_dir}/settings.json"
+syncsettings="${conf_dir}/syncLocalSettings.json"
+
+# cloudSettings is first file so don't have to provide filename
+gist_url="https://gist.githubusercontent.com/wlonkly/841aab1028125765a6fde0bc5ae55222/raw/"
+
+settings_epoch=$(stat -f %m "$settings")
+
+gist_iso=$(curl -s $gist_url | jq -r .lastUpload)
+gist_epoch=$(gdate -d "$gist_iso" +%s)
+
+upload_iso=$(jq -r .lastUpload < "$syncsettings")
+upload_epoch=$(gdate -d "$upload_iso" +%s)
+
+download_iso=$(jq -r .lastDownload < "$syncsettings")
+download_epoch=$(gdate -d "$download_iso" +%s)
+
+echo -n "VScode settings: "
+
+if [[ $gist_epoch -gt $download_epoch ]]; then
+    echo "${bldred}behind${txtrst}"
+fi
+
+if [[ $settings_epoch -gt $gist_epoch ]]; then
+    echo "${bldred}modified${txtrst}"
+elif [[ $gist_epoch -eq $download_epoch ]]; then
+    echo "${bldgrn}up to date${txtrst}"
+fi

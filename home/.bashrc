@@ -245,6 +245,8 @@ if [ $INTERACTIVE ]; then
   if [ ! -f ~/.bashrc-daily-$(date +%Y%m%d) -a -z "$SUBSHELL" ]; then
     rm -f ~/.bashrc-daily-*
     homeshick check
+    echo
+    $HOME/gbin/vscode-settings-check
     touch ~/.bashrc-daily-$(date +%Y%m%d)
   fi
 fi  # END INTERACTIVE
