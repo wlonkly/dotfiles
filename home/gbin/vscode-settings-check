@@ -1,5 +1,13 @@
 #!/bin/bash
 
+v_echo() {
+  if [[ $VERBOSE ]]; then echo "${bldblk}$*${txtrst}"; fi
+}
+
+if [[ $1 = "-v" ]]; then
+  VERBOSE=1
+fi
+
 if [[ -d ~/.homesick/repos/git-aware-prompt ]]; then
   source "$HOME/.homesick/repos/git-aware-prompt/colors.sh"
 fi
@@ -12,6 +20,10 @@ syncsettings="${conf_dir}/syncLocalSettings.json"
 gist_url="https://gist.githubusercontent.com/wlonkly/841aab1028125765a6fde0bc5ae55222/raw/"
 
 settings_epoch=$(stat -f %m "$settings")
+settings_iso=$(gdate -Iseconds -d "@${settings_epoch}")
+
+sync_epoch=$(stat -f %m "$syncsettings")
+sync_iso=$(gdate -Iseconds -d "@${sync_epoch}")
 
 gist_iso=$(curl -s $gist_url | jq -r .lastUpload)
 gist_epoch=$(gdate -d "$gist_iso" +%s)
@@ -24,12 +36,32 @@ download_epoch=$(gdate -d "$download_iso" +%s)
 
 echo -n "VScode settings: "
 
+# If the gist time is ahead of the last download time,
+# we're definitely behind
 if [[ $gist_epoch -gt $download_epoch ]]; then
     echo "${bldred}behind${txtrst}"
-fi
+    v_echo "      gist: $gist_iso"
+    v_echo "> download: $download_iso"
 
-if [[ $settings_epoch -gt $gist_epoch ]]; then
-    echo "${bldred}modified${txtrst}"
-elif [[ $gist_epoch -eq $download_epoch ]]; then
+# If the settings time and the syncSettings time match,
+# then we're caught up
+elif [[ $settings_epoch -eq $sync_epoch ]]; then
     echo "${bldgrn}up to date${txtrst}"
+    v_echo "settings: $settings_iso"
+    v_echo " == sync: $sync_iso"
+
+# If the settings time is ahead of the syncSettings time,
+# then we're modified
+elif [[ $settings_epoch -gt $sync_epoch ]]; then
+    echo "${bldred}modified${txtrst}"
+    v_echo "settings: $settings_iso"
+    v_echo "  > sync: $sync_iso"
+
+# ???
+else
+    echo "${bldblu}unknown${txtrst}"
+    v_echo "    sync: $sync_iso"
+    v_echo "settings: $settings_iso"
+    v_echo "download: $download_iso"
+    v_echo "  upload: $upload_iso"
 fi
