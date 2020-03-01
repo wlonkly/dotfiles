@@ -224,22 +224,29 @@ if [ $INTERACTIVE ]; then
       source ~/.iterm2_shell_integration.bash
   fi
 
-#  if [ -e ~/.rvm/scripts/rvm ]; then
-#      source ~/.rvm/scripts/rvm
-#  fi
+###  if type brew &>/dev/null; then
+###    HOMEBREW_PREFIX="$(brew --prefix)"
+###    if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+###      source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+###    else
+###      for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+###        [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+###      done
+###    fi
+###  fi
 
-  if [[ -z $ASDF_DIR ]]; then
-    if [[ "$(type -t asdf)" = "file" ]]; then
-      if [[ "$(uname)" = "Darwin" ]]; then
-          ASDF_PREFIX=$(brew --prefix asdf)
-          source $ASDF_PREFIX/asdf.sh
-          source $ASDF_PREFIX/etc/bash_completion.d/asdf.bash
-      else
-          test -e ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
-          test -e ~/.asdf/completions/asdf.bash && source ~/.asdf/completions/asdf.bash
-      fi
-    fi
-  fi
+###  if [[ -z $ASDF_DIR ]]; then
+###    if type asdf &> /dev/null; then
+###      if [[ "$(uname)" = "Darwin" ]]; then
+###          ASDF_PREFIX=$(brew --prefix asdf)
+###          source $ASDF_PREFIX/asdf.sh
+###          source $ASDF_PREFIX/etc/bash_completion.d/asdf.bash
+###      else
+###          test -e ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
+###          test -e ~/.asdf/completions/asdf.bash && source ~/.asdf/completions/asdf.bash
+###      fi
+###    fi
+###  fi
   
   # if [[ -e ~/.rbenv && -z $RBENV_SHELL ]]; then
   #    export PATH="$HOME/.rbenv/bin:$PATH"
