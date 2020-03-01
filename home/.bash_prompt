@@ -1,0 +1,59 @@
+# window title
+if [ "$TERM" = "xterm" -o "$TERM" = "xterm-color" -o \
+     "$TERM" = "rxvt"  -o "$TERM" = "xterm-256color" ]; then
+  WTITLE='\[\033]0;\u@\h: \w\007\]'
+fi
+
+if [[ -d ~/.homesick/repos/git-aware-prompt ]]; then
+	export GITAWAREPROMPT="$HOME/.homesick/repos/git-aware-prompt"
+	# this also installs colors.sh
+	#source "${GITAWAREPROMPT}/main.sh"
+  # only want the color variables, not the prompt
+	source "${GITAWAREPROMPT}/colors.sh"
+fi
+
+if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
+	source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
+fi
+
+# In a git repo, bash-git-prompt's prompt magic replaces PS1 with
+# its own thing, but if GIT_PROMPT_START and GIT_PROMPT_END are defined
+# then it replaces PS1 with:
+#
+#   ${GIT_PROMPT_START}[...the git status...]${GIT_PROMPT_END}
+#
+# Since I want the status in the middle of my usual prompt, let's build PS1
+# using GIT_PROMPT_START and _END rather than having to build both.
+
+unset GIT_PROMPT_START
+unset GIT_PROMPT_END
+unset PS1
+
+GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
+  then
+      echo -e "\[${txtcyn}\]:)\[${txtrst}\]"
+  else
+      echo -e "\[${txtred}\]:(\[${txtrst}\]"
+  fi) $(if [[ "$USER" = 'root' ]]
+  then
+      echo -e "\[${bldred}\]root\[${txtrst}\]@"
+  elif [[ "$USER" != "rich" && "$USER" != "rlafferty" ]]
+  then
+      echo -e "\[${txtpur}\]$USER\[${txtrst}\]@"
+  fi)'"\[${txtcyn}\]\h\[${txtwht}\]:\[${txtcyn}\]\W"
+
+if [ $AWS_VAULT ]; then
+	AWS_VAULT_PROMPT="\[$txtcyn\](\[$txtylw\]${AWS_VAULT}\[$txtcyn\])"
+fi
+
+GIT_PROMPT_END="${AWS_VAULT_PROMPT}\[$txtwht\]\\$\[$txtrst\] "
+
+PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
+
+if [ "$TERM" = "dumb" ]; then
+	PS1='\u@\h\$ '
+fi
+
+export PS1
+
+export MYSQL_PS1="\u@\h:\d> "
