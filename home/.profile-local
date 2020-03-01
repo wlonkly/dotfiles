@@ -22,9 +22,14 @@ darwin*)
       done
     fi
 
-    ASDF_PREFIX=$(brew --prefix asdf)
-    test -e $ASDF_PREFIX/asdf.sh && source $ASDF_PREFIX/asdf.sh
-    test -e $ASDF_PREFIX/etc/bash_completion.d/asdf.bash && source $ASDF_PREFIX/etc/bash_completion.d/asdf.bash
+    # the "right way" is `brew --prefix asdf` but it takes like 3s to run.
+    # brew should always link the current asdf to /usr/local/opt though
+    #
+    # $ ls -ld /usr/local/opt/asdf
+    # lrwxr-xr-x 1 rich admin 20 Mar  1 17:05 /usr/local/opt/asdf -> ../Cellar/asdf/0.7.6
+    BREW_ASDF=/usr/local/opt/asdf
+    test -e $BREW_ASDF/asdf.sh && source $BREW_ASDF/asdf.sh
+    test -e $BREW_ASDF/etc/bash_completion.d/asdf.bash && source $BREW_ASDF/etc/bash_completion.d/asdf.bash
   fi
 
   function tn
