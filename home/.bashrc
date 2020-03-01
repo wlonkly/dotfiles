@@ -95,8 +95,6 @@ elif ls --help 2>&1 | grep --quiet color; then
 	alias ls="ls --color=tty"
 fi
 
-test -d "$HOME/.ssh" && mkdir -p $HOME/.ssh/controlmasters
-
 test -e ~/gbin/colorssh && alias ssh="colorssh"
 
 if type bat &> /dev/null; then

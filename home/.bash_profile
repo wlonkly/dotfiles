@@ -49,6 +49,10 @@ for i in ~/.bash_completion.d/*; do
 		test -f $i && source $i
 done
 
+# for ControlMaster
+test -d $HOME/.ssh/controlmasters && rmdir $HOME/.ssh/controlmasters
+mkdir -p $HOME/.ssh/c
+
 test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
 
 # comes last to override
