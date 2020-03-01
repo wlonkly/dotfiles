@@ -228,11 +228,23 @@ if [ $INTERACTIVE ]; then
 #      source ~/.rvm/scripts/rvm
 #  fi
 
-  # this will loop endlessly if we don't check if
-  if [[ -e ~/.rbenv && -z $RBENV_SHELL ]]; then
-      export PATH="$HOME/.rbenv/bin:$PATH"
-      eval "$(rbenv init -)"
+  if [[ -z $ASDF_DIR ]]; then
+    if [[ "$(type -t asdf)" = "file" ]]; then
+      if [[ "$(uname)" = "Darwin" ]]; then
+          ASDF_PREFIX=$(brew --prefix asdf)
+          source $ASDF_PREFIX/asdf.sh
+          source $ASDF_PREFIX/etc/bash_completion.d/asdf.bash
+      else
+          test -e ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
+          test -e ~/.asdf/completions/asdf.bash && source ~/.asdf/completions/asdf.bash
+      fi
+    fi
   fi
+  
+  # if [[ -e ~/.rbenv && -z $RBENV_SHELL ]]; then
+  #    export PATH="$HOME/.rbenv/bin:$PATH"
+  #    eval "$(rbenv init -)"
+  # fi
 
   if [ -e ~/gbin/colorssh ]; then
       alias ssh="colorssh"
