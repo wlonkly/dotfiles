@@ -12,10 +12,30 @@ darwin*)
   alias locate="mdfind -name"
   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
+  if type brew &>/dev/null; then
+    HOMEBREW_PREFIX="$(brew --prefix)"
+    if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+      source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+    else
+      for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+        [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+      done
+    fi
+
+    ASDF_PREFIX=$(brew --prefix asdf)
+    test -e $ASDF_PREFIX/asdf.sh && source $ASDF_PREFIX/asdf.sh
+    test -e $ASDF_PREFIX/etc/bash_completion.d/asdf.bash && source $ASDF_PREFIX/etc/bash_completion.d/asdf.bash
+  fi
+
   function tn
   {
     terminal-notifier -message "$*"
   }
+;;
+
+linux*)
+  test -e ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
+  test -e ~/.asdf/completions/asdf.bash && source ~/.asdf/completions/asdf.bash
 ;;
 
 esac
@@ -72,4 +92,5 @@ rlafferty.*)
   function stgnode  { chefnode knifestg "$*"; }
 
   function livetail { { cd ~/.livetail; unbuffer ./livetail "$@"; } }
+  ;;
 esac
