@@ -5,7 +5,7 @@
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
+  . ~/.bashrc
 fi
 
 BASH_ENV=$HOME/.bashrc
@@ -31,22 +31,22 @@ test -f $HOME/.bash-my-aws/bash_completion.sh && source $HOME/.bash-my-aws/bash_
 HS_DIR="$HOME/.homesick/repos/homeshick/"
 
 if [[ -d "${HS_DIR}" ]]; then
-	source ${HS_DIR}/homeshick.sh
-	source ${HS_DIR}/completions/homeshick-completion.bash
-	alias hs=homeshick
+  source ${HS_DIR}/homeshick.sh
+  source ${HS_DIR}/completions/homeshick-completion.bash
+  alias hs=homeshick
 fi
 
 if [ ! -f ~/.bashrc-daily-$(date +%Y%m%d) -a -z "$SUBSHELL" ]; then
-	rm -f ~/.bashrc-daily-*
-	homeshick check
-	# echo
-	#$HOME/gbin/vscode-settings-check
-	touch ~/.bashrc-daily-$(date +%Y%m%d)
+  rm -f ~/.bashrc-daily-*
+  homeshick check
+  # echo
+  #$HOME/gbin/vscode-settings-check
+  touch ~/.bashrc-daily-$(date +%Y%m%d)
 fi
 
 for i in ~/.bash_completion.d/*; do
-		# the test handles the case where the wildcard expands to nothing
-		test -f $i && source $i
+  # the test handles the case where the wildcard expands to nothing
+  test -f $i && source $i
 done
 
 # for ControlMaster

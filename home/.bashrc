@@ -86,13 +86,13 @@ function flatten
 }
 
 if grep --help 2>&1 | grep --quiet color; then
-	alias grep="grep --color=auto"
+  alias grep="grep --color=auto"
 fi
 
 if type gls >/dev/null 2>&1; then
   alias ls="gls --color=tty"
 elif ls --help 2>&1 | grep --quiet color; then
-	alias ls="ls --color=tty"
+  alias ls="ls --color=tty"
 fi
 
 test -e ~/gbin/colorssh && alias ssh="colorssh"
