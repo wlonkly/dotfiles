@@ -38,10 +38,10 @@ fi
 
 if [ ! -f ~/.bashrc-daily-$(date +%Y%m%d) -a -z "$SUBSHELL" ]; then
   rm -f ~/.bashrc-daily-*
+  touch ~/.bashrc-daily-$(date +%Y%m%d)
   homeshick check
   # echo
   #$HOME/gbin/vscode-settings-check
-  touch ~/.bashrc-daily-$(date +%Y%m%d)
 fi
 
 for i in ~/.bash_completion.d/*; do
