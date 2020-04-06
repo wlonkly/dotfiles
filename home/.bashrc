@@ -80,6 +80,20 @@ function avx
   esac
 }
 
+function aox
+{
+  profile=$1;
+  shift;
+  TYPE=$(type -t $1)
+  case $TYPE in
+  function|alias)
+    aws-okta exec $profile -- bash -i -c "$@"
+    ;;
+  *)
+    aws-okta exec $profile -- "$@"
+  esac
+}
+
 function flatten
 {
   ruby -e 'p ARGF.read.gsub("\r", "")' "$@"
