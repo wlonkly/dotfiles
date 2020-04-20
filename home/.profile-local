@@ -69,6 +69,8 @@ rlafferty.*)
   export GIT_AUTHOR_EMAIL='rlafferty@pagerduty.com'
   export GIT_COMMITTER_EMAIL=${GIT_AUTHOR_EMAIL}
 
+  export AWS_OKTA_MFA_DUO_DEVICE=token
+
   function knifestg    { bundle exec knife "$@" -c ~/.chef/stage/knife.rb; }
   function knifeprod   { bundle exec knife "$@" -c ~/.chef/prod/knife.rb; }
   function knifedr     { bundle exec knife "$@" -c ~/.chef/dr/knife.rb; }

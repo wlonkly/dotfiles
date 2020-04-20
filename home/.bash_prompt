@@ -43,10 +43,12 @@ GIT_PROMPT_START=$WTITLE'$(if [[ $? -eq 0 ]]
   fi)'"\[${txtcyn}\]\h\[${txtwht}\]:\[${txtcyn}\]\W"
 
 if [ $AWS_VAULT ]; then
-  AWS_VAULT_PROMPT="\[$txtcyn\](\[$txtylw\]${AWS_VAULT}\[$txtcyn\])"
+  AWS_ACCOUNT_PROMPT="\[$txtcyn\](\[$txtylw\]${AWS_VAULT}\[$txtcyn\])"
+elif [ $AWS_OKTA_PROFILE ]; then
+  AWS_ACCOUNT_PROMPT="\[$txtcyn\](\[$txtylw\]${AWS_OKTA_PROFILE}\[$txtcyn\])"
 fi
 
-GIT_PROMPT_END="${AWS_VAULT_PROMPT}\[$txtwht\]\\$\[$txtrst\] "
+GIT_PROMPT_END="${AWS_ACCOUNT_PROMPT}\[$txtwht\]\\$\[$txtrst\] "
 
 PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
 

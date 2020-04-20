@@ -89,6 +89,9 @@ function aox
   function|alias)
     aws-okta exec $profile -- bash -i -c "$@"
     ;;
+  '')
+    aws-okta exec $profile -- $SHELL
+    ;;
   *)
     aws-okta exec $profile -- "$@"
   esac
