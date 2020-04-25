@@ -12,6 +12,7 @@ export PAGER="less -r"
 export IGNOREEOF=1
 export GOPATH=~/code/go
 export FCEDIT=vi
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
 # history file
 shopt -s histappend
