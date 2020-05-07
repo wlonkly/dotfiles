@@ -60,7 +60,7 @@ function prompt_user {
 }
 
 # single quotes around function calls means they're called at each prompt
-GIT_PROMPT_START="${WINDOW_TITLE}"'$(prompt_face) $(prompt_user)'"${HOSTNAME_PROMPT}\[${txtcyn}\]\W"
+GIT_PROMPT_START="${WINDOW_TITLE}"'$(prompt_face) $(prompt_user)'"${HOSTNAME_PROMPT}\[${txtcyn}\]\W\[${txtrst}\]"
 GIT_PROMPT_END="${AWS_ACCOUNT_PROMPT}\[$txtwht\]\\$\[$txtrst\] "
 
 PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
