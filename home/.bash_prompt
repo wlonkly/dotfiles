@@ -2,6 +2,18 @@
 # .bash_prompt -- configure fancy bash prompt
 #
 
+if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
+  declare -A aws_region=( 
+    [us-west-2]=usw2
+    [us-west-1]=usw1
+    [us-east-2]=use2
+    [us-east-1]=use1
+    [ca-central-1]=ca
+    [eu-west-1]=euw1
+    [eu-central-1]=euc1
+  )
+fi
+
 GITAWAREPROMPT="$HOME/.homesick/repos/git-aware-prompt"
 if [[ -d $GITAWAREPROMPT ]]; then
   #export GITAWAREPROMPT
@@ -29,10 +41,6 @@ if [[ $SSH_CONNECTION ]]; then
   HOSTNAME_PROMPT="\[${txtcyn}\]\h\[${txtwht}\]:"
 fi
 
-if [[ $AWS_VAULT || $AWS_OKTA_PROFILE ]]; then
-  AWS_ACCOUNT_PROMPT="\[$txtcyn\](\[$txtylw\]${AWS_VAULT:-$AWS_OKTA_PROFILE}\[$txtcyn\])"
-fi
-
 function prompt_face {
   case $? in
     0) echo -ne "\001${txtcyn}\002:)" ;;
@@ -57,9 +65,23 @@ function prompt_user {
   fi
 }
 
+function prompt_aws {
+  aws_account=${AWS_VAULT:-$AWS_OKTA_PROFILE}
+
+  if [[ $aws_account ]]; then
+    if [[ $AWS_DEFAULT_REGION && ${aws_region[$AWS_DEFAULT_REGION]} ]]; then
+      prompt_region=${aws_region[$AWS_DEFAULT_REGION]}
+    else
+      prompt_region=$AWS_DEFAULT_REGION
+    fi
+
+    echo -ne "\001$txtcyn\002(\001$txtylw\002${aws_account}@${prompt_region}\001$txtcyn\002)"
+  fi
+}
+
 # single quotes around function calls means they're called at each prompt
 GIT_PROMPT_START="${WINDOW_TITLE}"'$(prompt_face) $(prompt_user)'"${HOSTNAME_PROMPT}\[${txtcyn}\]\W\[${txtrst}\]"
-GIT_PROMPT_END="${AWS_ACCOUNT_PROMPT}\[$txtwht\]\\$\[$txtrst\] "
+GIT_PROMPT_END='$(prompt_aws)'"\[$txtwht\]\\$\[$txtrst\] "
 
 PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
 
