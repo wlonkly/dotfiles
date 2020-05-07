@@ -34,28 +34,26 @@ if [[ $AWS_VAULT || $AWS_OKTA_PROFILE ]]; then
 fi
 
 function prompt_face {
-  if [[ $? -eq 0 ]]; then
-    echo -ne "\001${txtcyn}\002:)\001${txtrst}\002"
-  else
-    echo -ne "\001${txtred}\002:(\001${txtrst}\002"
-  fi
+  case $? in
+    0) echo -ne "\001${txtcyn}\002:)" ;;
+    *) echo -ne "\001${txtred}\002:(" ;;
+  esac
+  echo -ne "\001${txtrst}\002"
 }
 
 function prompt_user {
   local output_user
 
-  if [[ "$USER" = 'root' ]]; then
-    output_user=1
-    echo -ne "\001${bldred}\002root\001${txtrst}\002"
-  elif [[ "$USER" != "rich" && "$USER" != "rlafferty" ]]; then
-    output_user=1
-    echo -ne "\001${txtpur}\002${USER}\001${txtrst}\002"
-  fi
+  case $USER in
+    root)           output_user="\001${bldred}\002root\001${txtrst}\002" ;;
+    rich|rlafferty) output_user="" ;;
+    *)              output_user="\001${txtpur}\002${USER}\001${txtrst}\002" ;;
+  esac
 
   if [[ $HOSTNAME_PROMPT && $output_user ]]; then
-    echo -n "@"
+    echo -ne "${output_user}@"
   elif [[ $output_user ]]; then
-    echo -n " "
+    echo -ne "${output_user}:"
   fi
 }
 
