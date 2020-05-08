@@ -120,16 +120,14 @@ jobs_prompt='$([[ "$(jobs -r; jobs -s)" ]] && echo " \[${txtcyn}\][\[${txtrst}\]
 GIT_PROMPT_START="${win_title}${shlvl_prompt}"'$(face_prompt) $(user_prompt)'"${host_prompt}\[${txtcyn}\]\W\[${txtrst}\]"
 GIT_PROMPT_END='$(aws_prompt)'"${jobs_prompt}\[${txtrst}\]\\$ "
 
-PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
-
-export PS1 GIT_PROMPT_START GIT_PROMPT_END
-
 if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
   GIT_PROMPT_ONLY_IN_REPO=1
   source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
 fi
 
-# must follow bash-git-prompt
 test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
+
+PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
+
 
 export MYSQL_PS1="\u@\h:\d> "
