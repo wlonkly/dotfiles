@@ -1,6 +1,25 @@
 #
 # .bash_prompt -- configure fancy bash prompt
 #
+# List of features:
+#
+# ^:) user@flounder:dotfiles [master|✚ 1](personal@usw2) [1]$
+# ^ ^  ^       ^       ^           ^         ^      ^     ^
+# 1 2  3       4       5           6         7      8     9
+#
+# 1. Every subshell gets an additional ^
+# 2. Happy and sad face for command success/failure
+# 3. Username when it's not the login user
+# 4. Hostname if on an SSH connection
+# 5. Current working directory
+# 6. Git status from bash-git-prompt
+# 7. AWS profile
+# 8. AWS region, abbreviated if possible
+# 9. Number of background jobs
+#
+# Plus!
+# 10. Username, hostname, pwd in window title always
+# 11. iTerm integration
 
 if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
   declare -A aws_regions=(
@@ -69,13 +88,13 @@ function aws_prompt {
   local region
 
   if [[ $profile ]]; then
-    if [[ $AWS_DEFAULT_REGION && ${aws_regions[$AWS_DEFAULT_REGION]} ]]; then
+    if [[ "${aws_regions[*]}" && $AWS_DEFAULT_REGION && ${aws_regions[$AWS_DEFAULT_REGION]} ]]; then
       region=${aws_regions[$AWS_DEFAULT_REGION]}
     else
       region=$AWS_DEFAULT_REGION
     fi
 
-    echo -ne "\001$txtcyn\002(\001$txtylw\002${profile}@${prompt_region}\001$txtcyn\002)"
+    echo -ne "\001$txtcyn\002(\001$txtylw\002${profile}@${region}\001$txtcyn\002)"
   fi
 }
 
