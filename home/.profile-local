@@ -31,10 +31,6 @@ darwin*)
     test -e $BREW_ASDF/asdf.sh && source $BREW_ASDF/asdf.sh
   fi
 
-
-  # must follow bash-git-prompt
-  test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
-
   function tn
   {
     terminal-notifier -message "$*"

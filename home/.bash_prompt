@@ -98,7 +98,6 @@ function aws_prompt {
   fi
 }
 
-
 # can't use a function for this because bash won't parse \j in a function,
 # and any other reasonable way to count jobs would invoke wc on every prompt.
 #
@@ -117,6 +116,15 @@ jobs_prompt='$([[ "$(jobs -r; jobs -s)" ]] && echo " \[${txtcyn}\][\[${txtrst}\]
 # using GIT_PROMPT_START and _END rather than having to build both.
 #
 # single quotes around function calls means they're called at each prompt
+#
+# this is all complicated by both bash-git-prompt and the iterm integration
+# screwing with PS1. (Strangely, it only affects the shlvl prompt missing??)
+# Has to be this order:
+#  - GIT_PROMPT_START/END
+#  - bash-git-prompt
+#  - iterm2_shell_integration
+#  - compose PS1 from the two pieces of GIT_PROMPT
+
 GIT_PROMPT_START="${win_title}${shlvl_prompt}"'$(face_prompt) $(user_prompt)'"${host_prompt}\[${txtcyn}\]\W\[${txtrst}\]"
 GIT_PROMPT_END='$(aws_prompt)'"${jobs_prompt}\[${txtrst}\]\\$ "
 
@@ -126,7 +134,6 @@ if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
 fi
 
 test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
-
 PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
 
 
