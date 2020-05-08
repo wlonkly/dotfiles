@@ -30,9 +30,6 @@ do
   test -r $bashrc && source $bashrc
 done
 
-# OS X sets this to a fancy dir-in-title that I don't want
-unset PROMPT_COMMAND
-
 alias fdate="date +%Y%m%d"
 alias _='sudo -H'
 alias _e='sudo -e'
@@ -118,5 +115,24 @@ test -e ~/gbin/colorssh && alias ssh="colorssh"
 if type bat &> /dev/null; then
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
+
+HS_DIR="$HOME/.homesick/repos/homeshick/"
+
+if [[ -d "${HS_DIR}" ]]; then
+  source ${HS_DIR}/homeshick.sh
+  source ${HS_DIR}/completions/homeshick-completion.bash
+  alias hs=homeshick
+fi
+
+for i in ~/.bash_completion.d/* /usr/local/etc/profile.d/bash_completion.sh; do
+  # the test handles the case where the wildcard expands to nothing
+  test -f $i && source $i
+done
+
+# for ControlMaster
+test -d $HOME/.ssh/controlmasters && rmdir $HOME/.ssh/controlmasters
+mkdir -p $HOME/.ssh/c
+
+test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
 
 source ~/.bash_prompt

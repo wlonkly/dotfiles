@@ -3,7 +3,7 @@
 #
 
 if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
-  declare -A aws_region=( 
+  declare -A aws_regions=(
     [us-west-2]=usw2
     [us-west-1]=usw1
     [us-east-2]=use2
@@ -14,14 +14,79 @@ if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
   )
 fi
 
-GITAWAREPROMPT="$HOME/.homesick/repos/git-aware-prompt"
-if [[ -d $GITAWAREPROMPT ]]; then
-  #export GITAWAREPROMPT
+gapdir="$HOME/.homesick/repos/git-aware-prompt"
+if [[ -d "$gapdir" ]]; then
+  #export GITAWAREPROMPT="$gapdir"
   #source "${GITAWAREPROMPT}/main.sh"
   # we only want the color variables, not the prompt.
   # can't use bash-git-prompt colors: https://github.com/magicmonty/bash-git-prompt/pull/470
-  source "${GITAWAREPROMPT}/colors.sh"
+  source "${gapdir}/colors.sh"
 fi
+
+if [[ "$TERM" = "xterm" || "$TERM" = "xterm-color" || \
+      "$TERM" = "rxvt"  || "$TERM" = "xterm-256color" ]]; then
+  win_title='\[\033]0;\u@\h: \w\007\]'
+fi
+
+if [[ $SSH_CONNECTION ]]; then
+  host_prompt="\[${txtcyn}\]\h\[${txtrst}\]:"
+fi
+
+if [[ $SHLVL -gt 1 ]]; then
+  shlvls=''
+  for ((i=1; i < $SHLVL; i++)); do
+    shlvls="${shlvls}^"
+  done
+  shlvl_prompt="\[${txtred}\]${shlvls}\[${txtrst}\]"
+fi
+
+function face_prompt {
+  case $? in
+    0) echo -ne "\001${txtcyn}\002:)" ;;
+    *) echo -ne "\001${txtred}\002:(" ;;
+  esac
+  echo -ne "\001${txtrst}\002"
+}
+
+function user_prompt {
+  local output
+
+  case $USER in
+    root)           output="\001${bldred}\002root\001${txtrst}\002" ;;
+    rich|rlafferty) output="" ;;
+    *)              output="\001${txtpur}\002${USER}\001${txtrst}\002" ;;
+  esac
+
+  if [[ $host_prompt && $output ]]; then
+    echo -ne "${output}@"
+  elif [[ $output ]]; then
+    echo -ne "${output}:"
+  fi
+}
+
+function aws_prompt {
+  local profile=${AWS_VAULT:-$AWS_OKTA_PROFILE}
+  local region
+
+  if [[ $profile ]]; then
+    if [[ $AWS_DEFAULT_REGION && ${aws_regions[$AWS_DEFAULT_REGION]} ]]; then
+      region=${aws_regions[$AWS_DEFAULT_REGION]}
+    else
+      region=$AWS_DEFAULT_REGION
+    fi
+
+    echo -ne "\001$txtcyn\002(\001$txtylw\002${profile}@${prompt_region}\001$txtcyn\002)"
+  fi
+}
+
+
+# can't use a function for this because bash won't parse \j in a function,
+# and any other reasonable way to count jobs would invoke wc on every prompt.
+#
+# we run 'jobs -r' and 'jobs -s' to exclude "Done" jobs, because bash-git-prompt
+# causes one Done job in the list n every prompt cycle, throwing off the
+# conditional (but not the \j count, which bash gets right)
+jobs_prompt='$([[ "$(jobs -r; jobs -s)" ]] && echo " \[${txtcyn}\][\[${txtrst}\]\j\[${txtcyn}\]]")'
 
 # In a git repo, bash-git-prompt's prompt magic replaces PS1 with
 # its own thing, but if GIT_PROMPT_START and GIT_PROMPT_END are defined
@@ -31,57 +96,10 @@ fi
 #
 # Since I want the status in the middle of my usual prompt, let's build PS1
 # using GIT_PROMPT_START and _END rather than having to build both.
-
-if [[ "$TERM" = "xterm" || "$TERM" = "xterm-color" || \
-      "$TERM" = "rxvt"  || "$TERM" = "xterm-256color" ]]; then
-  WINDOW_TITLE='\[\033]0;\u@\h: \w\007\]'
-fi
-
-if [[ $SSH_CONNECTION ]]; then
-  HOSTNAME_PROMPT="\[${txtcyn}\]\h\[${txtwht}\]:"
-fi
-
-function prompt_face {
-  case $? in
-    0) echo -ne "\001${txtcyn}\002:)" ;;
-    *) echo -ne "\001${txtred}\002:(" ;;
-  esac
-  echo -ne "\001${txtrst}\002"
-}
-
-function prompt_user {
-  local output_user
-
-  case $USER in
-    root)           output_user="\001${bldred}\002root\001${txtrst}\002" ;;
-    rich|rlafferty) output_user="" ;;
-    *)              output_user="\001${txtpur}\002${USER}\001${txtrst}\002" ;;
-  esac
-
-  if [[ $HOSTNAME_PROMPT && $output_user ]]; then
-    echo -ne "${output_user}@"
-  elif [[ $output_user ]]; then
-    echo -ne "${output_user}:"
-  fi
-}
-
-function prompt_aws {
-  aws_account=${AWS_VAULT:-$AWS_OKTA_PROFILE}
-
-  if [[ $aws_account ]]; then
-    if [[ $AWS_DEFAULT_REGION && ${aws_region[$AWS_DEFAULT_REGION]} ]]; then
-      prompt_region=${aws_region[$AWS_DEFAULT_REGION]}
-    else
-      prompt_region=$AWS_DEFAULT_REGION
-    fi
-
-    echo -ne "\001$txtcyn\002(\001$txtylw\002${aws_account}@${prompt_region}\001$txtcyn\002)"
-  fi
-}
-
+#
 # single quotes around function calls means they're called at each prompt
-GIT_PROMPT_START="${WINDOW_TITLE}"'$(prompt_face) $(prompt_user)'"${HOSTNAME_PROMPT}\[${txtcyn}\]\W\[${txtrst}\]"
-GIT_PROMPT_END='$(prompt_aws)'"\[$txtwht\]\\$\[$txtrst\] "
+GIT_PROMPT_START="${win_title}${shlvl_prompt}"'$(face_prompt) $(user_prompt)'"${host_prompt}\[${txtcyn}\]\W\[${txtrst}\]"
+GIT_PROMPT_END='$(aws_prompt)'"${jobs_prompt}\[${txtrst}\]\\$ "
 
 PS1="${GIT_PROMPT_START}${GIT_PROMPT_END}"
 
