@@ -110,4 +110,7 @@ if [[ -d ~/.homesick/repos/bash-git-prompt ]]; then
   source ~/.homesick/repos/bash-git-prompt/gitprompt.sh
 fi
 
+# must follow bash-git-prompt
+test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
+
 export MYSQL_PS1="\u@\h:\d> "
