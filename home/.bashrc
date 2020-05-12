@@ -13,6 +13,7 @@ export IGNOREEOF=1
 export GOPATH=~/code/go
 export FCEDIT=vi
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
+export HOMEBREW_BUNDLE_FILE=~/.brewfile
 
 # history file
 shopt -s histappend
