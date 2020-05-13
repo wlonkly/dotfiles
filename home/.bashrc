@@ -65,6 +65,10 @@ function tailgrep {
   tail -F $@ | grep --line-buffered "$PATTERN"
 }
 
+function rhist {
+  rg -aN "$*" $HISTFILE
+}
+
 function avx
 {
   profile=$1;
