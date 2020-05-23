@@ -47,6 +47,9 @@ alias ackp="ack --passthru"
 alias awswho="aws sts get-caller-identity"
 alias whois="whois -h geektools.com"
 
+# ubuntu why
+test -x /usr/bin/batcat && alias bat="batcat"
+
 test -f $HOME/.bash-my-aws/aliases && source $HOME/.bash-my-aws/aliases
 test -f $HOME/.bash-my-aws/bash_completion.sh && source $HOME/.bash-my-aws/bash_completion.sh
 
