@@ -44,6 +44,8 @@ alias hl="LESSOPEN='| source-highlight --outlang-def=esc256.outlang --style-file
 alias bx="bundle exec"
 alias ackc="ack --group --color"
 alias ackp="ack --passthru"
+alias rgc="rg --heading --color=always"
+alias rgp="rg --passthru"
 alias awswho="aws sts get-caller-identity"
 alias whois="whois -h geektools.com"
 
