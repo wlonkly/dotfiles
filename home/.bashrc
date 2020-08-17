@@ -49,6 +49,8 @@ alias rgp="rg --passthru"
 alias awswho="aws sts get-caller-identity"
 alias whois="whois -h geektools.com"
 alias tf="terraform"
+alias 1p="op"
+alias terminate="aws ec2 terminate-instances --instance-ids"
 
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
