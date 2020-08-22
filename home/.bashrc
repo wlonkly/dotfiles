@@ -125,8 +125,9 @@ fi
 
 test -e ~/gbin/colorssh && alias ssh="colorssh"
 
-if type bat &> /dev/null; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+MANBAT=$(command -v batcat || command -v bat)
+if [[ $MANBAT ]]; then
+  export MANPAGER="sh -c 'col -bx | $MANBAT -l man -p'"
 fi
 
 HS_DIR="$HOME/.homesick/repos/homeshick/"
