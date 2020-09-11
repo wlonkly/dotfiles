@@ -17,6 +17,7 @@
     fpush = push --force-with-lease
     amend = commit --amend --no-edit
     tidy = rebase -i master
+    empty-commit = commit --allow-empty -m \"empty commit\"
 [core]
 	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]
