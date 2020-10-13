@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+#
+# shellcheck disable=SC1090
 #
 # .bashrc runs for interactive, non-login shells, aka "stuff that we want
 # in subshells"
@@ -55,22 +58,22 @@ alias terminate="aws ec2 terminate-instances --instance-ids"
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
 
-test -f $HOME/.bash-my-aws/aliases && source $HOME/.bash-my-aws/aliases
-test -f $HOME/.bash-my-aws/bash_completion.sh && source $HOME/.bash-my-aws/bash_completion.sh
+test -f "$HOME/.bash-my-aws/aliases" && source "$HOME/.bash-my-aws/aliases"
+test -f "$HOME/.bash-my-aws/bash_completion.sh" && source "$HOME/.bash-my-aws/bash_completion.sh"
 
 function pw {
-  pwgen -ncBy ${1:-12} ${2:-1}
+  pwgen -ncBy "${1:-12}" "${2:-1}"
 }
 
 function cdto {
-  DIR=$(dirname $1)
-  cd $DIR
+  DIR=$(dirname "$1")
+  cd "$DIR" || return 1
 }
 
 function tailgrep {
   PATTERN="$1";
   shift;
-  tail -F $@ | grep --line-buffered "$PATTERN"
+  tail -F "$@" | grep --line-buffered "$PATTERN"
 }
 
 function rhist {
@@ -79,32 +82,32 @@ function rhist {
 
 function avx
 {
-  profile=$1;
+  profile="$1";
   shift;
-  TYPE=$(type -t $1)
+  TYPE=$(type -t "$1")
   case $TYPE in
   function|alias)
-    aws-vault exec $profile -- bash -i -c "$@"
+    aws-vault exec "$profile" -- bash -i -c "$@"
     ;;
   *)
-    aws-vault exec $profile -- "$@"
+    aws-vault exec "$profile" -- "$@"
   esac
 }
 
 function aox
 {
-  profile=$1;
+  profile="$1";
   shift;
-  TYPE=$(type -t $1)
+  TYPE=$(type -t "$1")
   case $TYPE in
   function|alias)
-    aws-okta exec $profile -- bash -i -c "$@"
+    aws-okta exec "$profile" -- bash -i -c "$@"
     ;;
   '')
-    aws-okta exec $profile -- $SHELL
+    aws-okta exec "$profile" -- "$SHELL"
     ;;
   *)
-    aws-okta exec $profile -- "$@"
+    aws-okta exec "$profile" -- "$@"
   esac
 }
 
@@ -117,6 +120,7 @@ if grep --help 2>&1 | grep --quiet color; then
   alias grep="grep --color=auto"
 fi
 
+# shellcheck disable=SC2010
 if type gls >/dev/null 2>&1; then
   alias ls="gls --color=tty"
 elif ls --help 2>&1 | grep --quiet color; then
@@ -133,18 +137,18 @@ fi
 HS_DIR="$HOME/.homesick/repos/homeshick/"
 
 if [[ -d "${HS_DIR}" ]]; then
-  source ${HS_DIR}/homeshick.sh
-  source ${HS_DIR}/completions/homeshick-completion.bash
+  source "${HS_DIR}/homeshick.sh"
+  source "${HS_DIR}/completions/homeshick-completion.bash"
   alias hs=homeshick
 fi
 
 for i in ~/.bash_completion.d/* /usr/local/etc/profile.d/bash_completion.sh; do
   # the test handles the case where the wildcard expands to nothing
-  test -f $i && source $i
+  test -f "$i" && source "$i"
 done
 
 # for ControlMaster
-test -d $HOME/.ssh/controlmasters && rmdir $HOME/.ssh/controlmasters
-mkdir -p $HOME/.ssh/c
+test -d "$HOME/.ssh/controlmasters" && rmdir "$HOME/.ssh/controlmasters"
+mkdir -p "$HOME/.ssh/c"
 
 source ~/.bash_prompt

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # .bash_profile runs for LOGIN shells only
 # note that OS X terminals and ssh sessions are login shells, but xterms usually aren't
@@ -14,9 +15,9 @@ BASH_ENV=$HOME/.bashrc
 for ed in code subl vim vi; do
   found=$(type -p $ed)
   if [[ -n $found ]]; then
-    if [[ "$(basename $found)" = "subl" ]]; then
+    if [[ "$(basename "$found")" = "subl" ]]; then
         export EDITOR="$found -nw"
-    elif [[ "$(basename $found)" = "code" ]]; then
+    elif [[ "$(basename "$found")" = "code" ]]; then
         export EDITOR="$found -w"
     else
         export EDITOR=$found
@@ -26,9 +27,9 @@ for ed in code subl vim vi; do
   unset found
 done
 
-if [ ! -f ~/.bashrc-daily-$(date +%Y%m%d) -a -z "$SUBSHELL" ]; then
-  rm -f ~/.bashrc-daily-*
-  touch ~/.bashrc-daily-$(date +%Y%m%d)
+if [[ ! -f "$HOME/.bashrc-daily-$(date +%Y%m%d)" && -z "$SUBSHELL" ]]; then
+  rm -f "$HOME"/.bashrc-daily-*
+  touch "$HOME/.bashrc-daily-$(date +%Y%m%d)"
   homeshick check
   # echo
   #$HOME/gbin/vscode-settings-check

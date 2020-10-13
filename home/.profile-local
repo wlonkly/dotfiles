@@ -1,7 +1,12 @@
+#!/usr/bin/env bash
+# -*- mode: bash -*-
+# shellcheck disable=SC1090 # can't follow non-constant source
+
 if [ -x /bin/dnsdomainname ]
 then
     DNSDOMAINNAME=$(/bin/dnsdomainname)
 else
+    # shellcheck disable=SC2034
     DNSDOMAINNAME=$HOSTNAME
 fi
 
@@ -89,14 +94,14 @@ rlafferty.*)
     *)
       SEARCH="tags:*${S}* OR roles:*${S}* OR fqdn:*${S}* OR addresses:*${S}*"
     esac
-    cd ~/code/chef
+    cd ~/code/chef || return 1
     $KNIFE search node "$SEARCH" -i
-    cd - > /dev/null
+    cd - > /dev/null || return 1
   }
 
   function prodnode { chefnode knifeprod "$*"; }
   function stgnode  { chefnode knifestg "$*"; }
 
-  function livetail { { cd ~/.livetail; unbuffer ./livetail "$@"; } }
+  function livetail { { cd ~/.livetail && unbuffer ./livetail "$@"; } }
   ;;
 esac
