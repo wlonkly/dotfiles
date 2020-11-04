@@ -81,6 +81,7 @@ rlafferty*)
 
   function knifestg    { bundle exec knife "$@" -c ~/.chef/stage/knife.rb; }
   function knifeprod   { bundle exec knife "$@" -c ~/.chef/prod/knife.rb; }
+  function knifeeu     { bundle exec knife "$@" -c ~/.chef/euprod/knife.rb; }
   function knifedr     { bundle exec knife "$@" -c ~/.chef/dr/knife.rb; }
   function knifetestdr { bundle exec knife "$@" -c ~/.chef/testdr/knife.rb; }
 
@@ -104,6 +105,7 @@ rlafferty*)
 
   function prodnode { chefnode knifeprod "$*"; }
   function stgnode  { chefnode knifestg "$*"; }
+  function eunode  { chefnode knifeeu "$*"; }
 
   function livetail { { cd ~/.livetail && unbuffer ./livetail "$@"; } }
   ;;
