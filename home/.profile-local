@@ -17,9 +17,6 @@ darwin*)
   alias locate="mdfind -name"
   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
-  # -q does not quiet this, and both errors and success messages go to stderr
-  ssh-add -A 2>&1 | grep -v 'Identity'
-
   if type brew &>/dev/null; then
     HOMEBREW_PREFIX="$(brew --prefix)"
     if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
