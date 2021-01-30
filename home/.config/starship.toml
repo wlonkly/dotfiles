@@ -53,7 +53,7 @@ format = "[@$hostname:](cyan)"
 [username]
 style_user = "cyan"
 style_root = "red bold"
-format = "[$user]($style)"
+format = " [$user]($style)"
 show_always = false
 
 [directory]
