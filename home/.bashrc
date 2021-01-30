@@ -17,6 +17,9 @@ export GOPATH=~/code/go
 export FCEDIT=vi
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 export HOMEBREW_BUNDLE_FILE=~/.brewfile
+export SHORTHOST=$(echo $HOSTNAME | sed 's/\..*$//')
+export MYSQL_PS1="\u@\h:\d> "
+export PS2="..."
 
 # history file
 shopt -s histappend
@@ -25,7 +28,6 @@ export HISTFILESIZE=$HISTSIZE
 export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=ignoreboth
-
 export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 
 # Read in local settings
@@ -116,6 +118,11 @@ function flatten
   ruby -e 'p ARGF.read.gsub("\r", "")' "$@"
 }
 
+function set_window_title
+{
+    echo -ne "\033]0;${USER}@${SHORTHOST}\007"
+}
+
 if grep --help 2>&1 | grep --quiet color; then
   alias grep="grep --color=auto"
 fi
@@ -151,4 +158,12 @@ done
 test -d "$HOME/.ssh/controlmasters" && rmdir "$HOME/.ssh/controlmasters"
 mkdir -p "$HOME/.ssh/c"
 
-source ~/.bash_prompt
+if command -v starship >/dev/null 2>&1; then
+  test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
+  export starship_precmd_user_func="set_window_title"
+  eval "$(starship init bash)"
+else
+  echo "Using fallback bash prompt -- install starship 🚀"
+  source ~/.bash_prompt
+fi
+
