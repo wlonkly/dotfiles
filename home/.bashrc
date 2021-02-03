@@ -47,6 +47,7 @@ alias tstamp='while read LINE; do echo "$(date +%H:%M:%S) $LINE"; done'
 alias dstamp='while read LINE; do echo "$(date +%Y%m%d-%H:%M:%S) $LINE"; done'
 alias hl="LESSOPEN='| source-highlight --outlang-def=esc256.outlang --style-file=esc256.style -i \"%s\"' LESS=' -R ' less"
 alias bx="bundle exec"
+alias bi="MAKEFLAGS='-j 4' bundle install --jobs=4"
 alias ackc="ack --group --color"
 alias ackp="ack --passthru"
 alias rgc="rg --heading --color=always"
