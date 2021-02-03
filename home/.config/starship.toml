@@ -36,7 +36,7 @@ error_symbol = "[:\\(](red)"
 format = "$symbol"
 
 [shlvl]
-threshold = 2
+threshold = 1
 symbol = "^"
 format = "[$symbol](red)"
 repeat = true
