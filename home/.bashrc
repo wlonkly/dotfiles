@@ -119,9 +119,15 @@ function flatten
   ruby -e 'p ARGF.read.gsub("\r", "")' "$@"
 }
 
-function set_window_title
+function starship_precmd_func
 {
+    # set xterm window title    
     echo -ne "\033]0;${USER}@${SHORTHOST}\007"
+
+    # populate AWS_VAULT from okta profile 
+    if [[ -z $AWS_VAULT && $AWS_OKTA_PROFILE ]]; then
+        export AWS_VAULT=$AWS_OKTA_PROFILE
+    fi
 }
 
 if grep --help 2>&1 | grep --quiet color; then
@@ -161,7 +167,7 @@ mkdir -p "$HOME/.ssh/c"
 
 if command -v starship >/dev/null 2>&1; then
   test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
-  export starship_precmd_user_func="set_window_title"
+  export starship_precmd_user_func="starship_precmd_func"
   eval "$(starship init bash)"
 else
   echo "Using fallback bash prompt -- install starship 🚀"
