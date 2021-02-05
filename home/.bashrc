@@ -165,12 +165,18 @@ done
 test -d "$HOME/.ssh/controlmasters" && rmdir "$HOME/.ssh/controlmasters"
 mkdir -p "$HOME/.ssh/c"
 
+# https://iterm2.com/documentation-scripting-fundamentals.html
+function iterm2_print_user_vars {
+    iterm2_set_user_var awsProfile "${AWS_VAULT:+${AWS_VAULT}@${AWS_REGION}}"
+}
+
 if command -v starship >/dev/null 2>&1; then
   test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
   export starship_precmd_user_func="starship_precmd_func"
   eval "$(starship init bash)"
 else
   echo "Using fallback bash prompt -- install starship 🚀"
+  # iterm integration is in .bash_prompt
   source ~/.bash_prompt
 fi
 
