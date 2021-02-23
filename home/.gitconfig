@@ -50,3 +50,7 @@
     diffFilter = delta --color-only
 [commit]
 	gpgsign = true
+[blame]
+	coloring = highlightRecent
+[color "blame"]
+	highlightRecent = cyan,12 month ago,brightwhite,1 month ago,brightyellow,1 week ago,brightred
