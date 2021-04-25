@@ -27,12 +27,14 @@ darwin*)
       done
     fi
 
-    # the "right way" is `brew --prefix asdf` but it takes like 3s to run.
-    # brew should always link the current asdf to /usr/local/opt though
-    #
-    # $ ls -ld /usr/local/opt/asdf
-    # lrwxr-xr-x 1 rich admin 20 Mar  1 17:05 /usr/local/opt/asdf -> ../Cellar/asdf/0.7.6
-    BREW_ASDF=/usr/local/opt/asdf
+    BREW_FZF=$HOMEBREW_PREFIX/opt/fzf
+    if [[ -r "$BREW_FZF/shell/completion.bash" ]]
+      source $BREW_FZF/shell/completion.bash
+      # standard completions omit vscode
+      complete -o bashdefault -o default -F _fzf_path_completion code
+    fi
+
+    BREW_ASDF=$HOMEBREW_PREFIX/opt/asdf
     test -e $BREW_ASDF/asdf.sh && source $BREW_ASDF/asdf.sh
   fi
 
@@ -45,6 +47,8 @@ darwin*)
 linux*)
   test -e ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
   test -e ~/.asdf/completions/asdf.bash && source ~/.asdf/completions/asdf.bash
+
+  test -e /usr/share/doc/fzf/examples/completion.bash ]] && source /usr/share/doc/fzf/examples/completion.bash
 ;;
 
 esac

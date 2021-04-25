@@ -21,6 +21,9 @@ export SHORTHOST=$(echo $HOSTNAME | sed 's/\..*$//')
 export MYSQL_PS1="\u@\h:\d> "
 export PS2="..."
 
+export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+export CDPATH=.:$HOME:$HOME/code
+
 # history file
 shopt -s histappend
 export HISTSIZE=100000
@@ -28,7 +31,7 @@ export HISTFILESIZE=$HISTSIZE
 export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=ignoreboth
-export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+
 
 # Read in local settings
 for bashrc in /etc/bashrc /etc/bash.bashrc
@@ -42,7 +45,6 @@ alias _e='sudo -e'
 alias _s='sudo -H -s'
 alias add='xargs | sed "s/ /+/g" | bc -l'
 alias ppjson='python -mjson.tool'
-alias lf='ls -rt | tail -1'
 alias tstamp='while read LINE; do echo "$(date +%H:%M:%S) $LINE"; done'
 alias dstamp='while read LINE; do echo "$(date +%Y%m%d-%H:%M:%S) $LINE"; done'
 alias hl="LESSOPEN='| source-highlight --outlang-def=esc256.outlang --style-file=esc256.style -i \"%s\"' LESS=' -R ' less"
@@ -57,12 +59,17 @@ alias whois="whois -h geektools.com"
 alias tf="terraform"
 alias 1p="op"
 alias terminate="aws ec2 terminate-instances --instance-ids"
+alias cdtop='cd "$(git rev-parse --show-toplevel)"'
 
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
 
 test -f "$HOME/.bash-my-aws/aliases" && source "$HOME/.bash-my-aws/aliases"
 test -f "$HOME/.bash-my-aws/bash_completion.sh" && source "$HOME/.bash-my-aws/bash_completion.sh"
+
+function lf {
+  ls -rt | tail -n ${1:-1}
+}
 
 function pw {
   pwgen -ncBy "${1:-12}" "${2:-1}"
@@ -121,10 +128,10 @@ function flatten
 
 function starship_precmd_func
 {
-    # set xterm window title    
+    # set xterm window title
     echo -ne "\033]0;${USER}@${SHORTHOST}\007"
 
-    # populate AWS_VAULT from okta profile 
+    # populate AWS_VAULT from okta profile
     if [[ -z $AWS_VAULT && $AWS_OKTA_PROFILE ]]; then
         export AWS_VAULT=$AWS_OKTA_PROFILE
     fi
@@ -170,13 +177,10 @@ function iterm2_print_user_vars {
     iterm2_set_user_var awsProfile "${AWS_VAULT:+${AWS_VAULT}@${AWS_REGION}}"
 }
 
+[[ -r ~/.iterm2_shell_integration.bash ]] && source ~/.iterm2_shell_integration.bash
+
 if command -v starship >/dev/null 2>&1; then
-  test -e ~/.iterm2_shell_integration.bash && source ~/.iterm2_shell_integration.bash
   export starship_precmd_user_func="starship_precmd_func"
   eval "$(starship init bash)"
-else
-  echo "Using fallback bash prompt -- install starship 🚀"
-  # iterm integration is in .bash_prompt
-  source ~/.bash_prompt
 fi
 

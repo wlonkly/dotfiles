@@ -12,7 +12,7 @@ fi
 BASH_ENV=$HOME/.bashrc
 
 # editors, in order of preference
-for ed in code subl vim vi; do
+for ed in code vim vi; do
   found=$(type -p $ed)
   if [[ -n $found ]]; then
     if [[ "$(basename "$found")" = "subl" ]]; then
@@ -38,7 +38,7 @@ if [[ ! -f "$HOME/.bashrc-daily-$(date +%Y%m%d)" && -z "$SUBSHELL" ]]; then
   #$HOME/gbin/vscode-settings-check
 fi
 
-if [[ $BASH_VERSINFO -lt 5 ]]; then 
+if [[ $BASH_VERSINFO -lt 5 ]]; then
   echo "WARNING: Using old bash version: $BASH_VERSION"
 fi
 
