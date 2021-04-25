@@ -48,7 +48,7 @@ linux*)
   test -e ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
   test -e ~/.asdf/completions/asdf.bash && source ~/.asdf/completions/asdf.bash
 
-  test -e /usr/share/doc/fzf/examples/completion.bash ]] && source /usr/share/doc/fzf/examples/completion.bash
+  test -e /usr/share/doc/fzf/examples/completion.bash && source /usr/share/doc/fzf/examples/completion.bash
 ;;
 
 esac
