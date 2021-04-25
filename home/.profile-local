@@ -28,7 +28,7 @@ darwin*)
     fi
 
     BREW_FZF=$HOMEBREW_PREFIX/opt/fzf
-    if [[ -r "$BREW_FZF/shell/completion.bash" ]]
+    if [[ -r "$BREW_FZF/shell/completion.bash" ]]; then
       source $BREW_FZF/shell/completion.bash
       # standard completions omit vscode
       complete -o bashdefault -o default -F _fzf_path_completion code
