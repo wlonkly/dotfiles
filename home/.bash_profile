@@ -38,9 +38,9 @@ if [[ ! -f "$HOME/.bashrc-daily-$(date +%Y%m%d)" && -z "$SUBSHELL" ]]; then
   #$HOME/gbin/vscode-settings-check
 fi
 
-if [[ $BASH_VERSINFO -lt 5 ]]; then
-  echo "WARNING: Using old bash version: $BASH_VERSION"
-fi
+#if [[ $BASH_VERSINFO -lt 5 ]]; then
+#  echo "WARNING: Using old bash version: $BASH_VERSION"
+#fi
 
 # comes last to override
 source ~/.profile-local
