@@ -42,9 +42,14 @@ format = "[$symbol](red)"
 repeat = true
 disabled = false
 
+# https://github.com/starship/starship/issues/2688
+# [jobs]
+# format = "\\[[$number](red)\\]"
+# threshold = 0
+
 [jobs]
-format = "\\[[$number](red)\\]"
-threshold = 0
+format = "\\[[$symbol$number](red)\\]"
+threshold = 1
 
 [hostname]
 ssh_only = true
@@ -99,11 +104,11 @@ format = '[( \($virtualenv\))](yellow)'
 format = "[( \\($profile(@$region)\\))](yellow)"
 
 [aws.region_aliases]
-us-west-2    = "usw2"
-us-west-1    = "usw1"
-us-east-2    = "use2"
-us-east-1    = "🔥use1🔥"
-ca-central-1 = "ca"
-eu-west-1    = "euw1"
-eu-central-1 = "euc1"
+us-west-2    = "\\U1F984"
+us-west-1    = "1️⃣ "
+us-east-2    = "🇺🇸 ➡️ "
+us-east-1    = "🔥 "
+ca-central-1 = "🇨🇦 "
+eu-west-1    = "☘️ "
+eu-central-1 = "🇩🇪 "
 
