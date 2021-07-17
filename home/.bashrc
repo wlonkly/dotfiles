@@ -60,6 +60,7 @@ alias tf="terraform"
 alias 1p="op"
 alias terminate="aws ec2 terminate-instances --instance-ids"
 alias cdtop='cd "$(git rev-parse --show-toplevel)"'
+alias dg='dig +nocmd +nocomments +noquestion +nostats +multiline'
 
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
