@@ -17,6 +17,7 @@ export GOPATH=~/code/go
 export FCEDIT=vi
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 export HOMEBREW_BUNDLE_FILE=~/.brewfile
+export HOMEBREW_NO_AUTO_UPDATE=1
 export SHORTHOST=$(echo $HOSTNAME | sed 's/\..*$//')
 export MYSQL_PS1="\u@\h:\d> "
 export PS2="..."
