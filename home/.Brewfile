@@ -1,5 +1,6 @@
 tap 'homebrew/core'
 tap 'homebrew/bundle'
+tap 'homebrew/cask-fonts'
 
 tap 'aws/tap'
 
@@ -41,6 +42,7 @@ brew 'expect'
 brew 'ffmpeg'
 brew 'findutils'
 brew 'flac'
+brew 'font-fira-code'
 brew 'fping'
 brew 'fzf'
 brew 'gh'
