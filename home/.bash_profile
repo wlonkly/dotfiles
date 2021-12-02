@@ -3,6 +3,7 @@
 # .bash_profile runs for LOGIN shells only
 # note that OS X terminals and ssh sessions are login shells, but xterms usually aren't
 #
+# test
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
