@@ -92,6 +92,11 @@ function rhist {
   rg -aN "$*" $HISTFILE
 }
 
+
+function pbcopy { 
+  cat $@ | command pbcopy
+}
+
 function avx
 {
   profile="$1";
