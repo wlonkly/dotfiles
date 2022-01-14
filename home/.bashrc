@@ -94,7 +94,7 @@ function rhist {
 
 
 function pbcopy { 
-  cat $@ | command pbcopy
+  cat "$@" | command pbcopy
 }
 
 function avx
