@@ -54,3 +54,5 @@
 	coloring = highlightRecent
 [color "blame"]
 	highlightRecent = 031,12 month ago,white,1 month ago,220,1 week ago,197
+[init]
+	defaultBranch = main
