@@ -17,6 +17,9 @@ darwin*)
   alias locate="mdfind -name"
   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
+  alias hide-desktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+  alias show-desktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
   if type brew &>/dev/null; then
     HOMEBREW_PREFIX="$(brew --prefix)"
     if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
