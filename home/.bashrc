@@ -69,6 +69,11 @@ test -x /usr/bin/batcat && alias bat="batcat"
 test -f "$HOME/.bash-my-aws/aliases" && source "$HOME/.bash-my-aws/aliases"
 test -f "$HOME/.bash-my-aws/bash_completion.sh" && source "$HOME/.bash-my-aws/bash_completion.sh"
 
+function wordle {
+  command grep "^${1}$" /usr/share/dict/words \
+    | command grep -v "[${2:-0}]"
+}
+
 function lf {
   ls -rt | tail -n ${1:-1}
 }
