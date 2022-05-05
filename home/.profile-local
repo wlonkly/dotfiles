@@ -36,6 +36,9 @@ darwin*)
       # standard completions omit vscode
       complete -o bashdefault -o default -F _fzf_path_completion code
     fi
+    if [[ -r "$BREW_FZF/shell/key-bindings.bash" ]]; then
+      source $BREW_FZF/shell/key-bindings.bash
+    fi
 
     BREW_ASDF=$HOMEBREW_PREFIX/opt/asdf
     test -e $BREW_ASDF/asdf.sh && source $BREW_ASDF/asdf.sh
