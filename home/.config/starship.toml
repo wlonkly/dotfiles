@@ -89,12 +89,12 @@ diverged = "↑${ahead_count}↓${behind_count}"
 behind   = "↓${count}"
 
 conflicted = "[ ✖$count✖ ](bold red)"
-staged     = "[✚ $count](green)"
-modified   = "[✚ $count](bold blue)"
+staged     = "[✚$count](green)"
+modified   = "[✚$count](bold blue)"
 deleted    = "[-$count](red)"
 renamed    = "[»$count](green)"
-untracked  = "[…$count](cyan)"
-stashed    = "[⚑ $count](bold blue)"
+untracked  = "[?$count](cyan)"
+stashed    = "[⚑$count](bold blue)"
 
 # only care about virtualenv
 [python]
@@ -108,7 +108,7 @@ us-west-2    = "usw2"
 us-west-1    = "usw1"
 us-east-2    = "use2"
 us-east-1    = "use1"
-ca-central-1 = "ca "
+ca-central-1 = "ca"
 eu-west-1    = "euw1"
 eu-central-1 = "euc1"
 
