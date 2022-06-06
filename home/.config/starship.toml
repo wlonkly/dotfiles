@@ -93,7 +93,7 @@ staged     = "[✚$count](green)"
 modified   = "[✚$count](bold blue)"
 deleted    = "[-$count](red)"
 renamed    = "[»$count](green)"
-untracked  = "[?$count](cyan)"
+untracked  = "[??$count](cyan)"
 stashed    = "[⚑$count](bold blue)"
 
 # only care about virtualenv
