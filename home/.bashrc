@@ -18,7 +18,7 @@ export FCEDIT=vi
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 export HOMEBREW_BUNDLE_FILE=~/.brewfile
 export HOMEBREW_NO_AUTO_UPDATE=1
-export SHORTHOST=$(echo $HOSTNAME | sed 's/\..*$//')
+export SHORTHOST=${HOSTNAME/\.*/}
 export MYSQL_PS1="\u@\h:\d> "
 export PS2="..."
 
@@ -76,7 +76,8 @@ function wordle {
 }
 
 function lf {
-  ls -rt | tail -n ${1:-1}
+  # shellcheck disable=SC2012
+  ls -rt | tail -n "${1:-1}"
 }
 
 function pw {
@@ -99,7 +100,7 @@ function rhist {
 }
 
 
-function pbcopy { 
+function pbcopy {
   cat "$@" | command pbcopy
 }
 
@@ -148,6 +149,13 @@ function starship_precmd_func
     if [[ -z $AWS_VAULT && $AWS_OKTA_PROFILE ]]; then
         export AWS_VAULT=$AWS_OKTA_PROFILE
     fi
+}
+
+function fd {
+  local dir
+  dir=$(find "${1:-.}" -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir" || return 1
 }
 
 if grep --help 2>&1 | grep --quiet color; then
