@@ -7,7 +7,8 @@
 [color]
     ui = true
 [alias]
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    lg = log --color --graph --pretty=format:'%Cgreen%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    recent = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
     pr = pull-request
     pro = pull-request -o
     co = checkout
@@ -19,6 +20,9 @@
     amend = commit --amend --no-edit
     tidy = rebase -i master
     empty-commit = commit --allow-empty -m \"empty commit\"
+    unstage = reset -q HEAD --
+    discard = checkout --
+    remotes = remote -v
 [core]
 	excludesfile = ~/.gitignore_global
     pager = delta
