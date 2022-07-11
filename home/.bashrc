@@ -63,6 +63,10 @@ alias terminate="aws ec2 terminate-instances --instance-ids"
 alias cdtop='cd "$(git rev-parse --show-toplevel)"'
 alias dg='dig +nocmd +nocomments +noquestion +nostats +multiline'
 alias d-c='docker compose'
+#alias altscr="printf '\e[?1049h'"
+#alias mainscr="printf '\e[?1049l'"
+alias altscr="tput smcup"
+alias mainscr="tput rmcup"
 
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
