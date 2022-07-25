@@ -162,6 +162,17 @@ function fd {
   cd "$dir" || return 1
 }
 
+# use side-by-side mode in delta(1) if the terminal is wide enough
+export DELTA_FEATURES
+function delta_sidebyside {     
+  if [[ COLUMNS -ge 120 ]]; then        
+    DELTA_FEATURES='side-by-side'    
+  else        
+    DELTA_FEATURES=''    
+  fi
+}
+trap delta_sidebyside WINCH
+
 if grep --help 2>&1 | grep --quiet color; then
   alias grep="grep --color=auto"
 fi
