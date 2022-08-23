@@ -27,9 +27,6 @@ for ed in code vim vi; do
   unset found
 done
 
-# ssh-add -L returns false if no identities present. handy
-ssh-add -L >/dev/null || ssh-add --apple-load-keychain 2>&1 | grep -v "Identity added"
-
 if [[ ! -f "$HOME/.bashrc-daily-$(date +%Y%m%d)" && -z "$SUBSHELL" ]]; then
   rm -f "$HOME"/.bashrc-daily-*
   touch "$HOME/.bashrc-daily-$(date +%Y%m%d)"

@@ -10,7 +10,9 @@ else
     DNSDOMAINNAME=$HOSTNAME
 fi
 
-# 1st pass: by OS
+###
+### By operating system
+###
 case $OSTYPE in
 
 darwin*)
@@ -52,6 +54,10 @@ darwin*)
   {
     terminal-notifier -message "$*"
   }
+
+  export APPLE_SSH_ADD_BEHAVIOR=macos
+  # ssh-add -L returns false if no identities present. handy
+  ssh-add -L >/dev/null || ssh-add -A 2>&1 | grep -v "Identity added"
 ;;
 
 linux*)
@@ -63,9 +69,9 @@ linux*)
 
 esac
 
-#
-#  2nd pass: by domain
-#
+###
+### By domain
+###
 # case $DNSDOMAINNAME in
 #
 ## *2ndsiteinc*|*freshbooks*|*fbks.in*)
@@ -74,10 +80,9 @@ esac
 ##
 ## esac
 
-
-#
-#  2nd pass: individual hosts
-#
+###
+### By individual hosts
+###
 case $HOSTNAME in
 
 # sometimes macOS thinks it's called "flounder-2" ???
