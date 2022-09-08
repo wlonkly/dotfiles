@@ -57,7 +57,8 @@ darwin*)
 
   export APPLE_SSH_ADD_BEHAVIOR=macos
   # ssh-add -L returns false if no identities present. handy
-  ssh-add -L >/dev/null || ssh-add -A 2>&1 | grep -v "Identity added"
+  # don't need this if you have "UseKeychain yes" in .ssh/config! 
+  #ssh-add -L >/dev/null || ssh-add -A 2>&1 | grep -v "Identity added"
 ;;
 
 linux*)
