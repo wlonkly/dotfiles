@@ -18,6 +18,7 @@ case $OSTYPE in
 darwin*)
   alias locate="mdfind -name"
   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+  alias pst="pstree -g2 -s bash"
 
   alias hide-desktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias show-desktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
