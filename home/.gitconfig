@@ -1,6 +1,6 @@
 [user]
 	name = Rich Lafferty
-	email = rlafferty@pagerduty.com
+	email = rich@lafferty.ca
 	signingkey = 731B12D443D0ECBE80E3073894DE1A8FC3B80CB6
 [push]
 	default = current
