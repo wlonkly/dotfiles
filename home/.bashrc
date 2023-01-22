@@ -216,6 +216,10 @@ function iterm2_print_user_vars {
 
 [[ -r ~/.iterm2_shell_integration.bash ]] && source ~/.iterm2_shell_integration.bash
 
+if [[ -e "${HOME}/.cargo/env" ]]; then
+  source "${HOME}/.cargo/env"
+fi
+
 if command -v starship >/dev/null 2>&1; then
   export starship_precmd_user_func="starship_precmd_func"
   eval "$(starship init bash)"
