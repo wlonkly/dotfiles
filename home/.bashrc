@@ -180,9 +180,9 @@ fi
 
 # shellcheck disable=SC2010
 if type gls >/dev/null 2>&1; then
-  alias ls="gls --color=tty"
+  alias ls="gls --color=tty --quoting-style=literal"
 elif ls --help 2>&1 | grep --quiet color; then
-  alias ls="ls --color=tty"
+  alias ls="ls --color=tty --quoting-style=literal"
 fi
 
 test -e ~/gbin/colorssh && alias ssh="colorssh"
