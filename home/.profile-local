@@ -87,8 +87,8 @@ esac
 ###
 case $HOSTNAME in
 
-# sometimes macOS thinks it's called "flounder-2" ???
-flounder*)
+octopus)
+  export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 ;;
 
 rlafferty*)
