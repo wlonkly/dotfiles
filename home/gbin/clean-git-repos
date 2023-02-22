@@ -1,0 +1,81 @@
+#!/bin/bash
+
+unset CDPATH
+export GIT_HTTP_CONNECT_TIMEOUT=5
+OLD_DAYS=30
+
+log () {
+  [ "$VERBOSE" ] && echo "$*"
+}
+
+check_remotes () {
+  local bad_remote=0
+  for remote in $(git remote -v | awk '{ print $2 }' |sort -u); do
+    if echo "$remote" | grep heroku; then
+      log "  Skipping Heroku remote $remote";
+      continue
+    fi
+    log "  Checking $remote"
+    if ! git ls-remote "$remote" HEAD >/dev/null; then
+      echo "warning: remote $remote is missing"
+      bad_remote=1
+    fi
+  done
+  return $bad_remote
+}
+
+check_uptodate () {
+  local status
+  status=$(git status --porcelain)
+  local unpushed
+  unpushed=$(git log --branches --not --remotes)
+
+  if [ "$status" ] || [ "$unpushed" ]; then
+    log "  check_uptodate: Uncommitted or unpushed changes present"
+    return 1
+  fi
+  log "  check_uptodate: No uncommitted or unpushed changes"
+  return 0  
+}
+
+check_old () {
+  local new_files
+  new_files=$(find . -type f -mtime -${OLD_DAYS} -and -not -path './.git/*')
+
+  if [ "$new_files" ]; then
+    log "  check_old: Found files newer than ${OLD_DAYS} days"
+    return 1
+  fi
+
+  log "  check_old: No files newer than ${OLD_DAYS} days"
+  return 0
+}
+
+check_keep () {
+  [ -e "$dir/.keep" ] && return 1
+}
+
+clean_git () {
+  local dir=${1/.git/}
+  log "Processing $dir"
+  (
+    cd "./$dir" || return 1
+    check_keep && check_uptodate && check_remotes && check_old
+  )
+  if [ $? == 0 ]; then
+    if [ "$DRY_RUN" ]; then
+       echo "dry-run: would remove $dir"
+    else
+       echo rm -rf "$dir"
+    fi
+  fi
+}
+
+
+if [ "$1" ]; then
+  clean_git "$1"
+else
+  for GITDIR in */.git; do
+    clean_git "$GITDIR"
+  done
+fi
