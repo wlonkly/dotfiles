@@ -7,7 +7,8 @@ if [ "$2" ]; then
 fi
 
 hostspec=$1
-host=$(echo $hostspec | sed -e 's/^.*@//' -e 's/\.[^.]*\.[^.]*$//')
+# [[ $hostspec =~ ^(.*@)?([^.]*) ]] && host=${BASH_REMATCH[@]:2}
+tmp=${hostspec/#*@/}; host=${tmp/.*}
 
 # The default color which will be used when not connected to any host.
 default_color="2048, 2048, 2048" 
@@ -45,20 +46,15 @@ function cleanup() {
 }
 
 function colors_to_hex {
-    colors=$1
-    range=65536 
-
-    color1=$(echo $colors|cut -d, -f1|cut -d. -f1)
-    color2=$(echo $colors|cut -d, -f2|cut -d. -f1)
-    color3=$(echo $colors|cut -d, -f3|cut -d. -f1)
-
-    hex1=$(echo "${color1} * 256 / ${range}" | bc)
-    hex2=$(echo "${color2} * 256 / ${range}" | bc)
-    hex3=$(echo "${color3} * 256 / ${range}" | bc)
-
-    printf "%02x%02x%02x\n" ${hex1} ${hex2} ${hex3}
+    echo $1 | awk -F , '
+      { 
+          gsub (/\.[0-9]+/, ""); 
+          for(i=1; i <= NF; i++) 
+          { 
+              printf "%02x", ($i * 256 / 65535) 
+          } 
+      }'
 }
-
 
 function set_color() {
     color=$@
