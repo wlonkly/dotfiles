@@ -25,6 +25,8 @@ check_remotes () {
 }
 
 check_uptodate () {
+  log "  Checking repo is up-to-date"
+
   local status
   status=$(git status --porcelain)
   local unpushed
@@ -39,6 +41,7 @@ check_uptodate () {
 }
 
 check_old () {
+  log "  Checking newest files"
   local new_files
   new_files=$(find . -type f -mtime -${OLD_DAYS} -and -not -path './.git/*')
 
@@ -52,7 +55,11 @@ check_old () {
 }
 
 check_keep () {
-  [ -e "$dir/.keep" ] && return 1
+  log "  Checking for .keep"
+  if [ -e ".keep" ]; then
+     log "  .keep exists, skipping"
+     return 1
+  fi
 }
 
 clean_git () {
@@ -66,7 +73,7 @@ clean_git () {
     if [ "$DRY_RUN" ]; then
        echo "dry-run: would remove $dir"
     else
-       echo rm -rf "$dir"
+       rm -rf "./$dir"
     fi
   fi
 }
