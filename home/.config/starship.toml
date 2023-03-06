@@ -36,11 +36,16 @@ error_symbol = "[:\\(](red)"
 format = "$symbol"
 
 [shlvl]
-threshold = 1
+threshold = 0
 symbol = "^"
 format = "[$symbol](red)"
 repeat = true
 disabled = false
+
+
+#[shlvl]
+#disabled = false
+#threshold = 0
 
 # https://github.com/starship/starship/issues/2688
 # [jobs]
