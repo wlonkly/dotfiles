@@ -43,12 +43,17 @@ darwin*)
       source $BREW_FZF/shell/key-bindings.bash
     fi
 
-    export FZF_DEFAULT_OPTS="--color=dark
+    if [[ $ITERM_SESSION_ID ]]; then
+      export FZF_DEFAULT_OPTS="
 --color=fg:-1,bg:#252c31,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
---color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef"
+--color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef
+"
+    else
+      export FZF_DEFAULT_OPTS="--color=16"
+    fi
 
-    BREW_ASDF=$HOMEBREW_PREFIX/opt/asdf
-    test -e $BREW_ASDF/asdf.sh && source $BREW_ASDF/asdf.sh
+    export ASDF_DIR=$HOMEBREW_PREFIX/opt/asdf/libexec
+    test -e $ASDF_DIR/asdf.sh && source $ASDF_DIR/asdf.sh
   fi
 
   function tn
