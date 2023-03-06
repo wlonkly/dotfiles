@@ -23,6 +23,8 @@
     unstage = reset -q HEAD --
     discard = checkout --
     remotes = remote -v
+	sw = switch
+	re = restore
 [core]
 	excludesfile = ~/.gitignore_global
     pager = delta
