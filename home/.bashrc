@@ -68,6 +68,7 @@ alias d-c='docker compose'
 alias altscr="tput smcup"
 alias mainscr="tput rmcup"
 alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
+alias k="kubectl"
 
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
