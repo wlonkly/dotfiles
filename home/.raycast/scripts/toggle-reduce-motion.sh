@@ -15,7 +15,7 @@
 
 notify () {
   state=$1
-  terminal-notifier -sender com.raycast.macos -title "Reduce Motion" -ignoreDnD -message "Reduce motion ${state}"
+  terminal-notifier -sender com.raycast.macos -title "Reduce Motion" -ignoreDnD -message "Motion is now ${state}"
 }
 
 shortcuts run "Toggle Reduce Motion"
@@ -23,7 +23,7 @@ shortcuts run "Toggle Reduce Motion"
 STATUS=$(defaults read com.apple.universalaccess reduceMotion)
 
 if [[ $STATUS == 1 ]]; then
-  notify enabled
+  echo "Motion disabled"
 else
-  notify disabled
+  echo "Motion enabled"
 fi
