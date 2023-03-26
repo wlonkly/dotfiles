@@ -1,0 +1,10 @@
+#!/bin/sh 
+
+set -e
+
+find ~/Downloads -maxdepth 1 -mtime +60 -delete
+find ~/Screenshots -maxdepth 1 -mtime +60 -delete
+
+cd ~/code 
+~/gbin/clean-git-repos
+

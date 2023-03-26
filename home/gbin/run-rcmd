@@ -1,0 +1,9 @@
+#!/bin/bash
+
+killall rcmd
+
+while true; do
+    /Applications/rcmd.app/Contents/MacOS/rcmd &
+    sleep 1800
+    killall rcmd
+done
