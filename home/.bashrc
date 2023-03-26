@@ -22,7 +22,7 @@ export SHORTHOST=${HOSTNAME/\.*/}
 export MYSQL_PS1="\u@\h:\d> "
 export PS2="..."
 
-export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 export CDPATH=.:$HOME:$HOME/code
 
 # history file
@@ -218,6 +218,10 @@ function iterm2_print_user_vars {
 
 if [[ -e "${HOME}/.cargo/env" ]]; then
   source "${HOME}/.cargo/env"
+fi
+
+if command -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook bash)"
 fi
 
 if command -v starship >/dev/null 2>&1; then
