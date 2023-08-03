@@ -68,6 +68,7 @@ alias altscr="tput smcup"
 alias mainscr="tput rmcup"
 alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
 alias k="kubectl"
+alias kubeclr="kubectl config unset current-context"
 
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"

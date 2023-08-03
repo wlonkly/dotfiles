@@ -26,6 +26,7 @@ $username\
 $hostname\
 $git_branch$git_commit$git_state$git_status\
 $aws\
+$kubernetes\
 $directory\
 $jobs\
 ](cyan)\\$ """
@@ -42,6 +43,13 @@ format = "[$symbol](red)"
 repeat = true
 disabled = false
 
+[kubernetes]
+disabled = false
+format = " [\\($context/$namespace\\)]($style)"
+style = "green"
+
+[kubernetes.context_aliases] 
+pd-kubectx = "pd"
 
 #[shlvl]
 #disabled = false
