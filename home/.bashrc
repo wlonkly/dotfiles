@@ -68,6 +68,7 @@ alias altscr="tput smcup"
 alias mainscr="tput rmcup"
 alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
 alias k="kubectl"
+alias kns="kubectl config set-context --current --namespace"
 alias kubeclr="kubectl config unset current-context"
 
 # ubuntu why
