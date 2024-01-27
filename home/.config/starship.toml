@@ -44,7 +44,7 @@ repeat = true
 disabled = false
 
 [kubernetes]
-disabled = false
+disabled = true
 format = " [\\($context/$namespace\\)]($style)"
 style = "green"
 

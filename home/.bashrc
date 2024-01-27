@@ -167,11 +167,11 @@ function fd {
 
 # use side-by-side mode in delta(1) if the terminal is wide enough
 export DELTA_FEATURES
-function delta_sidebyside {     
-  if [[ COLUMNS -ge 120 ]]; then        
-    DELTA_FEATURES='side-by-side'    
-  else        
-    DELTA_FEATURES=''    
+function delta_sidebyside {
+  if [[ COLUMNS -ge 120 ]]; then
+    DELTA_FEATURES='side-by-side'
+  else
+    DELTA_FEATURES=''
   fi
 }
 trap delta_sidebyside WINCH
@@ -213,7 +213,19 @@ mkdir -p "$HOME/.ssh/c"
 
 # https://iterm2.com/documentation-scripting-fundamentals.html
 function iterm2_print_user_vars {
-    iterm2_set_user_var awsProfile "${AWS_VAULT:+${AWS_VAULT}@${AWS_REGION}}"
+    local profile="${AWS_VAULT:+${AWS_VAULT}@${AWS_REGION}}"
+    if [[ "$profile" ]]; then
+        iterm2_set_user_var awsProfile "☁️ $profile"
+    else
+        iterm2_set_user_var awsProfile ''
+    fi
+
+    local context=$(kubectl config view --minify -o jsonpath='{.current-context}/{..namespace}' 2>/dev/null)
+    if [[ "$context" ]]; then
+        iterm2_set_user_var kubeCtx "☸️ $context"
+    else
+        iterm2_set_user_var kubeCtx ''
+    fi
 }
 
 [[ -r ~/.iterm2_shell_integration.bash ]] && source ~/.iterm2_shell_integration.bash
