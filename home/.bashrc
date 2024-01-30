@@ -67,9 +67,12 @@ alias d-c='docker compose'
 alias altscr="tput smcup"
 alias mainscr="tput rmcup"
 alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
+
 alias k="kubectl"
+alias kctx="kubectl config set-context"
 alias kns="kubectl config set-context --current --namespace"
 alias kubeclr="kubectl config unset current-context"
+complete -F __start_kubectl k
 
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
@@ -202,7 +205,7 @@ if [[ -d "${HS_DIR}" ]]; then
   alias hs=homeshick
 fi
 
-for i in ~/.bash_completion.d/* /usr/local/etc/profile.d/bash_completion.sh; do
+for i in ~/.bash_completion.d/* /opt/homebrew/bash_completion.d/*; do
   # the test handles the case where the wildcard expands to nothing
   test -f "$i" && source "$i"
 done
