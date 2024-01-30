@@ -71,7 +71,10 @@ linux*)
   test -e ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
   test -e ~/.asdf/completions/asdf.bash && source ~/.asdf/completions/asdf.bash
 
-  test -e /usr/share/doc/fzf/examples/completion.bash && source /usr/share/doc/fzf/examples/completion.bash
+  FZF_DIR=/usr/share/doc/fzf/examples
+  for i in completion.bash key-bindings.bash; do
+    test -e "$FZF_DIR/$i" && source "$FZF_DIR/$i"
+  done
 ;;
 
 esac
@@ -93,7 +96,6 @@ esac
 case $HOSTNAME in
 
 octopus)
-  export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 ;;
 
 rlafferty*)
