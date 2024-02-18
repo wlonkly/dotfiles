@@ -35,4 +35,6 @@ function zoomApps()
 end
 
 zoomMuteState = hs.menubar.new(false, "zoomMuteState")
+
+-- TODO: wrap this timer in an hs.application.watcher so it stops when Zoom is not running
 zoomMuteChecker = hs.timer.doEvery(2, updateZoomMuteState)
