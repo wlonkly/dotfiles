@@ -1,4 +1,22 @@
+--
+-- https://spinscale.de/posts/2023-02-01-using-hammerspoon-to-enable-lighting-for-meetings.html
+--
+
 print("Loaded CameraLights.lua")
+
+hubitatLightDevice = '159'
+hubitatHost = 'hubitat.local'
+
+function switchLights(state)
+  local url = string.format('http://%s/apps/api/71/devices/%s/%s?access_token=%s', hubitatHost, hubitatLightDevice, state, hubitatApiToken)
+  hs.http.asyncGet(url, nil, function(status, body, headers)
+    if status == 200 then
+      print("Switched lights to " .. state)
+    else
+      print("Failed to switch lights to " .. state)
+    end
+  end)
+end
 
 function stopConfigureAndStartPropertyWatcher(camera)
   if camera:isPropertyWatcherRunning() then
@@ -23,10 +41,11 @@ function checkLights()
 
   -- TODO: check for connection to... something? monitor? wifi? to make sure i am at my desk!
   if (anyCameraInUse) then
-    -- toggle lights here
     print("Camera in use")
+    switchLights('on')
   else
     print("Camera not in use")
+    switchLights('off')
   end
 end
 

@@ -1,1 +1,2 @@
-require("CameraLights")
+require "secrets"
+require "CameraLights"
