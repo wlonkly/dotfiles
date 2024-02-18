@@ -8,12 +8,12 @@ function updateZoomMuteState()
     if app:findMenuItem({"Meeting", "Unmute Audio"}) then
       -- muted
       zoomMuteState:returnToMenuBar()
-      zoomMuteState:setTitle("🔴")
+      zoomMuteState:setIcon("~/.hammerspoon/ZoomMuteState/muted.png", false)
       return
     elseif app:findMenuItem({"Meeting", "Mute Audio"}) then
       -- unmuted
       zoomMuteState:returnToMenuBar()
-      zoomMuteState:setTitle("🟢")
+      zoomMuteState:setIcon("~/.hammerspoon/ZoomMuteState/unmuted.png", false)
       return
     end
 
