@@ -1,3 +1,5 @@
+#!/usr/bin/osascript
+
 property liveTitle : "Mute audio"
 property mutedTitle : "Unmute audio"
 
