@@ -69,8 +69,8 @@ alias mainscr="tput rmcup"
 alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
 
 alias k="kubectl"
-alias kctx="kubectl config use-context"
-alias kns="kubectl config set-context --current --namespace"
+alias kctx="kubectx"
+alias kns="kubens"
 alias kubeclr="kubectl config unset current-context"
 complete -F __start_kubectl k
 
