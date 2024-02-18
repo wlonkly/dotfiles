@@ -7,7 +7,12 @@
 [color]
     ui = true
 [alias]
-    lg = log --color --graph --pretty=format:'%Cgreen%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    # lg = log --color --graph --pretty=format:'%Cgreen%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    # https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
+    lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all 
+    # https://news.ycombinator.com/item?id=39408768
+    branches = "for-each-ref --sort=-committerdate refs/heads --format='%(authordate:short) %(color:yellow)%(objectname:short) %(color:green)%(refname:short)%(color:reset) (%(color:cyan)%(committerdate:relative)%(color:reset)) %(authorname)'"
+    branches-remote = "for-each-ref --sort=-committerdate refs/heads refs/remotes --format='%(authordate:short) %(color:yellow)%(objectname:short) %(color:green)%(refname:short)%(color:reset) (%(color:cyan)%(committerdate:relative)%(color:reset)) %(authorname)'"
     recent = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
     pr = pull-request
     pro = pull-request -o
@@ -25,6 +30,8 @@
     remotes = remote -v
 	sw = switch
 	re = restore
+    fixup = commit --fixup
+    alias = "!git config --get-regexp ^alias. | sed 's/^alias.//'" 
 [core]
 	excludesfile = ~/.gitignore_global
     pager = delta
@@ -41,8 +48,10 @@
 	process = git-lfs filter-process
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+    insteadOf = "gh:"
 [pull]
 	rebase = true
+	ff = only
 [delta]
     # all of these cyans are blue by default which is very dark. 
     file-style = cyan
@@ -56,6 +65,7 @@
     diffFilter = delta --color-only
 [commit]
 	gpgsign = true
+	verbose = true
 [blame]
 	coloring = highlightRecent
 [color "blame"]
@@ -64,3 +74,16 @@
 	defaultBranch = main
 [rebase]
 	autoStash = true
+	autosquash = true
+[merge]
+	conflictstyle = zdiff3
+[rerere]
+	enabled = true
+[help]
+	autocorrect = 20
+[diff]
+	algorithm = histogram
+[log]
+	date = iso
+[fetch]
+	prune = true
