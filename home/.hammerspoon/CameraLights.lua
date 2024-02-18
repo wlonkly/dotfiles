@@ -40,6 +40,8 @@ function checkLights()
   end
 
   -- TODO: check for connection to... something? monitor? wifi? to make sure i am at my desk!
+  -- hs.battery.powerSource() == "AC Power"
+  -- hs.wifi.currentNetwork() == "Suckerfish"
   if (anyCameraInUse) then
     print("Camera in use")
     switchLights('on')
