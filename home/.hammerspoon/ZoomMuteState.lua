@@ -3,11 +3,11 @@ print "Loaded ZoomMuteState.lua"
 -- check zoom menus to see if muted
 function updateZoomMuteState()
   for k, app in pairs(zoomApps()) do
-    if app:findMenuItem({"Meeting", "Unmute Audio"}) then
+    if app:findMenuItem({"Meeting", "Unmute audio"}) then
       -- muted
       zoomUpdateMenubar("~/.hammerspoon/ZoomMuteState/muted.png")
       return
-    elseif app:findMenuItem({"Meeting", "Mute Audio"}) then
+    elseif app:findMenuItem({"Meeting", "Mute audio"}) then
       -- unmuted
       zoomUpdateMenubar("~/.hammerspoon/ZoomMuteState/unmuted.png")
       return
