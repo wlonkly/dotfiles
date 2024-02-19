@@ -30,7 +30,18 @@ function stopConfigureAndStartPropertyWatcher(camera)
   camera:startPropertyWatcher()
 end
 
+function atDesk()
+  return hs.battery.powerSource() == "AC Power"
+     and hs.wifi.currentNetwork() == "Suckerfish"
+     and hs.screen.primaryScreen():name() ~= "Built-in Retina Display"
+end
+
 function checkLights()
+  if not atDesk() then
+    print("Not at desk, not checking lights")
+    return
+  end
+
   local anyCameraInUse = false
   for k, camera in pairs(hs.camera.allCameras()) do
     print(string.format('Checking camera %s, is in use: %s', camera:name(), camera:isInUse()))
@@ -39,9 +50,6 @@ function checkLights()
     end
   end
 
-  -- TODO: check for connection to... something? monitor? wifi? to make sure i am at my desk!
-  -- hs.battery.powerSource() == "AC Power"
-  -- hs.wifi.currentNetwork() == "Suckerfish"
   if (anyCameraInUse) then
     print("Camera in use")
     switchLights('on')
