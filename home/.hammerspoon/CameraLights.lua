@@ -4,7 +4,7 @@
 
 print("Loaded CameraLights.lua")
 
-hubitatLightDevice = '159'
+hubitatLightDevice = '149'
 hubitatHost = 'hubitat.local'
 
 function switchLights(state)
@@ -25,7 +25,9 @@ function stopConfigureAndStartPropertyWatcher(camera)
 
   camera:setPropertyWatcherCallback(function(camera, property, scope, element)
     print("camera watcher call back triggered for " .. camera:name())
-    checkLights()
+    -- switching cameras will produce two events but we'll only respond
+    -- to the first one, so give it a moment
+    hs.timer.doAfter(1, checkLights)
   end)
   camera:startPropertyWatcher()
 end
