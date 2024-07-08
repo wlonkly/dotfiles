@@ -103,6 +103,8 @@ rlafferty*)
   export GIT_AUTHOR_EMAIL='rlafferty@pagerduty.com'
   export GIT_COMMITTER_EMAIL=${GIT_AUTHOR_EMAIL}
 
+  export SAML2AWS_USERNAME="rlafferty"
+  export SAML2AWS_DUO_MFA_OPTION="Passcode"
   export AWS_OKTA_MFA_DUO_DEVICE=token
 
   function knifestg    { bundle exec knife "$@" -c ~/.chef/stage/knife.rb; }
