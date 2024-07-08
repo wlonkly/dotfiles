@@ -27,7 +27,7 @@ for ed in code vim vi; do
   unset found
 done
 
-if [[ ! -f "$HOME/.bashrc-daily-$(date +%Y%m%d)" && -z "$SUBSHELL" ]]; then
+if [[ ! -f "$HOME/.bashrc-daily-$(date +%Y%m%d)" && "$SHLVL" == "1" ]]; then
   rm -f "$HOME"/.bashrc-daily-*
   touch "$HOME/.bashrc-daily-$(date +%Y%m%d)"
   homeshick check
