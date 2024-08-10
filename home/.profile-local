@@ -36,12 +36,12 @@ darwin*)
 
     BREW_FZF=$HOMEBREW_PREFIX/opt/fzf
     if [[ -r "$BREW_FZF/shell/completion.bash" ]]; then
-      source $BREW_FZF/shell/completion.bash
+      source "$BREW_FZF"/shell/completion.bash
       # standard completions omit vscode
       complete -o bashdefault -o default -F _fzf_path_completion code
     fi
     if [[ -r "$BREW_FZF/shell/key-bindings.bash" ]]; then
-      source $BREW_FZF/shell/key-bindings.bash
+      source "$BREW_FZF"/shell/key-bindings.bash
     fi
 
     if [[ $ITERM_SESSION_ID ]]; then
@@ -53,8 +53,8 @@ darwin*)
       export FZF_DEFAULT_OPTS="--color=16"
     fi
 
-    export ASDF_DIR=$HOMEBREW_PREFIX/opt/asdf/libexec
-    test -e $ASDF_DIR/asdf.sh && source $ASDF_DIR/asdf.sh
+    export ASDF_DIR="$HOMEBREW_PREFIX"/opt/asdf/libexec
+    test -e "$ASDF_DIR"/asdf.sh && source "$ASDF_DIR"/asdf.sh
   fi
 
   function tn
