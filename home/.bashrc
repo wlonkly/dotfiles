@@ -85,6 +85,10 @@ function wordle {
     | command grep -v "[${2:-0}]"
 }
 
+function cw {
+  grep -hi "^$1$" /usr/share/dict/* | sort -u
+} 
+
 function lf {
   # shellcheck disable=SC2012
   ls -rt | tail -n "${1:-1}"
@@ -223,7 +227,8 @@ function iterm2_print_user_vars {
         iterm2_set_user_var awsProfile ''
     fi
 
-    local context=$(kubectl config view --minify -o jsonpath='{.current-context}/{..namespace}' 2>/dev/null)
+    local context
+    context=$(kubectl config view --minify -o jsonpath='{.current-context}/{..namespace}' 2>/dev/null)
     if [[ "$context" ]]; then
         iterm2_set_user_var kubeCtx "☸️ $context"
     else
