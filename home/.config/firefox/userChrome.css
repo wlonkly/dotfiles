@@ -1,0 +1,35 @@
+scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item > .toolbarbutton-icon {
+  display: none; 
+}
+
+scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item {
+  font-size: 13px !important;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+}
+
+#TabsToolbar>.toolbar-items,
+#TabsToolbar>.titlebar-spacer {
+  visibility: hidden
+}
+
+#nav-bar {
+  margin-top: -35px;
+  padding: 0px 5px 0px 70px !important;
+}
+
+#nav-bar[inFullscreen] {
+  padding: 0px 0px 0px 0px !important;
+}
+
+#sidebar-header {
+  visibility: collapse !important;
+}
+
+#main-window[privatebrowsingmode="temporary"] #PersonalToolbar {
+  background: #330f7a !important;
+}
+
+#main-window[privatebrowsingmode="temporary"] #nav-bar {
+  background: #330f7a !important;
+}
