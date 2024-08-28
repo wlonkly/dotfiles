@@ -1,10 +1,13 @@
 --
 -- https://spinscale.de/posts/2023-02-01-using-hammerspoon-to-enable-lighting-for-meetings.html
 --
+-- This script toggles a switch on Hubitat whenever a webcam is in use.
+-- Usually that's to turn lights on and off, but the lighting logic is 
+-- in a Rule Machine app there, not here. 
 
 print("Loaded CameraLights.lua")
 
-hubitatLightDevice = '149'
+hubitatLightDevice = '159'  -- zoom MEETING, not zoom LIGHT
 hubitatHost = 'hubitat.local'
 
 function switchLights(state)
