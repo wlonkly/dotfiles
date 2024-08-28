@@ -12,7 +12,5 @@
 # @raycast.author Rich Lafferty
 # @raycast.authorURL https://github.com/wlonkly/
 
-words=$(pbpaste | wc -w)
-minutes=$(echo "scale=2;${words} / 200" | bc -l)
-
-echo "${minutes} minutes"
+minutes=$(( ( $(pbpaste | wc -w) / 200) + 1))
+echo "${minutes} min"
