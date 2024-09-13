@@ -6,6 +6,12 @@
 # in subshells"
 #
 
+function sourceif
+{
+  [[ -r "$1" ]] && source "$1"
+  return 0
+}
+
 # Defaults prior to local settings
 unset MAILCHECK
 unset MAIL
@@ -33,11 +39,10 @@ export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=ignoreboth
 
-
 # Read in local settings
 for bashrc in /etc/bashrc /etc/bash.bashrc
 do
-  test -r $bashrc && source $bashrc
+  sourceif $bashrc  
 done
 
 alias fdate="date +%Y%m%d"
@@ -77,8 +82,8 @@ complete -F __start_kubectl k
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
 
-test -f "$HOME/.bash-my-aws/aliases" && source "$HOME/.bash-my-aws/aliases"
-test -f "$HOME/.bash-my-aws/bash_completion.sh" && source "$HOME/.bash-my-aws/bash_completion.sh"
+sourceif "$HOME/.bash-my-aws/aliases"
+sourceif "$HOME/.bash-my-aws/bash_completion.sh" 
 
 function wordle {
   command grep "^${1}$" /usr/share/dict/words \
@@ -149,6 +154,7 @@ function aox
   esac
 }
 
+
 function flatten
 {
   ruby -e 'p ARGF.read.gsub("\r", "")' "$@"
@@ -211,11 +217,10 @@ fi
 
 for i in ~/.bash_completion.d/* /opt/homebrew/bash_completion.d/*; do
   # the test handles the case where the wildcard expands to nothing
-  test -f "$i" && source "$i"
+  sourceif "$i"
 done
 
 # for ControlMaster
-test -d "$HOME/.ssh/controlmasters" && rmdir "$HOME/.ssh/controlmasters"
 mkdir -p "$HOME/.ssh/c"
 
 # https://iterm2.com/documentation-scripting-fundamentals.html
@@ -236,11 +241,9 @@ function iterm2_print_user_vars {
     fi
 }
 
-[[ -r ~/.iterm2_shell_integration.bash ]] && source ~/.iterm2_shell_integration.bash
+sourceif ~/.iterm2_shell_integration.bash
 
-if [[ -e "${HOME}/.cargo/env" ]]; then
-  source "${HOME}/.cargo/env"
-fi
+sourceif "${HOME}/.cargo/env"
 
 if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook bash)"

@@ -31,7 +31,7 @@ darwin*)
       source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
     else
       for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-        [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+        sourceif $COMPLETION
       done
     fi
 
@@ -41,9 +41,9 @@ darwin*)
       # standard completions omit vscode
       complete -o bashdefault -o default -F _fzf_path_completion code
     fi
-    if [[ -r "$BREW_FZF/shell/key-bindings.bash" ]]; then
-      source "$BREW_FZF"/shell/key-bindings.bash
-    fi
+
+    sourceif "$BREW_FZF/shell/key-bindings.bash"
+    sourceif "$HOME/.orbstack/shell/init.bash"
 
     if [[ $ITERM_SESSION_ID ]]; then
       export FZF_DEFAULT_OPTS="
@@ -55,7 +55,7 @@ darwin*)
     fi
 
     export ASDF_DIR="$HOMEBREW_PREFIX"/opt/asdf/libexec
-    test -e "$ASDF_DIR"/asdf.sh && source "$ASDF_DIR"/asdf.sh
+    sourceif "$ASDF_DIR"/asdf.sh
   fi
 
   function tn
@@ -70,12 +70,12 @@ darwin*)
 ;;
 
 linux*)
-  test -e ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
-  test -e ~/.asdf/completions/asdf.bash && source ~/.asdf/completions/asdf.bash
+  sourceif ~/.asdf/asdf.sh
+  sourceif ~/.asdf/completions/asdf.bash
 
   FZF_DIR=/usr/share/doc/fzf/examples
   for i in completion.bash key-bindings.bash; do
-    test -e "$FZF_DIR/$i" && source "$FZF_DIR/$i"
+    sourceif $i
   done
 ;;
 
