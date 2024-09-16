@@ -16,13 +16,8 @@
 clipboard_command=$(ls -1 /usr/bin/pbp*)
 input=$($clipboard_command)
 
-fifth_symbol=$'\x65'
-fifth_symbol_caps=$'\x45'
-ok=$'\342\234\205'
-kaboom=$'\342\235\214'
-crimson="\x1b[31m"
-normal="\x1b[0m"
-
-[[ ${input} == *"${fifth_symbol}"* ]] && symbol=${fifth_symbol}
-[[ ${input} == *"${fifth_symbol_caps}"* ]] && symbol=${fifth_symbol_caps}
-[[ -n ${symbol} ]] && printf "${kaboom} ${input/${symbol}/${crimson}${symbol}${normal}}\n" || printf "${ok} ${input}\n"
+if echo $input | grep --quiet e; then
+    echo -e "❌ $(echo $input | sed 's/e/\\033[31me\\033[0m/g')"
+else
+    echo "✅ $input"
+fi
