@@ -178,6 +178,20 @@ function fd {
   cd "$dir" || return 1
 }
 
+# e6e () { LEN=$(echo $1 | sed 's/^.\(.*\).$/\1/'); GREP=$(echo $1 |sed "s/^\(.\).*\(.\)$/^\1.{$LEN}\2$/"); grep -E "$GREP" /usr/share/dict/words; 
+# a8e () { LEN=$(( $(echo -n $1 | wc -c) - 2)); echo $1 | sed "s/^\(.\).*\(.\)$/\1$LEN\2/"; }
+
+function e6e { # enhance
+  LEN=$(echo $1 | sed 's/^.\(.*\).$/\1/')
+  GREP=$(echo $1 |sed "s/^\(.\).*\(.\)$/^\1.{$LEN}\2$/")
+  grep -E "$GREP" /usr/share/dict/words
+}
+
+function a8e { # abbreviate
+  LEN=$(( $(echo -n $1 | wc -c) - 2))
+  echo $1 | sed "s/^\(.\).*\(.\)$/\1$LEN\2/"
+}
+
 # use side-by-side mode in delta(1) if the terminal is wide enough
 export DELTA_FEATURES
 function delta_sidebyside {
