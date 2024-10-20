@@ -31,6 +31,8 @@
     remotes = remote -v
 	sw = switch
 	re = restore
+    # Taken from here: https://aaronbonner.io/post/80766268890/git-alias-to-simplify-setting-upstream-branch
+    set-upstream = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
     fixup = commit --fixup
     alias = "!git config --get-regexp ^alias. | sed 's/^alias.//'" 
 [core]
