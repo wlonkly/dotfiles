@@ -1,7 +1,5 @@
 #!/bin/bash
 
-date >> /tmp/rgb.log
-
 PATH=/opt/homebrew/bin:$PATH
 export PATH
 
