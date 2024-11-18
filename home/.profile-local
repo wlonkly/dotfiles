@@ -63,6 +63,20 @@ darwin*)
     terminal-notifier -message "$*"
   }
 
+  fixrgb () {
+    local current=$(betterdisplaycli get -namelike=dell -connectionMode)
+    current=${current%% -*}
+  
+    local rgb=$(betterdisplaycli get -namelike=dell -connectionModeList | grep 'RGB Full')
+    rgb=${rgb%% -*}
+  
+    if [[ "$current" != "$rgb" ]]; then
+      echo "Setting RGB mode..."
+      sleep 1
+      betterdisplaycli set -namelike=dell -connectionMode=${rgb}
+    fi
+  }
+
   export APPLE_SSH_ADD_BEHAVIOR=macos
   # ssh-add -L returns false if no identities present. handy
   # don't need this if you have "UseKeychain yes" in .ssh/config! 
