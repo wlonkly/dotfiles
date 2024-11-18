@@ -85,6 +85,10 @@ test -x /usr/bin/batcat && alias bat="batcat"
 sourceif "$HOME/.bash-my-aws/aliases"
 sourceif "$HOME/.bash-my-aws/bash_completion.sh" 
 
+function ossl_expiry {
+  openssl s_client -connect ${1}:443 < /dev/null 2> /dev/null | openssl x509 -noout -text | egrep  'DNS|Not ' | sed 's/^ *//'
+}
+
 function wordle {
   command grep "^${1}$" /usr/share/dict/words \
     | command grep -v "[${2:-0}]"
