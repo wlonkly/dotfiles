@@ -10,3 +10,4 @@ pager:
 aliases:
     co: pr checkout
     pcw: pr create --web
+version: "1"
