@@ -52,6 +52,8 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com/
     insteadOf = "gh:"
+[url "git@github.com:PagerDuty/"]
+    insteadOf = "pd:"
 [pull]
 	rebase = true
 	ff = only
