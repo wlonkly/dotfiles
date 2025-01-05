@@ -1,0 +1,24 @@
+theme = iTerm2 Smoooooth
+
+background = 191919
+foreground = fbfefc
+selection-background = b83cb8
+selection-foreground = fbfefc
+
+cursor-style = block
+cursor-style-blink = false
+cursor-text = fbfefc
+cursor-color = b83cb8
+
+mouse-hide-while-typing = true
+
+font-family = Fira Code
+font-size = 11
+
+window-padding-x = 2
+window-padding-y = 3,5
+
+macos-titlebar-style = tabs
+
+clipboard-paste-protection = true
+shell-integration-features = no-title,no-cursor
