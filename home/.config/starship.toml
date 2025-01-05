@@ -15,21 +15,43 @@
 # 8. Current directory, truncated if too long
 # 9. Number of background jobs
 #
+#
+# backup character
+# connections:  ╭─
+# 󰂵           󰝨 󰙴  󰊠 󱙝 
+# directory:     󰷏
+# omit: ⚛︎ · 󱏿·     󰝡 …
+# git thing:   
+# powerline:    
 
 add_newline = false
 
 format = """[\
+($kubernetes$aws$python\n)\
 $shlvl\
 $character\
-$python\
 $username\
 $hostname\
 $git_branch$git_commit$git_state$git_status\
-$aws\
-$kubernetes\
 $directory\
 $jobs\
 ](cyan)\\$ """
+
+palette = "default" 
+
+[palettes.default]
+prompt_ok  = "#8047c1"
+prompt_err = "#e23140"
+icon       = "#161514"
+separator  = "#454545"
+background = "#404040"
+
+directory  = "#9f31e2"
+duration   = "#e26f31"
+status     = "#e23140"
+kubernetes = "#326CE5" # https://github.com/kubernetes/kubernetes/blob/master/logo/colors.md
+aws        = "#FF9900"
+python     = "#FFD43B"
 
 [character]
 success_symbol = "[:\\)](cyan)"
@@ -44,12 +66,12 @@ repeat = true
 disabled = false
 
 [kubernetes]
-disabled = true
-format = " [\\($context/$namespace\\)]($style)"
-style = "green"
+disabled = false
+format = "[](fg:kubernetes)[⎈ ](fg:icon bg:kubernetes)[](fg:kubernetes bg:background)[ $context/$namespace](bg:background)[](fg:background) "
 
-[kubernetes.context_aliases] 
-pd-kubectx = "pd"
+[[kubernetes.contexts]]
+context_pattern = "pd-kubectx"
+context_alias = "pd"
 
 #[shlvl]
 #disabled = false
@@ -111,10 +133,12 @@ stashed    = "[⚑$count](bold blue)"
 
 # only care about virtualenv
 [python]
-format = '[( \($virtualenv\))](yellow)'
+#format = '[(\($virtualenv\))](yellow) '
+format = "[](fg:python)[ ](fg:icon bg:python)[](fg:python bg:background)[ $virtualenv](bg:background)[](fg:background) "
 
 [aws]
-format = "[( \\($profile(@$region)\\))](yellow)"
+format = "[](fg:aws)[ ](fg:icon bg:aws)[](fg:aws bg:background)[ $profile(@$region)](bg:background)[](fg:background) "
+#format = "[(\\($profile(@$region)\\))](yellow) "
 
 [aws.region_aliases]
 us-west-2    = "usw2"
