@@ -1,11 +1,10 @@
 theme = iTerm2 Smoooooth
 
-background = 191919
+background = 252525
 foreground = fbfefc
 selection-background = b83cb8
 selection-foreground = fbfefc
 
-cursor-style = block
 cursor-style-blink = false
 cursor-text = fbfefc
 cursor-color = b83cb8
@@ -15,10 +14,18 @@ mouse-hide-while-typing = true
 font-family = Fira Code
 font-size = 11
 
-window-padding-x = 2
-window-padding-y = 3,5
+term = xterm-256color
+
+window-step-resize=true
+resize-overlay-position = bottom-center
+
+window-width = 100 
+window-height = 60
 
 macos-titlebar-style = tabs
 
 clipboard-paste-protection = true
+clipboard-read = allow
+clipboard-write = allow
+
 shell-integration-features = no-title,no-cursor
