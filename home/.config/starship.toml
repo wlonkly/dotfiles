@@ -131,10 +131,13 @@ renamed    = "[»$count](green)"
 untracked  = "[??$count](cyan)"
 stashed    = "[⚑$count](bold blue)"
 
-# only care about virtualenv
 [python]
 #format = '[(\($virtualenv\))](yellow) '
 format = "[](fg:python)[ ](fg:icon bg:python)[](fg:python bg:background)[ $virtualenv](bg:background)[](fg:background) "
+# only care about virtualenv, not python versions
+detect_extensions = []
+detect_files = []
+
 
 [aws]
 format = "[](fg:aws)[ ](fg:icon bg:aws)[](fg:aws bg:background)[ $profile(@$region)](bg:background)[](fg:background) "
