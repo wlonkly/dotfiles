@@ -1,7 +1,8 @@
-theme = iTerm2 Smoooooth
+#theme = iTerm2 Smoooooth
+theme = nightowl
 
-background = 252525
-foreground = fbfefc
+#background = 252525
+#foreground = fbfefc
 selection-background = b83cb8
 selection-foreground = fbfefc
 
