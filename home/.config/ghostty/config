@@ -2,7 +2,7 @@
 theme = nightowl
 
 #background = 252525
-#foreground = fbfefc
+foreground = #fbfefc
 selection-background = b83cb8
 selection-foreground = fbfefc
 
@@ -20,6 +20,8 @@ term = xterm-256color
 window-step-resize=true
 resize-overlay-position = bottom-center
 
+window-save-state = always
+
 window-width = 100 
 window-height = 60
 
@@ -30,3 +32,8 @@ clipboard-read = allow
 clipboard-write = allow
 
 shell-integration-features = no-title,no-cursor
+
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-icon-ghost-color = 00FF00
+macos-icon-screen-color = 000000
