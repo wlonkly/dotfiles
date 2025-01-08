@@ -138,7 +138,6 @@ format = "[](fg:python)[ ](fg:icon bg:python)[](fg:python bg:background
 detect_extensions = []
 detect_files = []
 
-
 [aws]
 format = "[](fg:aws)[ ](fg:icon bg:aws)[](fg:aws bg:background)[ $profile(@$region)](bg:background)[](fg:background) "
 #format = "[(\\($profile(@$region)\\))](yellow) "
