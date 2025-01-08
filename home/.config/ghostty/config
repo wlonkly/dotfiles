@@ -21,9 +21,9 @@ window-step-resize=true
 resize-overlay-position = bottom-center
 
 window-save-state = always
-
-window-width = 100 
-window-height = 60
+ 
+window-width = 106 
+window-height = 50
 
 macos-titlebar-style = tabs
 
