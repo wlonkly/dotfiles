@@ -36,4 +36,6 @@ shell-integration-features = no-title,no-cursor
 macos-icon = custom-style
 macos-icon-frame = plastic
 macos-icon-ghost-color = 00FF00
-macos-icon-screen-color = 000000
+macos-icon-screen-color = 006600
+
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
