@@ -34,7 +34,7 @@ clipboard-write = allow
 shell-integration-features = no-title,no-cursor
 
 macos-icon = custom-style
-macos-icon-frame = plastic
+macos-icon-frame = beige
 macos-icon-ghost-color = 00FF00
 macos-icon-screen-color = 006600
 
