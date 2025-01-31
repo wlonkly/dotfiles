@@ -79,11 +79,18 @@ alias kns="kubens"
 alias kubeclr="kubectl config unset current-context"
 complete -F __start_kubectl k
 
+# https://news.ycombinator.com/item?id=42840997
+# Allow .. through ........... (yup!) to cd up some number of directories
+for i in {1..10}; do
+    spaces=$(printf "%${i}s")
+    alias "${spaces// /.}."="cd ${spaces// /../}"
+done
+
 # ubuntu why
 test -x /usr/bin/batcat && alias bat="batcat"
 
-sourceif "$HOME/.bash-my-aws/aliases"
-sourceif "$HOME/.bash-my-aws/bash_completion.sh" 
+#sourceif "$HOME/.bash-my-aws/aliases"
+#sourceif "$HOME/.bash-my-aws/bash_completion.sh" 
 
 function ossl_expiry {
   openssl s_client -connect ${1}:443 < /dev/null 2> /dev/null | openssl x509 -noout -text | egrep  'DNS|Not ' | sed 's/^ *//'
