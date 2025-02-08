@@ -57,13 +57,15 @@
 [pull]
 	rebase = true
 	ff = only
+[include]
+    path = ~/.config/delta/themes/catppuccin.gitconfig
 [delta]
     # all of these cyans are blue by default which is very dark. 
-    file-style = cyan
-    file-decoration-style = cyan ul
-    hunk-header-decoration-style = cyan box
+    #file-style = cyan
+    #file-decoration-style = cyan ul
+    #hunk-header-decoration-style = cyan box
     line-numbers = true
-    syntax-theme = Monokai Extended Bright
+    features = catppucin-mocha
     minus-style = syntax auto
     plus-style = syntax auto
 [interactive]

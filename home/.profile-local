@@ -45,11 +45,18 @@ darwin*)
     sourceif "$BREW_FZF/shell/key-bindings.bash"
     sourceif "$HOME/.orbstack/shell/init.bash"
 
-    if [[ $ITERM_SESSION_ID ]]; then
-      export FZF_DEFAULT_OPTS="
---color=fg:-1,bg:#252c31,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
---color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef
-"
+    if [[ $ITERM_SESSION_ID || $GHOSTTY_BIN_DIR ]]; then
+    #  export FZF_DEFAULT_OPTS="
+    #   --color=fg:-1,bg:#252c31,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
+    #   --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef
+    # "
+    ## catppucin-mocha
+    export FZF_DEFAULT_OPTS=" 
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc 
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 
+--multi"
+
     else
       export FZF_DEFAULT_OPTS="--color=16"
     fi

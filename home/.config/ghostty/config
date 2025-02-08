@@ -1,5 +1,6 @@
 #theme = iTerm2 Smoooooth
-theme = Rapture
+#theme = Rapture
+theme = catppuccin-mocha
 
 #background = 252525
 foreground = #fbfefc
