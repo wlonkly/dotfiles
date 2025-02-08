@@ -42,7 +42,7 @@ export HISTCONTROL=ignoreboth
 # Read in local settings
 for bashrc in /etc/bashrc /etc/bash.bashrc
 do
-  sourceif $bashrc  
+  sourceif $bashrc
 done
 
 alias fdate="date +%Y%m%d"
@@ -90,7 +90,7 @@ done
 test -x /usr/bin/batcat && alias bat="batcat"
 
 #sourceif "$HOME/.bash-my-aws/aliases"
-#sourceif "$HOME/.bash-my-aws/bash_completion.sh" 
+#sourceif "$HOME/.bash-my-aws/bash_completion.sh"
 
 function ossl_expiry {
   openssl s_client -connect ${1}:443 < /dev/null 2> /dev/null | openssl x509 -noout -text | egrep  'DNS|Not ' | sed 's/^ *//'
@@ -103,7 +103,7 @@ function wordle {
 
 function cw {
   grep -hi "^$1$" /usr/share/dict/* | sort -u
-} 
+}
 
 function lf {
   # shellcheck disable=SC2012
@@ -189,7 +189,7 @@ function fd {
   cd "$dir" || return 1
 }
 
-# e6e () { LEN=$(echo $1 | sed 's/^.\(.*\).$/\1/'); GREP=$(echo $1 |sed "s/^\(.\).*\(.\)$/^\1.{$LEN}\2$/"); grep -E "$GREP" /usr/share/dict/words; 
+# e6e () { LEN=$(echo $1 | sed 's/^.\(.*\).$/\1/'); GREP=$(echo $1 |sed "s/^\(.\).*\(.\)$/^\1.{$LEN}\2$/"); grep -E "$GREP" /usr/share/dict/words;
 # a8e () { LEN=$(( $(echo -n $1 | wc -c) - 2)); echo $1 | sed "s/^\(.\).*\(.\)$/\1$LEN\2/"; }
 
 function e6e { # enhance
@@ -266,7 +266,9 @@ function iterm2_print_user_vars {
     fi
 }
 
-sourceif ~/.iterm2_shell_integration.bash
+if [[ "$ITERM_SESSION_ID" ]]; then
+  sourceif ~/.iterm2_shell_integration.bash
+fi
 
 sourceif "${HOME}/.cargo/env"
 
