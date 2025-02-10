@@ -26,9 +26,8 @@
 
 add_newline = false
 
-format = """[\
-($kubernetes$aws$python\n)\
-$shlvl\
+format = """($kubernetes$aws$python\n)\
+[$shlvl\
 $character\
 $username\
 $hostname\
@@ -150,4 +149,3 @@ us-east-1    = "use1"
 ca-central-1 = "ca"
 eu-west-1    = "euw1"
 eu-central-1 = "euc1"
-
