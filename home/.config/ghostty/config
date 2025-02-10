@@ -18,13 +18,13 @@ font-size = 11
 
 #term = xterm-256color
 
-window-step-resize=true
+window-step-resize=false
 resize-overlay-position = bottom-center
 
 window-save-state = always
  
-window-width = 106 
-window-height = 50
+window-width = 102 
+window-height = 59
 
 macos-titlebar-style = tabs
 
@@ -40,3 +40,10 @@ macos-icon-ghost-color = 00FF00
 macos-icon-screen-color = 006600
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
+window-padding-x = 4
+window-padding-y = 2,4
+window-padding-balance = true
+window-padding-color = extend
+
+quick-terminal-position = center
