@@ -28,7 +28,7 @@ export SHORTHOST=${HOSTNAME/\.*/}
 export MYSQL_PS1="\u@\h:\d> "
 export PS2="..."
 
-export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$HOME/.local/bin:$HOME/.rd/bin:$GOPATH/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 export CDPATH=.:$HOME:$HOME/code
 
 # history file
@@ -280,4 +280,3 @@ if command -v starship >/dev/null 2>&1; then
   export starship_precmd_user_func="starship_precmd_func"
   eval "$(starship init bash)"
 fi
-
