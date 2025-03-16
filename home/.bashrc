@@ -174,7 +174,7 @@ function flatten
 function starship_precmd_func
 {
     # set xterm window title
-    echo -ne "\033]0;${USER}@${SHORTHOST}\007"
+    echo -ne "\033]0;${USER}@${SHORTHOST}:$(basename $PWD)\007"
 
     # populate AWS_VAULT from okta profile
     if [[ -z $AWS_VAULT && $AWS_OKTA_PROFILE ]]; then
