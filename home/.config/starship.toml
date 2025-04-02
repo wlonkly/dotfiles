@@ -70,7 +70,12 @@ format = "[](fg:kubernetes)[⎈ ](fg:icon bg:kubernetes)[](fg:kubernetes b
 
 [[kubernetes.contexts]]
 context_pattern = "pd-kubectx"
-context_alias = "pd"
+context_alias = "pdk"
+
+[[kubernetes.contexts]]
+# "gke_.*_(?P<cluster>[\\w-]+)"
+context_pattern = "arn.*cluster/(?P<cluster>.*)"
+context_alias = "$cluster"
 
 #[shlvl]
 #disabled = false
