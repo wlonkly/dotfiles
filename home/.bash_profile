@@ -27,12 +27,10 @@ for ed in code vim vi; do
   unset found
 done
 
+hs_bin="${HOMESHICK_DIR:-$HOME/.homesick/repos/homeshick}/bin/homeshick"
 if [[ ! -f "$HOME/.bashrc-daily-$(date +%Y%m%d)" && "$SHLVL" == "1" && -z "${SUDO_USER}" ]]; then
   rm -f "$HOME"/.bashrc-daily-*
-  touch "$HOME/.bashrc-daily-$(date +%Y%m%d)"
-  homeshick check
-  # echo
-  #$HOME/gbin/vscode-settings-check
+  lockf -k -s -t 0 "$HOME/.bashrc-daily-$(date +%Y%m%d)" $hs_bin check
 fi
 
 #if [[ $BASH_VERSINFO -lt 5 ]]; then
