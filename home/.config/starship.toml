@@ -70,7 +70,7 @@ format = "[](fg:kubernetes)[⎈ ](fg:icon bg:kubernetes)[](fg:kubernetes b
 
 [[kubernetes.contexts]]
 context_pattern = "pd-kubectx"
-context_alias = "pdk"
+context_alias = "pk"
 
 [[kubernetes.contexts]]
 # "gke_.*_(?P<cluster>[\\w-]+)"
