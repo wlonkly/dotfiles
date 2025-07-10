@@ -2,7 +2,7 @@
 #
 
 # no color if arguments supplied (usually this is for -v)
-if [ "$2" ]; then
+if [[ "$2" || "$1" =~ ^- ]]; then
    exec ssh $*
 fi
 
