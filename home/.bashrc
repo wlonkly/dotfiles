@@ -72,6 +72,7 @@ alias d-c='docker compose'
 alias altscr="tput smcup"
 alias mainscr="tput rmcup"
 alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
+alias sshnc="ssh -o ControlPath=none -o ControlMaster=no"
 
 alias k="kubectl"
 alias kctx="kubectx"
