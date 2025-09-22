@@ -4,6 +4,8 @@
 	signingkey = 731B12D443D0ECBE80E3073894DE1A8FC3B80CB6
 [push]
 	default = current
+    autoSetupRemove = true
+	followTags = true
 [color]
     ui = true
 [alias]
@@ -82,15 +84,28 @@
 [rebase]
 	autoStash = true
 	autosquash = true
+	updateRefs = true
 [merge]
 	conflictstyle = zdiff3
 [rerere]
 	enabled = true
+	autoupdate = true
 [help]
-	autocorrect = 20
+	autocorrect = prompt
 [diff]
 	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
 [log]
 	date = iso
 [fetch]
 	prune = true
+	pruneTags = true
+	all = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
