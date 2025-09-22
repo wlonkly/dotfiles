@@ -93,6 +93,27 @@ test -x /usr/bin/batcat && alias bat="batcat"
 #sourceif "$HOME/.bash-my-aws/aliases"
 #sourceif "$HOME/.bash-my-aws/bash_completion.sh"
 
+function awsp { 
+    if [[ $1 ]]; then 
+        export AWS_PROFILE="$1" 
+    else 
+        echo $AWS_PROFILE 
+    fi 
+}
+
+function awsr { 
+    if [[ $1 ]]; then 
+        export AWS_REGION="$1" 
+    else 
+        echo $AWS_REGION
+    fi 
+}
+
+function awsx { (
+  eval $(aws configure export-credentials --format=env)
+  $@;
+) }
+
 function ossl_expiry {
   openssl s_client -connect ${1}:443 < /dev/null 2> /dev/null | openssl x509 -noout -text | egrep  'DNS|Not ' | sed 's/^ *//'
 }
