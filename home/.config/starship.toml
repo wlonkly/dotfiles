@@ -58,10 +58,11 @@ error_symbol = "[:\\(](red)"
 format = "$symbol"
 
 [shlvl]
-threshold = 0
+threshold = 2
 symbol = "^"
 format = "[$symbol](red)"
 repeat = true
+repeat_offset = 1
 disabled = false
 
 [kubernetes]
