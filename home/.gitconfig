@@ -37,6 +37,7 @@
     set-upstream = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
     fixup = commit --fixup
     alias = "!git config --get-regexp ^alias. | sed 's/^alias.//'" 
+    com = "!git co main || git co master"
 [core]
 	excludesfile = ~/.gitignore_global
     pager = delta
