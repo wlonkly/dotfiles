@@ -28,7 +28,7 @@ export SHORTHOST=${HOSTNAME/\.*/}
 export MYSQL_PS1="\u@\h:\d> "
 export PS2="..."
 
-export PATH=$HOME/.bash-my-aws/bin:$HOME/gbin:$HOME/bin:$HOME/.local/bin:$HOME/.rd/bin:$GOPATH/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+export PATH=$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 export CDPATH=.:$HOME:$HOME/code
 
 # history file
@@ -72,6 +72,8 @@ alias d-c='docker compose'
 alias altscr="tput smcup"
 alias mainscr="tput rmcup"
 alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
+alias sshnc="ssh -o ControlPath=none -o ControlMaster=no"
+alias claude="op run --no-masking --env-file ~/.claude/secrets.env -- claude"
 
 alias k="kubectl"
 alias kctx="kubectx"
@@ -91,6 +93,27 @@ test -x /usr/bin/batcat && alias bat="batcat"
 
 #sourceif "$HOME/.bash-my-aws/aliases"
 #sourceif "$HOME/.bash-my-aws/bash_completion.sh"
+
+function awsp { 
+    if [[ $1 ]]; then 
+        export AWS_PROFILE="$1" 
+    else 
+        echo $AWS_PROFILE 
+    fi 
+}
+
+function awsr { 
+    if [[ $1 ]]; then 
+        export AWS_REGION="$1" 
+    else 
+        echo $AWS_REGION
+    fi 
+}
+
+function awsx { (
+  eval $(aws configure export-credentials --format=env)
+  $@;
+) }
 
 function ossl_expiry {
   openssl s_client -connect ${1}:443 < /dev/null 2> /dev/null | openssl x509 -noout -text | egrep  'DNS|Not ' | sed 's/^ *//'
