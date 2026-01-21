@@ -75,7 +75,27 @@ alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
 alias sshnc="ssh -o ControlPath=none -o ControlMaster=no"
 alias claude="op run --no-masking --env-file ~/.claude/secrets.env -- claude"
 
-alias k="kubectl"
+#alias k="kubectl"
+function k {
+    cmd=$1
+    shift
+    case "$cmd" in
+        d|de|des|desc)
+           kubectl describe "$@"
+        ;;
+        a|ap|app)
+           kubectl apply "$@"
+        ;;
+        g|ge)
+           kubectl get "$@"
+        ;;
+        *)
+           kubectl "$cmd" "$@"
+        ;;
+    esac
+}
+
+
 alias kctx="kubectx"
 alias kns="kubens"
 alias kubeclr="kubectl config unset current-context"
