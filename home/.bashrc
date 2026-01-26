@@ -39,6 +39,9 @@ export HISTFILE=~/.bash_history_safe
 export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=ignoreboth
 
+# Save history after each command
+export PROMPT_COMMAND="history -a; ${PROMPT_COMMAND}"
+
 # Read in local settings
 for bashrc in /etc/bashrc /etc/bash.bashrc
 do
@@ -73,6 +76,7 @@ alias altscr="tput smcup"
 alias mainscr="tput rmcup"
 alias myip="dig +short ip. @dns.toys | sed 's/\"//g'"
 alias sshnc="ssh -o ControlPath=none -o ControlMaster=no"
+
 alias claude="op run --no-masking --env-file ~/.claude/secrets.env -- claude"
 
 #alias k="kubectl"
@@ -114,20 +118,20 @@ test -x /usr/bin/batcat && alias bat="batcat"
 #sourceif "$HOME/.bash-my-aws/aliases"
 #sourceif "$HOME/.bash-my-aws/bash_completion.sh"
 
-function awsp { 
-    if [[ $1 ]]; then 
-        export AWS_PROFILE="$1" 
-    else 
-        echo $AWS_PROFILE 
-    fi 
+function awsp {
+    if [[ $1 ]]; then
+        export AWS_PROFILE="$1"
+    else
+        echo $AWS_PROFILE
+    fi
 }
 
-function awsr { 
-    if [[ $1 ]]; then 
-        export AWS_REGION="$1" 
-    else 
+function awsr {
+    if [[ $1 ]]; then
+        export AWS_REGION="$1"
+    else
         echo $AWS_REGION
-    fi 
+    fi
 }
 
 function awsx { (

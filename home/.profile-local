@@ -51,10 +51,10 @@ darwin*)
     #   --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef
     # "
     ## catppucin-mocha
-    export FZF_DEFAULT_OPTS=" 
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc 
---color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 
+    export FZF_DEFAULT_OPTS="
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
 --multi"
 
     else
@@ -73,10 +73,10 @@ darwin*)
   fixrgb () {
     local current=$(betterdisplaycli get -namelike=dell -connectionMode)
     current=${current%% -*}
-  
+
     local rgb=$(betterdisplaycli get -namelike=dell -connectionModeList | grep 'RGB Full')
     rgb=${rgb%% -*}
-  
+
     if [[ "$current" != "$rgb" ]]; then
       echo "Setting RGB mode..."
       sleep 1
@@ -86,7 +86,7 @@ darwin*)
 
   export APPLE_SSH_ADD_BEHAVIOR=macos
   # ssh-add -L returns false if no identities present. handy
-  # don't need this if you have "UseKeychain yes" in .ssh/config! 
+  # don't need this if you have "UseKeychain yes" in .ssh/config!
   #ssh-add -L >/dev/null || ssh-add -A 2>&1 | grep -v "Identity added"
 ;;
 
@@ -121,13 +121,19 @@ case $HOSTNAME in
 octopus)
 ;;
 
+flounder)
+  function llm {
+    # ~/.config/llm/system-prompt lets us share the prompt across work and home invocations
+    echo "FIXME update the llm function in .profile-local to use openrouter creds and models"
+    return 1
+		# llm -m bh-v3.5 -s "$(cat ~/.config/llm/system-prompt)" "$*"
+  }
+
+;;
+
 rlafferty*)
   export GIT_AUTHOR_EMAIL='rlafferty@pagerduty.com'
   export GIT_COMMITTER_EMAIL=${GIT_AUTHOR_EMAIL}
-
-  export SAML2AWS_USERNAME="rlafferty"
-  export SAML2AWS_DUO_MFA_OPTION="Passcode"
-  export AWS_OKTA_MFA_DUO_DEVICE=token
 
   function knifestg    { bundle exec knife "$@" -c ~/.chef/stage/knife.rb; }
   function knifeprod   { bundle exec knife "$@" -c ~/.chef/prod/knife.rb; }
@@ -152,6 +158,9 @@ rlafferty*)
     $KNIFE search node "$SEARCH" -i
     cd - > /dev/null || return 1
   }
+  function prodnode { chefnode knifeprod "$*"; }
+  function stgnode  { chefnode knifestg "$*"; }
+  function eunode  { chefnode knifeeu "$*"; }
 
   function docker {
       if [[ $AWS_PROFILE ]]; then
@@ -161,17 +170,16 @@ rlafferty*)
       fi
   }
 
-  function prodnode { chefnode knifeprod "$*"; }
-  function stgnode  { chefnode knifestg "$*"; }
-  function eunode  { chefnode knifeeu "$*"; }
+  function llm {
+    # ~/.config/llm/system-prompt lets us share the prompt across work and home invocations
+    AWS_PROFILE=corpdev-claude AWS_DEFAULT_REGION=us-east-1 command llm -m bh-v3.5 -s "$(cat ~/.config/llm/system-prompt)" "$*"
+  }
 
-  function livetail { { cd ~/.livetail && unbuffer ./livetail "$@"; } }
-
-  function cloudsmith { 
+  function cloudsmith {
     export CLOUDSMITH_RO_USER="rich-lafferty"
     export CLOUDSMITH_RO_USER_API_KEY="$(op item get 'Cloudsmith API' --vault Private --fields password)"
   }
-  
+
   alias displayfix='displayplacer "id:A2FB012D-6382-42A6-B6AC-FE2825800794 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(0,0) degree:0" "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1512x982 hz:120 color_depth:8 scaling:on origin:(2560,235) degree:0"'
 
   ;;
