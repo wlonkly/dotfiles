@@ -157,6 +157,11 @@ function lf {
   ls -rt | tail -n "${1:-1}"
 }
 
+function rexport { 
+  read -s "$1"
+  export "$1" 
+}
+
 function pw {
   pwgen -ncBy "${1:-12}" "${2:-1}"
 }
