@@ -123,10 +123,7 @@ octopus)
 
 flounder)
   function llm {
-    # ~/.config/llm/system-prompt lets us share the prompt across work and home invocations
-    echo "FIXME update the llm function in .profile-local to use openrouter creds and models"
-    return 1
-		# llm -m bh-v3.5 -s "$(cat ~/.config/llm/system-prompt)" "$*"
+	 command llm -m openrouter/anthropic/claude-3.5-haiku -s "$(cat ~/.config/llm/system-prompt)" "$*"
   }
 
 ;;
