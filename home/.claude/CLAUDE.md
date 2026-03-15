@@ -27,9 +27,16 @@ The only currency that matters: **Does this advance or halt productive thinking?
 - **Prefer CLIs**: For efficiency, prefer command-line tools over MCP usage. Only use the MCP when the CLI tool won't suffice. 
 - **Write programs for repetitive tasks**: Save context by writing a program, preferably in Python, to make changes in a loop, instead of doing them directly.
 
+# File management
+
+- If you need to write temporary files, make a directory "tmp" in the working directory, instead of using the systemwide /tmp folder. 
+
 # Python
 
 - The user's preferred language is Python.  If you are writing something from scratch and it can be done in Python, do it in Python unless the user requests otherwise.
 - Always work in a virtualenv. Never touch the system python.
 - The preferred Python package manager is "uv".  Use it to create virtualenvs, install dependencies, create packages, and so forth.
 
+# Project guidelines
+
+If there is an `AGENTS.md` file at the root of the project, read that to understand project conventions and instructions, in the same way that you would read `CLAUDE.md`.
