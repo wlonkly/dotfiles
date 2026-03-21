@@ -14,6 +14,13 @@ fi
 if [ "$WORKSPACE" = "$FOCUSED_WORKSPACE" ]; then
   sketchybar --set "space.${WORKSPACE}" \
     background.border_color="$WHITE"
+  # Rebuild app icons once using a lock file
+  LOCKFILE="/tmp/sketchybar_app_manager.lock"
+  if [ ! -f "$LOCKFILE" ]; then
+    touch "$LOCKFILE"
+    "$CONFIG_DIR/plugins/app_manager.sh"
+    rm -f "$LOCKFILE"
+  fi
 else
   sketchybar --set "space.${WORKSPACE}" \
     background.border_color=0x00000000
