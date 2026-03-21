@@ -1,4 +1,4 @@
-# Place a copy of this config to ~/.aerospace.toml
+# Place a c0opy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
 # Config version for compatibility and deprecations
@@ -81,7 +81,7 @@ after-startup-command = [
     outer.left =       0
     outer.bottom =     0
     outer.top =        0 
-    outer.right =      50
+    outer.right =      39
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

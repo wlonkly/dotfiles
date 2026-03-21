@@ -17,8 +17,8 @@ sketchybar --bar \
   padding_right=3 \
   padding_left=3 \
   corner_radius=5 \
-  y_offset=30 \
-  margin=5 \
+  y_offset=26 \
+  margin=2 \
   blur_radius=20 \
   topmost=window
 
