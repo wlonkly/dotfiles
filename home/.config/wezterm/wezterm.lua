@@ -5,7 +5,7 @@ config.color_scheme = "Catppuccin Mocha"
 
 -- Color overrides from Ghostty (keeping Catppuccin theme)
 config.colors = {
-  foreground = "#fbfefc",
+--  foreground = "#fbfefc",
   selection_fg = "#fbfefc",
   selection_bg = "#b83cb8",
   cursor_fg = "#fbfefc",
@@ -35,6 +35,7 @@ config.window_padding = {
   bottom = 4,
 }
 
+config.enable_kitty_keyboard = true
 
 config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
 -- -- Quick terminal (global ctrl+`)
