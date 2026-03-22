@@ -332,3 +332,9 @@ if command -v starship >/dev/null 2>&1; then
   export starship_precmd_user_func="starship_precmd_func"
   eval "$(starship init bash)"
 fi
+
+# only on ssh connections
+if [[ "$SSH_CLIENT" ]]; then
+  export OP_BIOMETRIC_UNLOCK_ENABLED=false  # don't use 1p app integration
+fi
+
