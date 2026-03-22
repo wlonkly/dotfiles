@@ -5,8 +5,6 @@
 # Fallback value (if you omit the key): config-version = 1
 config-version = 2
 
-# You can use it to add commands that run after AeroSpace startup.
-# Available commands : https://nikitabobko.github.io/AeroSpace/commands
 # Start AeroSpace at login
 start-at-login = false
 
