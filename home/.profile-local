@@ -45,7 +45,9 @@ darwin*)
     sourceif "$BREW_FZF/shell/key-bindings.bash"
     sourceif "$HOME/.orbstack/shell/init.bash"
 
-    if [[ $ITERM_SESSION_ID || $GHOSTTY_BIN_DIR ]]; then
+    # use 256 colors in terms that support them, but NOT on ssh connections, 
+    # since ssh will almost certainly be using colorssh
+    if [[ $ITERM_SESSION_ID || $GHOSTTY_BIN_DIR || $WEZTERM_CONFIG_FILE ]]; then
     #  export FZF_DEFAULT_OPTS="
     #   --color=fg:-1,bg:#252c31,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
     #   --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef
