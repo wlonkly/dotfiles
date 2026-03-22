@@ -7,18 +7,20 @@ WORKSPACE="$1"
 
 source "$HOME/.config/sketchybar/colors.sh"
 
+echo "running aerospace.sh $FOCUSED_WORKSPACE"
+
 if [ -z "$FOCUSED_WORKSPACE" ]; then
   FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused 2>/dev/null)
 fi
 
 if [ "$WORKSPACE" = "$FOCUSED_WORKSPACE" ]; then
   sketchybar --set "space.${WORKSPACE}" \
-    background.border_color="$WHITE"
+    background.border_color="$BORDER_COLOR"
   # Rebuild app icons once using a lock file
   LOCKFILE="/tmp/sketchybar_app_manager.lock"
   if [ ! -f "$LOCKFILE" ]; then
     touch "$LOCKFILE"
-    "$CONFIG_DIR/plugins/app_manager.sh"
+   "$CONFIG_DIR/plugins/app_manager.sh"
     rm -f "$LOCKFILE"
   fi
 else

@@ -8,6 +8,8 @@ source "$HOME/.config/sketchybar/colors.sh"
 APP_ICON_PLUGIN="$CONFIG_DIR/plugins/app_icon.sh"
 LOCKFILE="/tmp/sketchybar_app_manager.pid"
 
+echo "running app_manager.sh"
+
 # PID lock with timeout
 if [ -f "$LOCKFILE" ]; then
   OLDPID=$(cat "$LOCKFILE")

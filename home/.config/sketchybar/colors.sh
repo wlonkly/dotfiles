@@ -13,9 +13,9 @@ GREY=0xff939ab7
 TRANSPARENT=0x00000000
 
 # General bar colors
-BAR_COLOR=0xcc24273a #$GREY # Grey bar
-ICON_COLOR=$WHITE # Color of all icons
-LABEL_COLOR=$WHITE # Color of all labels
+#BAR_COLOR=0xcc24273a #$GREY # Grey bar
+#ICON_COLOR=$WHITE # Color of all icons
+#LABEL_COLOR=$WHITE # Color of all labels
 
 POPUP_BACKGROUND_COLOR=$BLACK
 POPUP_BORDER_COLOR=$WHITE
@@ -24,3 +24,11 @@ SHADOW_COLOR=$BLACK
 
 # Item specific special colors
 SPOTIFY_GREEN=$GREEN
+
+# Catpuccin Mocha
+BAR_COLOR=0x991e1e2e  # base
+BG_COLOR=0x996c7086   # overlay0
+ICON_COLOR=0xffcdd6f4  # text
+LABEL_COLOR=$ICON_COLOR
+#BORDER_COLOR=0xffb4befe # lavender
+BORDER_COLOR=0xff94e2d5 # teal
