@@ -240,6 +240,11 @@ after-startup-command = [
 [[on-window-detected]]
   if.app-name-regex-substring = 'Finder'
   run = ['layout floating']
- 
 
-# Notify Sketchybar about workspace change
+[[on-window-detected]]
+  if.app-id = "com.mr-brightside.ParcelOSX"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.apple.Notes"
+  run = ["layout floating"]

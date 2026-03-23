@@ -25,6 +25,17 @@ darwin*)
   alias hide-desktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias show-desktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
+  asfloat () { 
+      APP=$(aerospace list-apps --json | jq --arg p "$1" -r '.[] | select((."app-name" | ascii_downcase) == $p) | ."app-bundle-id"') 
+      if [[ $APP ]]; then
+          echo -e "\n[[on-window-detected]]\n  if.app-id = \"${APP}\"\n  run = [\"layout floating\"]" >> ~/.config/aerospace/aerospace.toml && \
+              aerospace reload-config && \
+              echo "$APP set to floating"; 
+      else
+          return 1
+      fi
+  }
+
   if type brew &>/dev/null; then
     HOMEBREW_PREFIX="$(brew --prefix)"
     if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
