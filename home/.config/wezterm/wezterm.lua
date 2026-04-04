@@ -20,8 +20,14 @@ config.default_cursor_style = "SteadyBlock"
 config.hide_mouse_cursor_when_typing = true 
 
 -- Font
-config.font = wezterm.font 'Fira Code'
+config.font = wezterm.font 'Monaspace Krypton NF' 
+-- config.font = wezterm.font 'AtkynsonMono Nerd Font Mono'
 config.font_size = 12
+
+-- config.font = wezterm.font 'Comic Mono'
+-- config.font_size = 13
+-- config.line_height = 1.1
+-- config.cell_width = 1.05
 
 -- Window settings
 config.initial_cols = 102
