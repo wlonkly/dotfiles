@@ -22,7 +22,7 @@ scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item {
   padding: 0px 0px 0px 0px !important;
 }
 
-#sidebar-header {
+#sidebar-main,#sidebar-header,#sidebar-panel-header {
   visibility: collapse !important;
 }
 
