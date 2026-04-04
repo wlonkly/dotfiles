@@ -74,8 +74,8 @@ after-startup-command = [
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-    inner.horizontal = 0
-    inner.vertical =   0
+    inner.horizontal = 2
+    inner.vertical =   2
     outer.left =       0
     outer.bottom =     0
     outer.top =        0 
@@ -247,4 +247,16 @@ after-startup-command = [
 
 [[on-window-detected]]
   if.app-id = "com.apple.Notes"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "us.zoom.xos"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "io.mpv"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.apple.finder"
   run = ["layout floating"]
