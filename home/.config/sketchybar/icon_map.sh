@@ -79,6 +79,7 @@ function icon_map() {
     "notion.id")                            icon=":notion:";;
     "org.mozilla.firefox")                  icon=":firefox:";;
     "org.mozilla.firefoxdeveloperedition")  icon=":firefox_developer_edition:";;
+    "org.mozilla.nightly")                  icon=":firefox:";;
     "org.telegram.desktop")                 icon=":telegram:";;
     "org.videolan.vlc")                     icon=":vlc:";;
     "com.github.wez.wezterm")              icon=":wezterm:";;
