@@ -28,9 +28,20 @@ for ed in code vim vi; do
 done
 
 hs_bin="${HOMESHICK_DIR:-$HOME/.homesick/repos/homeshick}/bin/homeshick"
-if [[ ! -f "$HOME/.bashrc-daily-$(date +%Y%m%d)" && "$SHLVL" == "1" && -z "${SUDO_USER}" ]]; then
-  rm -f "$HOME"/.bashrc-daily-*
-  lockf -k -s -t 0 "$HOME/.bashrc-daily-$(date +%Y%m%d)" $hs_bin check
+_hs_daily="$HOME/.bashrc-daily-$(date +%Y%m%d)"
+_hs_lock="$HOME/.bashrc-daily.lock"
+
+if [[ "$SHLVL" == "1" && -z "${SUDO_USER}" && ! -f "$_hs_daily" ]]; then
+  # outside -f above is just a quick failure - the real 
+  # locking is done below
+  lockf -k -s -t 0 "$_hs_lock" \
+    env _hs_daily="$_hs_daily" _hs_bin="$hs_bin" \
+    bash -c '
+      [[ -f "$_hs_daily" ]] && exit 0
+      rm -f "${HOME}/.bashrc-daily-"[0-9]*
+      touch "$_hs_daily"
+      "$_hs_bin" check
+    '
 fi
 
 #if [[ $BASH_VERSINFO -lt 5 ]]; then
