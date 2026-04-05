@@ -28,19 +28,16 @@ for ed in code vim vi; do
 done
 
 hs_bin="${HOMESHICK_DIR:-$HOME/.homesick/repos/homeshick}/bin/homeshick"
-_hs_daily="$HOME/.bashrc-daily-$(date +%Y%m%d)"
-_hs_lock="$HOME/.bashrc-daily.lock"
+hs_lockfile="$HOME/.bashrc-daily-$(date +%Y%m%d)"
 
-if [[ "$SHLVL" == "1" && -z "${SUDO_USER}" && ! -f "$_hs_daily" ]]; then
-  # outside -f above is just a quick failure - the real 
-  # locking is done below
-  lockf -k -s -t 0 "$_hs_lock" \
-    env _hs_daily="$_hs_daily" _hs_bin="$hs_bin" \
+if [[ "$SHLVL" == "1" && -z "${SUDO_USER}" && ! -s "$hs_lockfile" ]]; then
+  lockf -k -s -t 0 "$hs_lockfile" \
+    env hs_lockfile="$hs_lockfile" hs_bin="$hs_bin" \
     bash -c '
-      [[ -f "$_hs_daily" ]] && exit 0
+      [[ -s "$hs_lockfile" ]] && exit 0
       rm -f "${HOME}/.bashrc-daily-"[0-9]*
-      touch "$_hs_daily"
-      "$_hs_bin" check
+      echo done > "$hs_lockfile"
+      "$hs_bin" check
     '
 fi
 
