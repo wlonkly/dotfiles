@@ -1,3 +1,4 @@
+/* remove bookmark icons */
 scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item > .toolbarbutton-icon {
   display: none; 
 }
@@ -8,8 +9,9 @@ scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item {
   padding-bottom: 3px !important;
 }
 
-#TabsToolbar>.toolbar-items,
-#TabsToolbar>.titlebar-spacer {
+/* Remove top tabs */
+TabsToolbar>.toolbar-items,
+TabsToolbar>.titlebar-spacer {
   visibility: hidden
 }
 
@@ -26,6 +28,7 @@ scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item {
   visibility: collapse !important;
 }
 
+/* purple private browser windows */
 #main-window[privatebrowsingmode="temporary"] #PersonalToolbar {
   background: #330f7a !important;
 }

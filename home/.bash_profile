@@ -15,9 +15,7 @@ BASH_ENV=$HOME/.bashrc
 for ed in code vim vi; do
   found=$(type -p $ed)
   if [[ -n $found ]]; then
-    if [[ "$(basename "$found")" = "subl" ]]; then
-        export EDITOR="$found -nw"
-    elif [[ "$(basename "$found")" = "code" ]]; then
+    if [[ "$(basename "$found")" = "code" ]]; then
         export EDITOR="$found -w"
     else
         export EDITOR=$found

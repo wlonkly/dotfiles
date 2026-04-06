@@ -6,7 +6,7 @@
 config-version = 2
 
 # Start AeroSpace at login
-start-at-login = false
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -259,4 +259,49 @@ after-startup-command = [
 
 [[on-window-detected]]
   if.app-id = "com.apple.finder"
+  run = ["layout floating"]
+
+[[on-window-detected]] 
+  if.app-id = "com.tinyspeck.slackmacgap"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.apple.mail"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.mimestream.Mimestream"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.tinyspeck.slackmacgap"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "us.zoom.xos"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.granola.app"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  # Google Calendar as Safari app
+  if.app-id = "com.apple.Safari.WebApp.445A7C88-B7C3-44AA-90E8-4EF494D72B14"  
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.birdfy.smarthome"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.apple.finder"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.1password.1password"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "com.alexzielenski.Mousecape"
   run = ["layout floating"]
