@@ -117,6 +117,7 @@ after-startup-command = [
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
+    alt-period = 'layout floating tiling'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
@@ -304,4 +305,8 @@ after-startup-command = [
 
 [[on-window-detected]]
   if.app-id = "com.alexzielenski.Mousecape"
+  run = ["layout floating"]
+
+[[on-window-detected]]
+  if.app-id = "org.hammerspoon.Hammerspoon"
   run = ["layout floating"]
