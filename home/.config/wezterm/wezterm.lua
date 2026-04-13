@@ -44,6 +44,8 @@ config.window_padding = {
 
 config.enable_kitty_keyboard = true
 
+config.notification_handling = 'AlwaysShow'
+
 config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
 -- -- Quick terminal (global ctrl+`)
 -- local wezterm = require 'wezterm'
