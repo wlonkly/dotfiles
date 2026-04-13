@@ -24,6 +24,7 @@ TabsToolbar>.titlebar-spacer {
   padding: 0px 0px 0px 0px !important;
 }
 
+/* Remove sidebar header */
 #sidebar-main,#sidebar-header,#sidebar-panel-header {
   visibility: collapse !important;
 }
