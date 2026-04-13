@@ -279,10 +279,6 @@ after-startup-command = [
   run = ["layout floating"]
 
 [[on-window-detected]]
-  if.app-id = "us.zoom.xos"
-  run = ["layout floating"]
-
-[[on-window-detected]]
   if.app-id = "com.granola.app"
   run = ["layout floating"]
 
@@ -296,10 +292,6 @@ after-startup-command = [
   run = ["layout floating"]
 
 [[on-window-detected]]
-  if.app-id = "com.apple.finder"
-  run = ["layout floating"]
-
-[[on-window-detected]]
   if.app-id = "com.1password.1password"
   run = ["layout floating"]
 
@@ -310,3 +302,4 @@ after-startup-command = [
 [[on-window-detected]]
   if.app-id = "org.hammerspoon.Hammerspoon"
   run = ["layout floating"]
+
