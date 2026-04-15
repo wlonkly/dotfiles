@@ -303,7 +303,11 @@ after-startup-command = [
   if.app-id = "org.hammerspoon.Hammerspoon"
   run = ["layout floating"]
 
+[[on-window-detected]]
+  # Bluesky
+  if.app-id = "com.apple.Safari.WebApp.63F4598F-1A8A-4714-9FD2-67E1657B711B"
+  run = ["layout floating"]
 
 [[on-window-detected]]
-  if.app-id = "com.apple.Safari.WebApp.63F4598F-1A8A-4714-9FD2-67E1657B711B"
+  if.app-id = "com.objective-see.lulu.app"
   run = ["layout floating"]
