@@ -1,17 +1,18 @@
 /* remove bookmark icons */
 scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item > .toolbarbutton-icon {
   display: none; 
+scrollbox#PlacesToolbarItems>toolbarbutton.bookmark-item>.toolbarbutton-icon {
 }
 
-scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item {
+scrollbox#PlacesToolbarItems>toolbarbutton.bookmark-item {
   font-size: 13px !important;
   padding-top: 3px !important;
   padding-bottom: 3px !important;
 }
 
-/* Remove top tabs */
-TabsToolbar>.toolbar-items,
-TabsToolbar>.titlebar-spacer {
+/* hide title bar and tab bar for TST */
+#TabsToolbar>.toolbar-items,
+#TabsToolbar>.titlebar-spacer {
   visibility: hidden
 }
 
@@ -24,12 +25,24 @@ TabsToolbar>.titlebar-spacer {
   padding: 0px 0px 0px 0px !important;
 }
 
-/* Remove sidebar header */
-#sidebar-main,#sidebar-header,#sidebar-panel-header {
+/* end hide title bar and tab bar for TST */
+
+/* Alternatively, only hide when TST is open */
+/* Only works in Firefox if layout.css.has-selector.enabled is set to true in about:config . */
+/*
+html#main-window body:has(#sidebar-box[sidebarcommand=treestyletab_piro_sakura_ne_jp-sidebar-action][checked=true]:not([hidden=true])) #TabsToolbar {
+  visibility: collapse !important;
+}
+*/
+
+/* hide sidebar header */
+#sidebar-main,
+#sidebar-header,
+#sidebar-panel-header {
   visibility: collapse !important;
 }
 
-/* purple private browser windows */
+/* make private browsing purple */
 #main-window[privatebrowsingmode="temporary"] #PersonalToolbar {
   background: #330f7a !important;
 }
