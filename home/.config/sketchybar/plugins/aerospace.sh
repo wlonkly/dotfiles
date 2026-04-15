@@ -7,7 +7,7 @@ WORKSPACE="$1"
 
 source "$HOME/.config/sketchybar/colors.sh"
 
-echo "running aerospace.sh $FOCUSED_WORKSPACE"
+echo "running aerospace.sh f:$FOCUSED_WORKSPACE w:$WORKSPACE"
 
 if [ -z "$FOCUSED_WORKSPACE" ]; then
   FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused 2>/dev/null)
