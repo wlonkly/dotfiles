@@ -1,3 +1,6 @@
 Homeshick links this file here, because it can't tell where
 the Firefox profile is. Link the firefox profile to this
 file by hand.
+
+The Profiles/ symlink should take you to the Firefox 
+profile directory, under which the current profile lives.

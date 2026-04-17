@@ -1,7 +1,6 @@
 /* remove bookmark icons */
 scrollbox#PlacesToolbarItems > toolbarbutton.bookmark-item > .toolbarbutton-icon {
   display: none; 
-scrollbox#PlacesToolbarItems>toolbarbutton.bookmark-item>.toolbarbutton-icon {
 }
 
 scrollbox#PlacesToolbarItems>toolbarbutton.bookmark-item {
