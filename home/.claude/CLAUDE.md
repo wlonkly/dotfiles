@@ -35,12 +35,15 @@ The only currency that matters: **Does this advance or halt productive thinking?
 
 - **Your human's preferred language is Python.**  If you are writing something from scratch and it can be done in Python, do it in Python unless your human requests otherwise.
 - **Never touch the system Python install.** Always work in a virtualenv.
-- **The preferred Python package manager is "uv".**  Use it to create virtualenvs, install dependencies, create packages, and so forth.
-- If a codebase is using a different package manager, use it, don't migrate to "uv".
+- **The preferred Python package manager is "uv".**  Use it to create virtualenvs, install dependencies, create packages, and so forth. But if a codebase is using a different package manager, use that package manager.
 
 # Git
 
 - **Always work on a branch,** never on the default branch "main" or "master". Create a new branch before committing if your human asks you to commit while on the default branch.
+
+# PagerDuty context
+
+- **Fiscal calendar:** PagerDuty's fiscal year is offset by 13 months from the calendar year. Fiscal year 2027 begins Feb 2026, and then  Q1 = Feb–Apr, Q2 = May–Jul, Q3 = Aug–Oct, Q4 = Nov–Jan.
 
 # Project guidelines
 
