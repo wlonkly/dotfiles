@@ -9,8 +9,6 @@ if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
 
-BASH_ENV=$HOME/.bashrc
-
 # editors, in order of preference
 for ed in code vim vi; do
   found=$(type -p $ed)
@@ -42,6 +40,3 @@ fi
 #if [[ $BASH_VERSINFO -lt 5 ]]; then
 #  echo "WARNING: Using old bash version: $BASH_VERSION"
 #fi
-
-# comes last to override
-source ~/.profile-local

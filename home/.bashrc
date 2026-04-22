@@ -2,9 +2,10 @@
 #
 # shellcheck disable=SC1090
 #
-# .bashrc runs for interactive, non-login shells, aka "stuff that we want
-# in subshells"
+# .bashrc runs for interactive shells (login and non-login).
+# The guard below ensures non-interactive shells (scripts, pipes) bail out immediately.
 #
+[[ $- == *i* ]] || return
 
 function sourceif
 {
@@ -28,7 +29,7 @@ export SHORTHOST=${HOSTNAME/\.*/}
 export MYSQL_PS1="\u@\h:\d> "
 export PS2="..."
 
-export PATH=$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+[[ :$PATH: != *:$HOME/gbin:* ]] && export PATH=$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 export CDPATH=.:$HOME:$HOME/code
 
 # history file
@@ -40,7 +41,7 @@ export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=ignoreboth
 
 # Save history after each command
-export PROMPT_COMMAND="history -a; ${PROMPT_COMMAND}"
+PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 
 # Read in local settings
 for bashrc in /etc/bashrc /etc/bash.bashrc
@@ -343,4 +344,6 @@ fi
 if [[ "$SSH_CLIENT" ]]; then
   export OP_BIOMETRIC_UNLOCK_ENABLED=false  # don't use 1p app integration
 fi
+
+sourceif "${HOME}/.profile-local"
 
