@@ -338,6 +338,23 @@ fi
 if command -v starship >/dev/null 2>&1; then
   export starship_precmd_user_func="starship_precmd_func"
   eval "$(starship init bash)"
+
+  # cmux starship fix -- https://github.com/manaflow-ai/cmux/issues/1688
+  if [[ -n "${CMUX_TAB_ID:-}" ]]; then
+    _CMUX_PROMPT_INSTALLED=1  # skip cmux's own PC installer; we manage PC
+    if [[ "${CMUX_LOAD_GHOSTTY_BASH_INTEGRATION:-0}" == "1" && -r "${GHOSTTY_RESOURCES_DIR:-}/shell-integration/bash/ghostty.bash" ]]; then
+      source "$GHOSTTY_RESOURCES_DIR/shell-integration/bash/ghostty.bash"
+    fi
+    if [[ "${CMUX_SHELL_INTEGRATION:-1}" != "0" && -r "${CMUX_SHELL_INTEGRATION_DIR:-}/cmux-bash-integration.bash" ]]; then
+      source "$CMUX_SHELL_INTEGRATION_DIR/cmux-bash-integration.bash"
+    fi
+    unset STARSHIP_PROMPT_COMMAND
+    if declare -F _cmux_prompt_command >/dev/null 2>&1; then
+      PROMPT_COMMAND='starship_precmd;_cmux_prompt_command'
+    else
+      PROMPT_COMMAND='starship_precmd'
+    fi
+  fi
 fi
 
 # only on ssh connections
