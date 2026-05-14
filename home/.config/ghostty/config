@@ -13,7 +13,8 @@ cursor-color = b83cb8
 
 mouse-hide-while-typing = true
 
-font-family = Fira Code
+#font-family = Fira Code
+font-family = AtkynsonMono Nerd Font Mono
 #font-family = FiraCode Nerd Font Mono
 font-size = 12
 
