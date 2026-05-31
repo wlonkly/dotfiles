@@ -8,6 +8,8 @@ ITEM_DIR="$CONFIG_DIR/items"
 
 FONT="SF Pro"
 
+# when bar is on the right, everything is 90 deg off --
+# so "height" is width, "padding_left" is at the top, etc
 sketchybar --bar \
   position=right \
   height=35 \
@@ -15,12 +17,13 @@ sketchybar --bar \
   shadow=off \
   sticky=on \
   padding_right=3 \
-  padding_left=3 \
+  padding_left=29 \
   corner_radius=5 \
-  y_offset=26 \
   margin=2 \
   blur_radius=20 \
   topmost=window
+
+# y_offset=26
 
 sketchybar --default \
   updates=when_shown \
