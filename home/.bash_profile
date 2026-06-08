@@ -10,17 +10,11 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # editors, in order of preference
-for ed in code vim vi; do
-  found=$(type -p $ed)
-  if [[ -n $found ]]; then
-    if [[ "$(basename "$found")" = "code" ]]; then
-        export EDITOR="$found -w"
-    else
-        export EDITOR=$found
-    fi
-    break
+for ed in "zed -w" "code -w" vim vi; do
+  if (command -v $ed >/dev/null); then
+    export EDITOR="$ed"
+  break
   fi
-  unset found
 done
 
 hs_bin="${HOMESHICK_DIR:-$HOME/.homesick/repos/homeshick}/bin/homeshick"
