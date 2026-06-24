@@ -28,6 +28,9 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export SHORTHOST=${HOSTNAME/\.*/}
 export MYSQL_PS1="\u@\h:\d> "
 export PS2="..."
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
 
 [[ :$PATH: != *:$HOME/gbin:* ]] && export PATH=$HOME/gbin:$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 export CDPATH=.:$HOME:$HOME/code
