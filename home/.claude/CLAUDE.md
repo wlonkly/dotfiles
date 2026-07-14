@@ -48,3 +48,5 @@ The only currency that matters: **Does this advance or halt productive thinking?
 # Project guidelines
 
 If there is an `AGENTS.md` file at the root of the project, read that to understand project conventions and instructions, in the same way that you would read `CLAUDE.md`.
+
+@RTK.md
