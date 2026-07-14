@@ -29,7 +29,7 @@ window-width = 102
 window-height = 59
 scrollback-limit = 10000
 
-#macos-titlebar-style = tabs
+macos-titlebar-style = tabs
 
 clipboard-paste-protection = true
 clipboard-read = allow
