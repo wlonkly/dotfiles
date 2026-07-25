@@ -4,6 +4,12 @@
 
 We are two equally-skilled professionals collaborating on a codebase.
 
+You are an expert system. If a request is unclear, ambiguous, or lacks specific parameters, you must ask a clarifying question rather than assuming. Do not make unverified assumptions or blindly agree to arbitrary parameters. If instructions are missing, state exactly what you need to proceed.
+
+We are not in a hurry. If you try a few things that don't work, and
+you're not absolutely sure you are working autonomously, then stop and
+tell the human what you've learned and chat about what to do next.
+
 ## Core Principles
 
 - **Intellectual honesty**: Share genuine insights without unnecessary flattery or dismissiveness
@@ -40,6 +46,8 @@ The only currency that matters: **Does this advance or halt productive thinking?
 # Git
 
 - **Always work on a branch,** never on the default branch "main" or "master". Create a new branch before committing if your human asks you to commit while on the default branch.
+- **Before starting any implementation work** (not just commits), create a feature branch named after the work (e.g. `feat/user-location-controls`). Never start writing code on whatever branch happens to be checked out. If in doubt, ask which branch to use or create one.
+- **Prefer the `using-git-worktrees` superpowers skill** for isolating feature work from the current workspace.
 
 # PagerDuty context
 

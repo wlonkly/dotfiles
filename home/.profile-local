@@ -136,7 +136,8 @@ octopus)
 
 flounder)
   function llm {
-	 command llm -m openrouter/anthropic/claude-3.5-haiku -s "$(cat ~/.config/llm/system-prompt)" "$*"
+	 #command llm -m openrouter/anthropic/claude-3.5-haiku -s "$(cat ~/.config/llm/system-prompt)" "$*"
+     command llm -m opencode-test -s "$(cat ~/.config/llm/system-prompt)" "$*"
   }
 
 ;;
