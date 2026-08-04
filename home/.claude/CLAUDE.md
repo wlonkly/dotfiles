@@ -40,6 +40,7 @@ The only currency that matters: **Does this advance or halt productive thinking?
 # Git
 
 - **Always work on a branch,** never on the default branch "main" or "master". Create a new branch before committing if your human asks you to commit while on the default branch.
+- **Start each session on a fresh branch, even if a non-default branch is already checked out.** Don't assume it's safe to keep committing onto whatever branch a prior session left checked out — check whether it already has commits unrelated to the current task before adding to it. If it does, create a new branch for this task rather than bundling unrelated work together (e.g. a bug fix landing on top of someone else's in-progress feature branch, forcing them into the same PR). Branch from the point before the unrelated commits, or from main, whichever actually matches what the new work depends on.
 
 # PagerDuty context
 
