@@ -1,0 +1,1 @@
+/Users/rich/.claude/CLAUDE.md

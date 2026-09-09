@@ -1,0 +1,52 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "superpowers@git+https://github.com/obra/superpowers.git"
+  ],
+  "provider": {
+    "gemma4-local": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Gemma 4 Local",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1",
+        "apiKey": "local"
+      },
+      "models": {
+        "gemma-4-26B-A4B-it-UD-Q4_K_XL.gguf": {
+          "name": "Gemma 4 26B-A4B Q4 + MTP",
+          "reasoning": false,
+          "modalities": {
+            "input": ["text", "image"]
+          },
+          "limit": {
+            "context": 65536,
+            "output": 8192
+          },
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cache_read": 0,
+            "cache_write": 0
+          }
+        }
+      }
+    }
+  },
+  "mcp": {
+    "omnifocus": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "omnifocus-mcp"
+      ]
+    },
+    "obsidian": {
+      "type": "remote",
+      "url": "http://127.0.0.1:27123/mcp/",
+      "headers": {
+          "Authorization": "Bearer {env:OBSIDIAN_API_KEY}"
+      }
+    }
+  }
+}
