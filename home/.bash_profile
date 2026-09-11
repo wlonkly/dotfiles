@@ -20,7 +20,10 @@ done
 hs_bin="${HOMESHICK_DIR:-$HOME/.homesick/repos/homeshick}/bin/homeshick"
 hs_lockfile="$HOME/.bashrc-daily-$(date +%Y%m%d)"
 
-if [[ "$SHLVL" == "1" && -z "${SUDO_USER}" && ! -s "$hs_lockfile" && "$TERM" ]]; then
+if [[ "$TERM" && "$SHLVL" == "1" && -z "${SUDO_USER}" && ! -s "$hs_lockfile" ]]; then
+  ps axwwwe $$ > /tmp/hs-caller-env
+  echo >> /tmp/hs-caller-env
+  printenv | sort >> /tmp/hs-caller-env
   lockf -k -s -t 0 "$hs_lockfile" \
     env hs_lockfile="$hs_lockfile" hs_bin="$hs_bin" \
     bash -c '

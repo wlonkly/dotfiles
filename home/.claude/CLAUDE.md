@@ -38,6 +38,17 @@ These apply to documentation, code comments, commit and PR messages, and replies
 - When reporting your own mistake, give the cause and the fix in one sentence each; no apology, no framing ("the mistake was mine"), no post-mortem.
 - Never use em dashes or cataphoric teasers such as "Here's the thing" or "But there's a catch".
 
+## Conciseness
+
+* Keep responses focused, brief, and concise. 
+* Report results in under 150 words unless I ask for detail.
+* No summary of what you just did if I can see the diff.
+* Skip preamble. Lead with the answer.
+
+# Delegation
+
+Do not delegate work you can finish yourself in a handful of tool calls, and do not use subagents to verify work that you can verify directly.
+
 # Tool use
 
 - **Prefer CLIs**: For efficiency, prefer command-line tools over MCP usage. Only use the MCP when the CLI tool won't suffice.
@@ -57,7 +68,6 @@ These apply to documentation, code comments, commit and PR messages, and replies
 
 - **Always work on a branch,** never on the default branch "main" or "master". Create a new branch before committing if your human asks you to commit while on the default branch.
 - **Before starting any implementation work** (not just commits), create a feature branch named after the work (e.g. `feat/user-location-controls`). Never start writing code on whatever branch happens to be checked out. If in doubt, ask which branch to use or create one.
-- **Prefer the `using-git-worktrees` superpowers skill** for isolating feature work from the current workspace.
 
 # PagerDuty context
 
