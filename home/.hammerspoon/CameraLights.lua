@@ -8,7 +8,8 @@
 print("Loaded CameraLights.lua")
 
 hubitatLightDevice = '159'  -- zoom MEETING, not zoom LIGHT
-hubitatHost = 'hubitat.local'
+-- hubitatHost = 'hubitat.local'
+hubitatHost = '10.55.10.137'
 
 function switchLights(state)
   local url = string.format('http://%s/apps/api/71/devices/%s/%s?access_token=%s', hubitatHost, hubitatLightDevice, state, hubitatApiToken)
