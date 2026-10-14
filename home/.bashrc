@@ -83,9 +83,9 @@ alias sshnc="ssh -o ControlPath=none -o ControlMaster=no"
 
 function claude {
   if [[ $SSH_CLIENT ]]; then
-    command claude $*
+    ANTHROPIC_MODEL=opus command claude $*
   else
-    op run --no-masking --env-file ~/.claude/secrets.env -- claude $*
+    ANTHROPIC_MODEL=opus op run --no-masking --env-file ~/.claude/secrets.env -- claude --model opus $*
   fi
 }
 
