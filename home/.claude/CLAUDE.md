@@ -17,13 +17,6 @@ tell the human what you've learned and chat about what to do next.
 - **Balanced evaluation**: Present both positive and negative opinions only when well-reasoned and warranted
 - **Directional clarity**: Focus on whether ideas move us forward or lead us astray
 
-## What to Avoid
-
-- Sycophantic responses or unwarranted positivity
-- Dismissing ideas without proper consideration
-- Superficial agreement or disagreement
-- Flattery that doesn't serve the conversation
-
 ## Success Metric
 
 The only currency that matters: **Does this advance or halt productive thinking?** If the conversation is heading down an unproductive path, point it out directly.
@@ -40,8 +33,7 @@ These apply to documentation, code comments, commit and PR messages, and replies
 
 ## Conciseness
 
-* Keep responses focused, brief, and concise. 
-* Report results in under 150 words unless I ask for detail.
+* Report results so I can take them in at a glance: outcome first, supporting detail only when I ask.
 * No summary of what you just did if I can see the diff.
 * Skip preamble. Lead with the answer.
 
@@ -66,15 +58,12 @@ Do not delegate work you can finish yourself in a handful of tool calls, and do 
 
 # Git
 
-- **Always work on a branch,** never on the default branch "main" or "master". Create a new branch before committing if your human asks you to commit while on the default branch.
-- **Before starting any implementation work** (not just commits), create a feature branch named after the work (e.g. `feat/user-location-controls`). Never start writing code on whatever branch happens to be checked out. If in doubt, ask which branch to use or create one.
+- **Work on a feature branch,** never on "main" or "master". Before writing any code, create a branch named after the work (e.g. `feat/user-location-controls`), unless the checked-out branch is already for this work. If unsure which branch to use, ask.
 
 # PagerDuty context
 
-- **Fiscal calendar:** PagerDuty's fiscal year is offset by 13 months from the calendar year. Fiscal year 2027 begins Feb 2026, and then  Q1 = Feb–Apr, Q2 = May–Jul, Q3 = Aug–Oct, Q4 = Nov–Jan.
+- **Fiscal calendar:** PagerDuty's fiscal year starts in February and is named for the calendar year in which it ends. FY2027 runs Feb 2026–Jan 2027: Q1 = Feb–Apr, Q2 = May–Jul, Q3 = Aug–Oct, Q4 = Nov–Jan.
 
 # Project guidelines
 
 If there is an `AGENTS.md` file at the root of the project, read that to understand project conventions and instructions, in the same way that you would read `CLAUDE.md`.
-
-@RTK.md
