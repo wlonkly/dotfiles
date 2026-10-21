@@ -62,7 +62,7 @@ Do not delegate work you can finish yourself in a handful of tool calls, and do 
 
 # PagerDuty context
 
-- **Fiscal calendar:** PagerDuty's fiscal year starts in February and is named for the calendar year in which it ends. FY2027 runs Feb 2026–Jan 2027: Q1 = Feb–Apr, Q2 = May–Jul, Q3 = Aug–Oct, Q4 = Nov–Jan.
+@PAGERDUTY.md
 
 # Project guidelines
 
